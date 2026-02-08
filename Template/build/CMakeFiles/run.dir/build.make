@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Test
+CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Template
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Test/build
+CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Template/build
 
 # Utility rule file for run.
 
@@ -67,8 +67,8 @@ include CMakeFiles/run.dir/compiler_depend.make
 include CMakeFiles/run.dir/progress.make
 
 CMakeFiles/run: bin/MyOpenGLProject
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running MyOpenGLProject ..."
-	cd /home/johnny/Documents/School/COS344/Practicals/Test/build/bin && /home/johnny/Documents/School/COS344/Practicals/Test/build/bin/MyOpenGLProject
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running MyOpenGLProject ..."
+	cd /home/johnny/Documents/School/COS344/Practicals/Template/build/bin && /home/johnny/Documents/School/COS344/Practicals/Template/build/bin/MyOpenGLProject
 
 run: CMakeFiles/run
 run: CMakeFiles/run.dir/build.make
@@ -83,6 +83,6 @@ CMakeFiles/run.dir/clean:
 .PHONY : CMakeFiles/run.dir/clean
 
 CMakeFiles/run.dir/depend:
-	cd /home/johnny/Documents/School/COS344/Practicals/Test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles/run.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/johnny/Documents/School/COS344/Practicals/Template/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles/run.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/run.dir/depend
 

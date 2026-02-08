@@ -1,5 +1,5 @@
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: \
- /home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp \
+ /home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -172,4 +172,4 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h /usr/include/GL/glu.h \
  /usr/include/GL/gl.h \
- /home/johnny/Documents/School/COS344/Practicals/Test/src/../include/shader.hpp
+ /home/johnny/Documents/School/COS344/Practicals/Template/src/../include/shader.hpp

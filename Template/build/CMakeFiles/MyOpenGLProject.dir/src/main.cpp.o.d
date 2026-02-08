@@ -1,5 +1,5 @@
 CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: \
- /home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp \
+ /home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -303,4 +303,4 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/johnny/Documents/School/COS344/Practicals/Test/src/../include/shader.hpp
+ /home/johnny/Documents/School/COS344/Practicals/Template/src/../include/shader.hpp

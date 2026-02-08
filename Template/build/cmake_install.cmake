@@ -1,4 +1,4 @@
-# Install script for directory: /home/johnny/Documents/School/COS344/Practicals/Test
+# Install script for directory: /home/johnny/Documents/School/COS344/Practicals/Template
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/johnny/Documents/School/COS344/Practicals/Test/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/johnny/Documents/School/COS344/Practicals/Template/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

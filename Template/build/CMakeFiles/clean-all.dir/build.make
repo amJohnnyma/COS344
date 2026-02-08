@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Test
+CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Template
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Test/build
+CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Template/build
 
 # Utility rule file for clean-all.
 
@@ -67,8 +67,8 @@ include CMakeFiles/clean-all.dir/compiler_depend.make
 include CMakeFiles/clean-all.dir/progress.make
 
 CMakeFiles/clean-all:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Removing build files, bin, lib folders..."
-	/usr/bin/cmake -P /home/johnny/Documents/School/COS344/Practicals/Test/cmake_clean.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Removing build files, bin, lib folders..."
+	/usr/bin/cmake -P /home/johnny/Documents/School/COS344/Practicals/Template/cmake_clean.cmake
 
 clean-all: CMakeFiles/clean-all
 clean-all: CMakeFiles/clean-all.dir/build.make
@@ -83,6 +83,6 @@ CMakeFiles/clean-all.dir/clean:
 .PHONY : CMakeFiles/clean-all.dir/clean
 
 CMakeFiles/clean-all.dir/depend:
-	cd /home/johnny/Documents/School/COS344/Practicals/Test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles/clean-all.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/johnny/Documents/School/COS344/Practicals/Template/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles/clean-all.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/clean-all.dir/depend
 

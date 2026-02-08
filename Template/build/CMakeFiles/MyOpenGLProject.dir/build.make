@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Test
+CMAKE_SOURCE_DIR = /home/johnny/Documents/School/COS344/Practicals/Template
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Test/build
+CMAKE_BINARY_DIR = /home/johnny/Documents/School/COS344/Practicals/Template/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MyOpenGLProject.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/MyOpenGLProject.dir/progress.make
 include CMakeFiles/MyOpenGLProject.dir/flags.make
 
 CMakeFiles/MyOpenGLProject.dir/src/glad.c.o: CMakeFiles/MyOpenGLProject.dir/flags.make
-CMakeFiles/MyOpenGLProject.dir/src/glad.c.o: /home/johnny/Documents/School/COS344/Practicals/Test/src/glad.c
+CMakeFiles/MyOpenGLProject.dir/src/glad.c.o: /home/johnny/Documents/School/COS344/Practicals/Template/src/glad.c
 CMakeFiles/MyOpenGLProject.dir/src/glad.c.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/MyOpenGLProject.dir/src/glad.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/glad.c.o -MF CMakeFiles/MyOpenGLProject.dir/src/glad.c.o.d -o CMakeFiles/MyOpenGLProject.dir/src/glad.c.o -c /home/johnny/Documents/School/COS344/Practicals/Test/src/glad.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/MyOpenGLProject.dir/src/glad.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/glad.c.o -MF CMakeFiles/MyOpenGLProject.dir/src/glad.c.o.d -o CMakeFiles/MyOpenGLProject.dir/src/glad.c.o -c /home/johnny/Documents/School/COS344/Practicals/Template/src/glad.c
 
 CMakeFiles/MyOpenGLProject.dir/src/glad.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/MyOpenGLProject.dir/src/glad.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Test/src/glad.c > CMakeFiles/MyOpenGLProject.dir/src/glad.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Template/src/glad.c > CMakeFiles/MyOpenGLProject.dir/src/glad.c.i
 
 CMakeFiles/MyOpenGLProject.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/MyOpenGLProject.dir/src/glad.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Test/src/glad.c -o CMakeFiles/MyOpenGLProject.dir/src/glad.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Template/src/glad.c -o CMakeFiles/MyOpenGLProject.dir/src/glad.c.s
 
 CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
-CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp
+CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp
 CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp > CMakeFiles/MyOpenGLProject.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp > CMakeFiles/MyOpenGLProject.dir/src/main.cpp.i
 
 CMakeFiles/MyOpenGLProject.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp -o CMakeFiles/MyOpenGLProject.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp -o CMakeFiles/MyOpenGLProject.dir/src/main.cpp.s
 
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
-CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp
+CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp > CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp > CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.i
 
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp -o CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp -o CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.s
 
 # Object files for target MyOpenGLProject
 MyOpenGLProject_OBJECTS = \
@@ -136,10 +136,10 @@ bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXfixes.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/MyOpenGLProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/MyOpenGLProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyOpenGLProject.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders folder..."
-	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/Test/src/shaders /home/johnny/Documents/School/COS344/Practicals/Test/build/bin/shaders
+	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/Template/src/shaders /home/johnny/Documents/School/COS344/Practicals/Template/build/bin/shaders
 
 # Rule to build all files generated by this target.
 CMakeFiles/MyOpenGLProject.dir/build: bin/MyOpenGLProject
@@ -150,6 +150,6 @@ CMakeFiles/MyOpenGLProject.dir/clean:
 .PHONY : CMakeFiles/MyOpenGLProject.dir/clean
 
 CMakeFiles/MyOpenGLProject.dir/depend:
-	cd /home/johnny/Documents/School/COS344/Practicals/Test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build /home/johnny/Documents/School/COS344/Practicals/Test/build/CMakeFiles/MyOpenGLProject.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/johnny/Documents/School/COS344/Practicals/Template/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build /home/johnny/Documents/School/COS344/Practicals/Template/build/CMakeFiles/MyOpenGLProject.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/MyOpenGLProject.dir/depend
 

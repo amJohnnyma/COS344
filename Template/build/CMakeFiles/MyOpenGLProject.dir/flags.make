@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/home/johnny/Documents/School/COS344/Practicals/Test/include
+C_INCLUDES = -I/home/johnny/Documents/School/COS344/Practicals/Template/include
 
 C_FLAGS = -std=gnu11 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/johnny/Documents/School/COS344/Practicals/Test/include
+CXX_INCLUDES = -I/home/johnny/Documents/School/COS344/Practicals/Template/include
 
 CXX_FLAGS = -std=gnu++17 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 

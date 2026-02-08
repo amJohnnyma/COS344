@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/johnny/Documents/School/COS344/Practicals/Test/src/glad.c" "CMakeFiles/MyOpenGLProject.dir/src/glad.c.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/glad.c.o.d"
-  "/home/johnny/Documents/School/COS344/Practicals/Test/src/main.cpp" "CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o.d"
-  "/home/johnny/Documents/School/COS344/Practicals/Test/src/shader.cpp" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/Template/src/glad.c" "CMakeFiles/MyOpenGLProject.dir/src/glad.c.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/glad.c.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/Template/src/main.cpp" "CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/Template/src/shader.cpp" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
