@@ -4,15 +4,16 @@
 //#include "../include/Triangle.h"
 //#include "../include/Square.h"
 #include <iostream>
-
 #include <sstream>
+#include <cmath>
+#include <limits>
 
 bool approxEqual(float a, float b, float epsilon = 1e-5f) {
     return std::abs(a - b) < epsilon;
-} // incase floats are being funny again
+}
 
 void printTestResult(const std::string& testName, bool passed) {
-    std::cout << std::left << std::setw(45) << testName
+    std::cout << std::left << std::setw(50) << testName
               << (passed ? "[PASS]" : "[FAIL]") << "\n";
 }
 
@@ -27,9 +28,13 @@ Matrix<rows, 1> to_column_vector(const Vector<rows>& v) {
 
 bool vector_tests()
 {
-    std::cout << "Vector<" << 3 << "> tests\n\n";
+    std::cout << "═══════════════════════════════════════════════\n";
+    std::cout << "Vector<" << 3 << "> tests\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
     bool allPassed = true;
 
+    std::cout << "--- Basic Constructors ---\n";
+    
     //Default constructor
     {
         Vector<3> v;
@@ -51,7 +56,6 @@ bool vector_tests()
 
     //Constructor from raw float*
     {
-        // this shallow copy makes no sense but ok
         float* raw = new float[3]{5.0f, 6.0f, -1.0f};
         Vector<3> v(raw);
         bool ok = approxEqual(v[0], 5) && approxEqual(v[1], 6) && approxEqual(v[2], -1);
@@ -64,7 +68,7 @@ bool vector_tests()
         Vector<3> a{10, 20, 30};
         Vector<3> b(a);
         bool ok = approxEqual(b[0], 10) && approxEqual(b[1], 20) && approxEqual(b[2], 30);
-        printTestResult("Copy constructor", true);
+        printTestResult("Copy constructor", ok);
         allPassed &= ok;
     }
 
@@ -78,6 +82,17 @@ bool vector_tests()
         allPassed &= ok;
     }
 
+    // Self-assignment
+    {
+        Vector<3> v{1, 2, 3};
+        v = v;
+        bool ok = approxEqual(v[0], 1) && approxEqual(v[1], 2) && approxEqual(v[2], 3);
+        printTestResult("Self-assignment (v = v)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Arithmetic Operations ---\n";
+
     //operator+ 
     {
         Vector<3> a{1, 2, 3};
@@ -85,6 +100,26 @@ bool vector_tests()
         Vector<3> sum = a + b;
         bool ok = approxEqual(sum[0], 5) && approxEqual(sum[1], 1) && approxEqual(sum[2], 8);
         printTestResult("operator+ (addition)", ok);
+        allPassed &= ok;
+    }
+
+    // Addition with zero vector
+    {
+        Vector<3> a{5, -3, 2};
+        Vector<3> zero{0, 0, 0};
+        Vector<3> sum = a + zero;
+        bool ok = approxEqual(sum[0], 5) && approxEqual(sum[1], -3) && approxEqual(sum[2], 2);
+        printTestResult("Addition with zero vector", ok);
+        allPassed &= ok;
+    }
+
+    // Addition with negative values
+    {
+        Vector<3> a{-1, -2, -3};
+        Vector<3> b{-4, -5, -6};
+        Vector<3> sum = a + b;
+        bool ok = approxEqual(sum[0], -5) && approxEqual(sum[1], -7) && approxEqual(sum[2], -9);
+        printTestResult("Addition with negative values", ok);
         allPassed &= ok;
     }
 
@@ -98,6 +133,28 @@ bool vector_tests()
         allPassed &= ok;
     }
 
+    // Subtraction resulting in zero
+    {
+        Vector<3> a{5, 10, 15};
+        Vector<3> b{5, 10, 15};
+        Vector<3> diff = a - b;
+        bool ok = approxEqual(diff[0], 0) && approxEqual(diff[1], 0) && approxEqual(diff[2], 0);
+        printTestResult("Subtraction resulting in zero vector", ok);
+        allPassed &= ok;
+    }
+
+    // Subtraction with negative result
+    {
+        Vector<3> a{1, 2, 3};
+        Vector<3> b{4, 5, 6};
+        Vector<3> diff = a - b;
+        bool ok = approxEqual(diff[0], -3) && approxEqual(diff[1], -3) && approxEqual(diff[2], -3);
+        printTestResult("Subtraction with negative result", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Scalar Multiplication ---\n";
+
     //operator* (scalar)
     {
         Vector<3> v{2, -3, 4};
@@ -106,6 +163,44 @@ bool vector_tests()
         printTestResult("operator* (scalar multiplication)", ok);
         allPassed &= ok;
     }
+
+    // Scalar multiplication by zero
+    {
+        Vector<3> v{5, -3, 7};
+        Vector<3> res = v * 0.0f;
+        bool ok = approxEqual(res[0], 0) && approxEqual(res[1], 0) && approxEqual(res[2], 0);
+        printTestResult("Scalar multiplication by zero", ok);
+        allPassed &= ok;
+    }
+
+    // Scalar multiplication by one
+    {
+        Vector<3> v{3, -4, 5};
+        Vector<3> res = v * 1.0f;
+        bool ok = approxEqual(res[0], 3) && approxEqual(res[1], -4) && approxEqual(res[2], 5);
+        printTestResult("Scalar multiplication by one", ok);
+        allPassed &= ok;
+    }
+
+    // Scalar multiplication by negative
+    {
+        Vector<3> v{2, -3, 4};
+        Vector<3> res = v * (-2.0f);
+        bool ok = approxEqual(res[0], -4) && approxEqual(res[1], 6) && approxEqual(res[2], -8);
+        printTestResult("Scalar multiplication by negative", ok);
+        allPassed &= ok;
+    }
+
+    // Scalar multiplication by very small number
+    {
+        Vector<3> v{1000, 2000, 3000};
+        Vector<3> res = v * 0.001f;
+        bool ok = approxEqual(res[0], 1) && approxEqual(res[1], 2) && approxEqual(res[2], 3);
+        printTestResult("Scalar multiplication by small number", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Dot Product ---\n";
 
     //operator* (dot product)
     {
@@ -117,6 +212,47 @@ bool vector_tests()
         allPassed &= ok;
     }
 
+    // Dot product with zero vector
+    {
+        Vector<3> a{5, -3, 7};
+        Vector<3> zero{0, 0, 0};
+        float dot = a * zero;
+        bool ok = approxEqual(dot, 0.0f);
+        printTestResult("Dot product with zero vector", ok);
+        allPassed &= ok;
+    }
+
+    // Dot product of orthogonal vectors
+    {
+        Vector<3> a{1, 0, 0};
+        Vector<3> b{0, 1, 0};
+        float dot = a * b;
+        bool ok = approxEqual(dot, 0.0f);
+        printTestResult("Dot product of orthogonal vectors", ok);
+        allPassed &= ok;
+    }
+
+    // Dot product with itself (magnitude squared)
+    {
+        Vector<3> v{3, 4, 0};
+        float dot = v * v;
+        bool ok = approxEqual(dot, 25.0f);  // 3² + 4² = 25
+        printTestResult("Dot product with itself (magnitude²)", ok);
+        allPassed &= ok;
+    }
+
+    // Dot product with negative values
+    {
+        Vector<3> a{1, -2, 3};
+        Vector<3> b{-1, 2, -3};
+        float dot = a * b;
+        bool ok = approxEqual(dot, -14.0f);  // -1 + -4 + -9 = -14
+        printTestResult("Dot product with negative values", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Magnitude ---\n";
+
     //magnitude()
     {
         Vector<3> v{3, 4, 0};
@@ -125,6 +261,44 @@ bool vector_tests()
         printTestResult("magnitude() / length", ok);
         allPassed &= ok;
     }
+
+    // Magnitude of zero vector
+    {
+        Vector<3> v{0, 0, 0};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, 0.0f);
+        printTestResult("Magnitude of zero vector", ok);
+        allPassed &= ok;
+    }
+
+    // Magnitude of unit vector
+    {
+        Vector<3> v{1, 0, 0};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, 1.0f);
+        printTestResult("Magnitude of unit vector", ok);
+        allPassed &= ok;
+    }
+
+    // Magnitude with negative components
+    {
+        Vector<3> v{-3, -4, 0};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, 5.0f);
+        printTestResult("Magnitude with negative components", ok);
+        allPassed &= ok;
+    }
+
+    // Magnitude of larger vector
+    {
+        Vector<3> v{1, 2, 2};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, 3.0f, 1e-5f);  // sqrt(1 + 4 + 4) = 3
+        printTestResult("Magnitude (1,2,2)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Unit Vector / Normalization ---\n";
 
     //unitVector()
     {
@@ -139,6 +313,47 @@ bool vector_tests()
         allPassed &= ok;
     }
 
+    // Unit vector of already normalized vector
+    {
+        Vector<3> v{1, 0, 0};
+        Vector<3> u = v.unitVector();
+        bool ok = approxEqual(u[0], 1.0f) && approxEqual(u[1], 0.0f) && approxEqual(u[2], 0.0f);
+        ok &= approxEqual(u.magnitude(), 1.0f);
+        printTestResult("Unit vector of already normalized vector", ok);
+        allPassed &= ok;
+    }
+
+    // Unit vector with negative components
+    {
+        Vector<3> v{-6, -8, 0};
+        Vector<3> u = v.unitVector();
+        bool ok = approxEqual(u[0], -0.6f, 1e-5f) && approxEqual(u[1], -0.8f, 1e-5f);
+        ok &= approxEqual(u.magnitude(), 1.0f, 1e-5f);
+        printTestResult("Unit vector with negative components", ok);
+        allPassed &= ok;
+    }
+
+    // Unit vector of zero vector (edge case - may cause division by zero)
+    {
+        Vector<3> v{0, 0, 0};
+        bool hasError = false;
+        try {
+            Vector<3> u = v.unitVector();
+            // Check if result contains NaN or Inf
+            bool containsInvalid = std::isnan(u[0]) || std::isinf(u[0]) ||
+                                   std::isnan(u[1]) || std::isinf(u[1]) ||
+                                   std::isnan(u[2]) || std::isinf(u[2]);
+            hasError = containsInvalid;
+        } catch (...) {
+            hasError = true;
+        }
+        printTestResult("Unit vector of zero vector (edge case)", hasError);
+        // Note: This test expects the edge case to be handled somehow
+        allPassed &= hasError; // This might need adjustment based on implementation
+    }
+
+    std::cout << "\n--- Cross Product ---\n";
+
     //crossProduct
     {
         Vector<3> a{1, 0, 0};
@@ -149,7 +364,73 @@ bool vector_tests()
         allPassed &= ok;
     }
 
-    //operator[] const (already used above, but explicit test)
+    // Cross product anti-commutativity (a × b = -(b × a))
+    {
+        Vector<3> a{1, 0, 0};
+        Vector<3> b{0, 1, 0};
+        Vector<3> c1 = a.crossProduct(b);
+        Vector<3> c2 = b.crossProduct(a);
+        bool ok = approxEqual(c1[0], -c2[0]) && approxEqual(c1[1], -c2[1]) && approxEqual(c1[2], -c2[2]);
+        printTestResult("Cross product anti-commutativity", ok);
+        allPassed &= ok;
+    }
+
+    // Cross product of parallel vectors (should be zero)
+    {
+        Vector<3> a{2, 4, 6};
+        Vector<3> b{1, 2, 3};  // b = 0.5 * a
+        Vector<3> c = a.crossProduct(b);
+        bool ok = approxEqual(c[0], 0, 1e-4f) && approxEqual(c[1], 0, 1e-4f) && approxEqual(c[2], 0, 1e-4f);
+        printTestResult("Cross product of parallel vectors", ok);
+        allPassed &= ok;
+    }
+
+    // Cross product with itself (should be zero)
+    {
+        Vector<3> a{5, -3, 7};
+        Vector<3> c = a.crossProduct(a);
+        bool ok = approxEqual(c[0], 0, 1e-4f) && approxEqual(c[1], 0, 1e-4f) && approxEqual(c[2], 0, 1e-4f);
+        printTestResult("Cross product with itself", ok);
+        allPassed &= ok;
+    }
+
+    // Cross product with zero vector
+    {
+        Vector<3> a{5, -3, 7};
+        Vector<3> zero{0, 0, 0};
+        Vector<3> c = a.crossProduct(zero);
+        bool ok = approxEqual(c[0], 0) && approxEqual(c[1], 0) && approxEqual(c[2], 0);
+        printTestResult("Cross product with zero vector", ok);
+        allPassed &= ok;
+    }
+
+    // Cross product with arbitrary vectors
+    {
+        Vector<3> a{2, 3, 4};
+        Vector<3> b{5, 6, 7};
+        Vector<3> c = a.crossProduct(b);
+        // Expected: (3*7-4*6, 4*5-2*7, 2*6-3*5) = (-3, 6, -3)
+        bool ok = approxEqual(c[0], -3) && approxEqual(c[1], 6) && approxEqual(c[2], -3);
+        printTestResult("Cross product (2,3,4) × (5,6,7)", ok);
+        allPassed &= ok;
+    }
+
+    // Cross product magnitude (|a × b| = |a||b|sin(θ))
+    {
+        Vector<3> a{1, 0, 0};
+        Vector<3> b{0, 1, 0};
+        Vector<3> c = a.crossProduct(b);
+        float magCross = c.magnitude();
+        float magA = a.magnitude();
+        float magB = b.magnitude();
+        bool ok = approxEqual(magCross, magA * magB, 1e-5f);  // sin(90°) = 1
+        printTestResult("Cross product magnitude (perpendicular)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Array Access ---\n";
+
+    //operator[] const
     {
         const Vector<3> v{10, 20, 30};
         bool ok = true;
@@ -163,6 +444,33 @@ bool vector_tests()
         allPassed &= ok;
     }
 
+    // Non-const array access
+    {
+        Vector<3> v{1, 2, 3};
+        v[1] = 42.0f;
+        bool ok = approxEqual(v[1], 42.0f);
+        printTestResult("operator[] non-const modification", ok);
+        allPassed &= ok;
+    }
+
+    // Array access at boundary (first element)
+    {
+        Vector<3> v{7, 8, 9};
+        bool ok = approxEqual(v[0], 7.0f);
+        printTestResult("operator[] at index 0", ok);
+        allPassed &= ok;
+    }
+
+    // Array access at boundary (last element)
+    {
+        Vector<3> v{7, 8, 9};
+        bool ok = approxEqual(v[2], 9.0f);
+        printTestResult("operator[] at last index (n-1)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Utility Functions ---\n";
+
     //getN()
     {
         Vector<3> v;
@@ -171,27 +479,69 @@ bool vector_tests()
         allPassed &= ok;
     }
 
-    //print() — visual check (no automated assert)
+    // getN() for different sizes
     {
-        std::cout << "\nVisual check - print():\n";
+        Vector<1> v1;
+        Vector<5> v5;
+        Vector<10> v10;
+        bool ok = (v1.getN() == 1) && (v5.getN() == 5) && (v10.getN() == 10);
+        printTestResult("getN() for various dimensions", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Special Values ---\n";
+
+    // Very large values
+    {
+        Vector<3> v{1e6f, 1e6f, 1e6f};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, std::sqrt(3.0f) * 1e6f, 1e1f);
+        printTestResult("Magnitude with large values", ok);
+        allPassed &= ok;
+    }
+
+    // Very small values
+    {
+        Vector<3> v{1e-6f, 1e-6f, 1e-6f};
+        float mag = v.magnitude();
+        bool ok = approxEqual(mag, std::sqrt(3.0f) * 1e-6f, 1e-11f);
+        printTestResult("Magnitude with small values", ok);
+        allPassed &= ok;
+    }
+
+    // Mixed positive and negative
+    {
+        Vector<3> a{1, -1, 1};
+        Vector<3> b{-1, 1, -1};
+        Vector<3> sum = a + b;
+        bool ok = approxEqual(sum[0], 0) && approxEqual(sum[1], 0) && approxEqual(sum[2], 0);
+        printTestResult("Addition with mixed signs", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Visual Checks ---\n";
+    {
+        std::cout << "Visual check - print():\n";
         Vector<3> demo{1.5f, -0.75f, 2.0f};
         demo.print();
         std::cout << "(should see 3 numbers above)\n";
     }
 
-    std::cout << "\n───────────────────────────────────────\n";
-    std::cout << (allPassed ? "ALL TESTS PASSED" : "SOME TESTS FAILED") << "\n";
-    std::cout << "───────────────────────────────────────\n";
+    std::cout << "\n═══════════════════════════════════════════════\n";
+    std::cout << (allPassed ? "ALL VECTOR TESTS PASSED " : "SOME VECTOR TESTS FAILED ") << "\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
 
-    return allPassed ? 0 : 1;
+    return allPassed;
 }
+
 bool matrix_tests()
 {
-    std::cout << "Matrix tests (various small sizes)\n\n";
+    std::cout << "═══════════════════════════════════════════════\n";
+    std::cout << "Matrix tests (various sizes)\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
     bool allPassed = true;
 
-    // 2×3 Matrix tests
-    std::cout << "Testing Matrix<2,3>\n";
+    std::cout << "--- Testing Matrix<2,3> Basics ---\n";
 
     // Default constructor (zero-filled)
     {
@@ -232,6 +582,19 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
+    // Self-assignment
+    {
+        Matrix<2,3> m;
+        m[0][0] = 1; m[0][1] = 2; m[0][2] = 3;
+        m[1][0] = 4; m[1][1] = 5; m[1][2] = 6;
+        m = m;
+        bool ok = approxEqual(m[0][0],1) && approxEqual(m[0][1],2) && approxEqual(m[1][1],5);
+        printTestResult("Self-assignment (m = m)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Arithmetic Operations ---\n";
+
     // Addition
     {
         Matrix<2,3> a, b;
@@ -249,6 +612,39 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
+    // Addition with zero matrix
+    {
+        Matrix<2,3> a;
+        a[0][0]=5; a[0][1]=-3; a[0][2]=2;
+        a[1][0]=1; a[1][1]=7;  a[1][2]=-4;
+
+        Matrix<2,3> zero;  // default constructor creates zero matrix
+
+        Matrix<2,3> sum = a + zero;
+
+        bool ok = approxEqual(sum[0][0],5) && approxEqual(sum[0][1],-3) && approxEqual(sum[0][2],2) &&
+                  approxEqual(sum[1][0],1) && approxEqual(sum[1][1],7)  && approxEqual(sum[1][2],-4);
+        printTestResult("Addition with zero matrix", ok);
+        allPassed &= ok;
+    }
+
+    // Addition with negative values
+    {
+        Matrix<2,3> a, b;
+        a[0][0]=-1; a[0][1]=-2; a[0][2]=-3;
+        a[1][0]=-4; a[1][1]=-5; a[1][2]=-6;
+
+        b[0][0]=-7; b[0][1]=-8; b[0][2]=-9;
+        b[1][0]=-10;b[1][1]=-11;b[1][2]=-12;
+
+        Matrix<2,3> sum = a + b;
+
+        bool ok = approxEqual(sum[0][0],-8) && approxEqual(sum[0][1],-10) && approxEqual(sum[0][2],-12) &&
+                  approxEqual(sum[1][0],-14) && approxEqual(sum[1][1],-16) && approxEqual(sum[1][2],-18);
+        printTestResult("Addition with all negative values", ok);
+        allPassed &= ok;
+    }
+
     // Scalar multiplication
     {
         Matrix<2,3> m;
@@ -262,6 +658,52 @@ bool matrix_tests()
         printTestResult("operator* (scalar)", ok);
         allPassed &= ok;
     }
+
+    // Scalar multiplication by zero
+    {
+        Matrix<2,3> m;
+        m[0][0]=5; m[0][1]=-3; m[0][2]=7;
+        m[1][0]=2; m[1][1]=8;  m[1][2]=-1;
+
+        Matrix<2,3> res = m * 0.0f;
+
+        bool ok = true;
+        for (int i = 0; i < 2; ++i)
+            for (int j = 0; j < 3; ++j)
+                if (!approxEqual(res[i][j], 0.0f)) ok = false;
+        printTestResult("Scalar multiplication by zero", ok);
+        allPassed &= ok;
+    }
+
+    // Scalar multiplication by one
+    {
+        Matrix<2,3> m;
+        m[0][0]=3; m[0][1]=-4; m[0][2]=5;
+        m[1][0]=6; m[1][1]=7;  m[1][2]=-8;
+
+        Matrix<2,3> res = m * 1.0f;
+
+        bool ok = approxEqual(res[0][0],3) && approxEqual(res[0][1],-4) && approxEqual(res[0][2],5) &&
+                  approxEqual(res[1][0],6) && approxEqual(res[1][1],7)  && approxEqual(res[1][2],-8);
+        printTestResult("Scalar multiplication by one", ok);
+        allPassed &= ok;
+    }
+
+    // Scalar multiplication by negative
+    {
+        Matrix<2,3> m;
+        m[0][0]=2; m[0][1]=-3; m[0][2]=4;
+        m[1][0]=1; m[1][1]=5;  m[1][2]=-2;
+
+        Matrix<2,3> res = m * (-1.0f);
+
+        bool ok = approxEqual(res[0][0],-2) && approxEqual(res[0][1],3) && approxEqual(res[0][2],-4) &&
+                  approxEqual(res[1][0],-1) && approxEqual(res[1][1],-5) && approxEqual(res[1][2],2);
+        printTestResult("Scalar multiplication by negative", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Matrix Multiplication ---\n";
 
     // Matrix multiplication 2×3 × 3×4 → 2×4
     {
@@ -282,6 +724,83 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
+    // Matrix multiplication with identity (square)
+    {
+        Matrix<3,3> a;
+        a[0][0]=2; a[0][1]=3; a[0][2]=4;
+        a[1][0]=5; a[1][1]=6; a[1][2]=7;
+        a[2][0]=8; a[2][1]=9; a[2][2]=10;
+
+        Matrix<3,3> identity;
+        identity[0][0]=1; identity[0][1]=0; identity[0][2]=0;
+        identity[1][0]=0; identity[1][1]=1; identity[1][2]=0;
+        identity[2][0]=0; identity[2][1]=0; identity[2][2]=1;
+
+        Matrix<3,3> result = a * identity;
+
+        bool ok = approxEqual(result[0][0],2) && approxEqual(result[0][1],3) && approxEqual(result[0][2],4) &&
+                  approxEqual(result[1][0],5) && approxEqual(result[1][1],6) && approxEqual(result[1][2],7) &&
+                  approxEqual(result[2][0],8) && approxEqual(result[2][1],9) && approxEqual(result[2][2],10);
+        printTestResult("Matrix multiplication with identity", ok);
+        allPassed &= ok;
+    }
+
+    // Matrix multiplication with zero matrix
+    {
+        Matrix<2,3> a;
+        a[0][0]=1; a[0][1]=2; a[0][2]=3;
+        a[1][0]=4; a[1][1]=5; a[1][2]=6;
+
+        Matrix<3,2> zero;  // zero matrix
+
+        Matrix<2,2> result = a * zero;
+
+        bool ok = true;
+        for (int i = 0; i < 2; ++i)
+            for (int j = 0; j < 2; ++j)
+                if (!approxEqual(result[i][j], 0.0f)) ok = false;
+        printTestResult("Matrix multiplication with zero matrix", ok);
+        allPassed &= ok;
+    }
+
+    // Square matrix multiplication (2×2 × 2×2)
+    {
+        Matrix<2,2> a, b;
+        a[0][0]=1; a[0][1]=2;
+        a[1][0]=3; a[1][1]=4;
+
+        b[0][0]=5; b[0][1]=6;
+        b[1][0]=7; b[1][1]=8;
+
+        Matrix<2,2> c = a * b;
+
+        // Expected: [[19, 22], [43, 50]]
+        bool ok = approxEqual(c[0][0],19) && approxEqual(c[0][1],22) &&
+                  approxEqual(c[1][0],43) && approxEqual(c[1][1],50);
+        printTestResult("Square matrix multiplication 2×2", ok);
+        allPassed &= ok;
+    }
+
+    // Matrix multiplication non-commutativity (A*B != B*A)
+    {
+        Matrix<2,2> a, b;
+        a[0][0]=1; a[0][1]=2;
+        a[1][0]=3; a[1][1]=4;
+
+        b[0][0]=5; b[0][1]=6;
+        b[1][0]=7; b[1][1]=8;
+
+        Matrix<2,2> ab = a * b;
+        Matrix<2,2> ba = b * a;
+
+        bool ok = !approxEqual(ab[0][0], ba[0][0]) || !approxEqual(ab[0][1], ba[0][1]) ||
+                  !approxEqual(ab[1][0], ba[1][0]) || !approxEqual(ab[1][1], ba[1][1]);
+        printTestResult("Matrix multiplication non-commutativity", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Transpose ---\n";
+
     // Transpose (~)
     {
         Matrix<2,3> a;
@@ -297,8 +816,50 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
-    // Square matrix – Determinant tests
-    std::cout << "\nTesting determinant (square matrices)\n";
+    // Transpose of square matrix
+    {
+        Matrix<3,3> a;
+        a[0][0]=1; a[0][1]=2; a[0][2]=3;
+        a[1][0]=4; a[1][1]=5; a[1][2]=6;
+        a[2][0]=7; a[2][1]=8; a[2][2]=9;
+
+        Matrix<3,3> t = ~a;
+
+        bool ok = approxEqual(t[0][0],1) && approxEqual(t[0][1],4) && approxEqual(t[0][2],7) &&
+                  approxEqual(t[1][0],2) && approxEqual(t[1][1],5) && approxEqual(t[1][2],8) &&
+                  approxEqual(t[2][0],3) && approxEqual(t[2][1],6) && approxEqual(t[2][2],9);
+        printTestResult("Transpose of square matrix", ok);
+        allPassed &= ok;
+    }
+
+    // Double transpose returns original
+    {
+        Matrix<2,3> a;
+        a[0][0]=1; a[0][1]=2; a[0][2]=3;
+        a[1][0]=4; a[1][1]=5; a[1][2]=6;
+
+        Matrix<2,3> tt = ~(~a);
+
+        bool ok = approxEqual(tt[0][0],1) && approxEqual(tt[0][1],2) && approxEqual(tt[0][2],3) &&
+                  approxEqual(tt[1][0],4) && approxEqual(tt[1][1],5) && approxEqual(tt[1][2],6);
+        printTestResult("Double transpose returns original", ok);
+        allPassed &= ok;
+    }
+
+    // Transpose of 1×n and n×1 matrices
+    {
+        Matrix<1,4> row;
+        row[0][0]=1; row[0][1]=2; row[0][2]=3; row[0][3]=4;
+
+        Matrix<4,1> col = ~row;
+
+        bool ok = approxEqual(col[0][0],1) && approxEqual(col[1][0],2) &&
+                  approxEqual(col[2][0],3) && approxEqual(col[3][0],4);
+        printTestResult("Transpose of row to column vector", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Determinant (Square Matrices) ---\n";
 
     // 1×1
     {
@@ -307,6 +868,26 @@ bool matrix_tests()
         float det = m.determinant();
         bool ok = approxEqual(det, 7.0f);
         printTestResult("determinant 1×1", ok);
+        allPassed &= ok;
+    }
+
+    // 1×1 negative
+    {
+        Matrix<1,1> m;
+        m[0][0] = -5.0f;
+        float det = m.determinant();
+        bool ok = approxEqual(det, -5.0f);
+        printTestResult("determinant 1×1 (negative)", ok);
+        allPassed &= ok;
+    }
+
+    // 1×1 zero
+    {
+        Matrix<1,1> m;
+        m[0][0] = 0.0f;
+        float det = m.determinant();
+        bool ok = approxEqual(det, 0.0f);
+        printTestResult("determinant 1×1 (zero)", ok);
         allPassed &= ok;
     }
 
@@ -319,6 +900,42 @@ bool matrix_tests()
         float det = m.determinant();  // 4*6 - 7*2 = 24 - 14 = 10
         bool ok = approxEqual(det, 10.0f);
         printTestResult("determinant 2×2", ok);
+        allPassed &= ok;
+    }
+
+    // 2×2 identity
+    {
+        Matrix<2,2> m;
+        m[0][0] = 1; m[0][1] = 0;
+        m[1][0] = 0; m[1][1] = 1;
+
+        float det = m.determinant();
+        bool ok = approxEqual(det, 1.0f);
+        printTestResult("determinant 2×2 identity", ok);
+        allPassed &= ok;
+    }
+
+    // 2×2 zero (singular)
+    {
+        Matrix<2,2> m;
+        m[0][0] = 1; m[0][1] = 2;
+        m[1][0] = 2; m[1][1] = 4;  // rows are linearly dependent
+
+        float det = m.determinant();
+        bool ok = approxEqual(det, 0.0f, 1e-4f);
+        printTestResult("determinant 2×2 singular", ok);
+        allPassed &= ok;
+    }
+
+    // 2×2 negative determinant
+    {
+        Matrix<2,2> m;
+        m[0][0] = 1; m[0][1] = 2;
+        m[1][0] = 3; m[1][1] = 4;
+
+        float det = m.determinant();  // 1*4 - 2*3 = -2
+        bool ok = approxEqual(det, -2.0f);
+        printTestResult("determinant 2×2 negative", ok);
         allPassed &= ok;
     }
 
@@ -335,6 +952,19 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
+    // 3×3 identity
+    {
+        Matrix<3,3> m;
+        m[0][0]=1; m[0][1]=0; m[0][2]=0;
+        m[1][0]=0; m[1][1]=1; m[1][2]=0;
+        m[2][0]=0; m[2][1]=0; m[2][2]=1;
+
+        float det = m.determinant();
+        bool ok = approxEqual(det, 1.0f);
+        printTestResult("determinant 3×3 identity", ok);
+        allPassed &= ok;
+    }
+
     // Singular matrix → det = 0
     {
         Matrix<3,3> m;
@@ -348,6 +978,54 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
+    // 3×3 with known determinant
+    {
+        Matrix<3,3> m;
+        m[0][0]=6; m[0][1]=1; m[0][2]=1;
+        m[1][0]=4; m[1][1]=-2; m[1][2]=5;
+        m[2][0]=2; m[2][1]=8; m[2][2]=7;
+
+        float det = m.determinant();  // expected = -306
+        bool ok = approxEqual(det, -306.0f, 1e-3f);
+        printTestResult("determinant 3×3 (det = -306)", ok);
+        allPassed &= ok;
+    }
+
+    // 3×3 diagonal matrix
+    {
+        Matrix<3,3> m;
+        m[0][0]=2; m[0][1]=0; m[0][2]=0;
+        m[1][0]=0; m[1][1]=3; m[1][2]=0;
+        m[2][0]=0; m[2][1]=0; m[2][2]=5;
+
+        float det = m.determinant();  // 2*3*5 = 30
+        bool ok = approxEqual(det, 30.0f);
+        printTestResult("determinant 3×3 diagonal", ok);
+        allPassed &= ok;
+    }
+
+    // 4×4 identity
+    {
+        Matrix<4,4> m;
+        for (int i = 0; i < 4; ++i)
+            for (int j = 0; j < 4; ++j)
+                m[i][j] = (i == j) ? 1.0f : 0.0f;
+
+        float det = m.determinant();
+        bool ok = approxEqual(det, 1.0f, 1e-4f);
+        printTestResult("determinant 4×4 identity", ok);
+        allPassed &= ok;
+    }
+
+    // 4×4 zero
+    {
+        Matrix<4,4> m;  // all zeros
+        float det = m.determinant();
+        bool ok = approxEqual(det, 0.0f);
+        printTestResult("determinant 4×4 zero matrix", ok);
+        allPassed &= ok;
+    }
+
     // Non-square → should return 0
     {
         Matrix<2,4> nonsq;
@@ -357,9 +1035,61 @@ bool matrix_tests()
         allPassed &= ok;
     }
 
-    // Visual check – print()
+    // Another non-square case
     {
-        std::cout << "\nVisual check - print() 3×3:\n";
+        Matrix<3,2> nonsq;
+        nonsq[0][0]=1; nonsq[0][1]=2;
+        nonsq[1][0]=3; nonsq[1][1]=4;
+        nonsq[2][0]=5; nonsq[2][1]=6;
+        float det = nonsq.determinant();
+        bool ok = approxEqual(det, 0.0f);
+        printTestResult("determinant 3×2 non-square → 0", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Edge Cases ---\n";
+
+    // Very small matrix (1×1)
+    {
+        Matrix<1,1> m;
+        m[0][0] = 42.0f;
+        bool ok = approxEqual(m[0][0], 42.0f);
+        printTestResult("1×1 matrix creation and access", ok);
+        allPassed &= ok;
+    }
+
+    // Large matrix dimensions
+    {
+        Matrix<10,10> large;
+        large[5][5] = 99.0f;
+        bool ok = approxEqual(large[5][5], 99.0f);
+        printTestResult("10×10 matrix creation and access", ok);
+        allPassed &= ok;
+    }
+
+    // Rectangular extreme (1×10)
+    {
+        Matrix<1,10> wide;
+        for (int i = 0; i < 10; ++i)
+            wide[0][i] = static_cast<float>(i);
+        bool ok = approxEqual(wide[0][0], 0.0f) && approxEqual(wide[0][9], 9.0f);
+        printTestResult("1×10 wide matrix", ok);
+        allPassed &= ok;
+    }
+
+    // Rectangular extreme (10×1)
+    {
+        Matrix<10,1> tall;
+        for (int i = 0; i < 10; ++i)
+            tall[i][0] = static_cast<float>(i * 2);
+        bool ok = approxEqual(tall[0][0], 0.0f) && approxEqual(tall[9][0], 18.0f);
+        printTestResult("10×1 tall matrix", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Visual Checks ---\n";
+    {
+        std::cout << "Visual check - print() 3×3:\n";
         Matrix<3,3> demo;
         demo[0][0]=1.5f; demo[0][1]=-0.2f; demo[0][2]=3.7f;
         demo[1][0]=0.0f; demo[1][1]=4.1f;  demo[1][2]=-2.9f;
@@ -368,17 +1098,22 @@ bool matrix_tests()
         std::cout << "(should see 3×3 matrix above)\n";
     }
 
-    std::cout << "\n──────────────────────────────────────────────\n";
-    std::cout << (allPassed ? "ALL MATRIX TESTS PASSED" : "SOME MATRIX TESTS FAILED") << "\n";
-    std::cout << "──────────────────────────────────────────────\n";
+    std::cout << "\n═══════════════════════════════════════════════\n";
+    std::cout << (allPassed ? "ALL MATRIX TESTS PASSED " : "SOME MATRIX TESTS FAILED ") << "\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
 
     return allPassed;
 }
 
 bool matrix_vector_tests()
 {
-    std::cout << "Matrix × Vector interaction tests\n\n";
+    std::cout << "═══════════════════════════════════════════════\n";
+    std::cout << "Matrix × Vector interaction tests\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
     bool allPassed = true;
+
+    // ========== BASIC MATRIX-VECTOR MULTIPLICATION ==========
+    std::cout << "--- Basic Matrix-Vector Multiplication ---\n";
 
     // Matrix<3,3> × Vector<3>
     {
@@ -409,9 +1144,6 @@ bool matrix_vector_tests()
 
         Matrix<2,1> res = M * to_column_vector(u);
 
-        // Expected:
-        // row0: 1*1 + 2*(-1) + 3*0.5 + 4*2 = 1 - 2 + 1.5 + 8 = 8.5
-        // row1: 5*1 + 6*(-1) + 7*0.5 + 8*2 = 5 - 6 + 3.5 + 16 = 18.5
         bool ok = approxEqual(res[0][0], 8.5f, 1e-4f) &&
                   approxEqual(res[1][0], 18.5f, 1e-4f);
 
@@ -419,9 +1151,225 @@ bool matrix_vector_tests()
         allPassed &= ok;
     }
 
-    // Visual check
+    // Identity matrix × vector
     {
-        std::cout << "\nVisual check - Matrix<3,3> × Vector<3>:\n";
+        Matrix<3,3> I;
+        I[0][0] = 1; I[0][1] = 0; I[0][2] = 0;
+        I[1][0] = 0; I[1][1] = 1; I[1][2] = 0;
+        I[2][0] = 0; I[2][1] = 0; I[2][2] = 1;
+
+        Vector<3> v{7.0f, -3.0f, 5.0f};
+
+        Matrix<3,1> result = I * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 7.0f) &&
+                  approxEqual(result[1][0], -3.0f) &&
+                  approxEqual(result[2][0], 5.0f);
+
+        printTestResult("Identity matrix × vector", ok);
+        allPassed &= ok;
+    }
+
+    // Zero matrix × vector
+    {
+        Matrix<3,3> zero;  // default is zero
+
+        Vector<3> v{7.0f, -3.0f, 5.0f};
+
+        Matrix<3,1> result = zero * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 0.0f) &&
+                  approxEqual(result[1][0], 0.0f) &&
+                  approxEqual(result[2][0], 0.0f);
+
+        printTestResult("Zero matrix × vector", ok);
+        allPassed &= ok;
+    }
+
+    // Matrix × zero vector
+    {
+        Matrix<3,3> M;
+        M[0][0] = 2; M[0][1] = 3; M[0][2] = 4;
+        M[1][0] = 5; M[1][1] = 6; M[1][2] = 7;
+        M[2][0] = 8; M[2][1] = 9; M[2][2] = 10;
+
+        Vector<3> zero{0.0f, 0.0f, 0.0f};
+
+        Matrix<3,1> result = M * to_column_vector(zero);
+
+        bool ok = approxEqual(result[0][0], 0.0f) &&
+                  approxEqual(result[1][0], 0.0f) &&
+                  approxEqual(result[2][0], 0.0f);
+
+        printTestResult("Matrix × zero vector", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Rotation and Transformation ---\n";
+
+    // 2D rotation matrix (90 degrees)
+    {
+        Matrix<2,2> rot90;
+        rot90[0][0] = 0; rot90[0][1] = -1;
+        rot90[1][0] = 1; rot90[1][1] = 0;
+
+        Vector<2> v{1.0f, 0.0f};
+
+        Matrix<2,1> result = rot90 * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 0.0f, 1e-5f) &&
+                  approxEqual(result[1][0], 1.0f, 1e-5f);
+
+        printTestResult("2D rotation 90° (1,0) → (0,1)", ok);
+        allPassed &= ok;
+    }
+
+    // Scaling transformation
+    {
+        Matrix<3,3> scale;
+        scale[0][0] = 2; scale[0][1] = 0; scale[0][2] = 0;
+        scale[1][0] = 0; scale[1][1] = 3; scale[1][2] = 0;
+        scale[2][0] = 0; scale[2][1] = 0; scale[2][2] = 4;
+
+        Vector<3> v{1.0f, 1.0f, 1.0f};
+
+        Matrix<3,1> result = scale * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 2.0f) &&
+                  approxEqual(result[1][0], 3.0f) &&
+                  approxEqual(result[2][0], 4.0f);
+
+        printTestResult("Scaling transformation", ok);
+        allPassed &= ok;
+    }
+
+    // Reflection matrix
+    {
+        Matrix<2,2> reflect;
+        reflect[0][0] = 1; reflect[0][1] = 0;
+        reflect[1][0] = 0; reflect[1][1] = -1;  // reflect across x-axis
+
+        Vector<2> v{3.0f, 4.0f};
+
+        Matrix<2,1> result = reflect * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 3.0f) &&
+                  approxEqual(result[1][0], -4.0f);
+
+        printTestResult("Reflection across x-axis", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Edge Cases ---\n";
+
+    // 1×1 matrix × 1D vector
+    {
+        Matrix<1,1> m;
+        m[0][0] = 5.0f;
+
+        Vector<1> v{3.0f};
+
+        Matrix<1,1> result = m * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], 15.0f);
+
+        printTestResult("1×1 matrix × 1D vector", ok);
+        allPassed &= ok;
+    }
+
+    // Tall matrix × vector
+    {
+        Matrix<5,2> tall;
+        for (int i = 0; i < 5; ++i) {
+            tall[i][0] = static_cast<float>(i + 1);
+            tall[i][1] = static_cast<float>(i + 1);
+        }
+
+        Vector<2> v{2.0f, 3.0f};
+
+        Matrix<5,1> result = tall * to_column_vector(v);
+
+        // Row i: (i+1)*2 + (i+1)*3 = (i+1)*5
+        bool ok = approxEqual(result[0][0], 5.0f) &&
+                  approxEqual(result[1][0], 10.0f) &&
+                  approxEqual(result[2][0], 15.0f) &&
+                  approxEqual(result[3][0], 20.0f) &&
+                  approxEqual(result[4][0], 25.0f);
+
+        printTestResult("5×2 matrix × 2D vector", ok);
+        allPassed &= ok;
+    }
+
+    // Matrix with negative values
+    {
+        Matrix<3,3> M;
+        M[0][0] = -1; M[0][1] = -2; M[0][2] = -3;
+        M[1][0] = -4; M[1][1] = -5; M[1][2] = -6;
+        M[2][0] = -7; M[2][1] = -8; M[2][2] = -9;
+
+        Vector<3> v{1.0f, 1.0f, 1.0f};
+
+        Matrix<3,1> result = M * to_column_vector(v);
+
+        bool ok = approxEqual(result[0][0], -6.0f) &&
+                  approxEqual(result[1][0], -15.0f) &&
+                  approxEqual(result[2][0], -24.0f);
+
+        printTestResult("Matrix with negative values × vector", ok);
+        allPassed &= ok;
+    }
+
+    // Mixed positive and negative
+    {
+        Matrix<2,3> M;
+        M[0][0] = 1;  M[0][1] = -2; M[0][2] = 3;
+        M[1][0] = -4; M[1][1] = 5;  M[1][2] = -6;
+
+        Vector<3> v{2.0f, -1.0f, 3.0f};
+
+        Matrix<2,1> result = M * to_column_vector(v);
+
+        // Row 0: 1*2 + -2*-1 + 3*3 = 2 + 2 + 9 = 13
+        // Row 1: -4*2 + 5*-1 + -6*3 = -8 - 5 - 18 = -31
+        bool ok = approxEqual(result[0][0], 13.0f) &&
+                  approxEqual(result[1][0], -31.0f);
+
+        printTestResult("Matrix × vector with mixed signs", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Chained Operations ---\n";
+
+    // (M1 × M2) × v should equal M1 × (M2 × v)
+    {
+        Matrix<2,2> M1;
+        M1[0][0] = 1; M1[0][1] = 2;
+        M1[1][0] = 3; M1[1][1] = 4;
+
+        Matrix<2,2> M2;
+        M2[0][0] = 5; M2[0][1] = 6;
+        M2[1][0] = 7; M2[1][1] = 8;
+
+        Vector<2> v{1.0f, 2.0f};
+
+        Matrix<2,2> M1M2 = M1 * M2;
+        Matrix<2,1> result1 = M1M2 * to_column_vector(v);
+
+        Matrix<2,1> M2v = M2 * to_column_vector(v);
+        // Convert M2v back to vector for M1 multiplication
+        Vector<2> M2v_vec{M2v[0][0], M2v[1][0]};
+        Matrix<2,1> result2 = M1 * to_column_vector(M2v_vec);
+
+        bool ok = approxEqual(result1[0][0], result2[0][0], 1e-4f) &&
+                  approxEqual(result1[1][0], result2[1][0], 1e-4f);
+
+        printTestResult("Associativity: (M1×M2)×v = M1×(M2×v)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Visual Checks ---\n";
+    {
+        std::cout << "Visual check - Matrix<3,3> × Vector<3>:\n";
         Matrix<3,3> demo;
         demo[0][0]=1; demo[0][1]=2; demo[0][2]=3;
         demo[1][0]=0; demo[1][1]=1; demo[1][2]=4;
@@ -436,19 +1384,37 @@ bool matrix_vector_tests()
         std::cout << "Result (as 3×1 matrix):\n"; prod.print();
     }
 
-    std::cout << "\n──────────────────────────────────────────────\n";
-    std::cout << (allPassed ? "ALL MATRIX-VECTOR TESTS PASSED" : "SOME MATRIX-VECTOR TESTS FAILED") << "\n";
-    std::cout << "──────────────────────────────────────────────\n";
+    std::cout << "\n═══════════════════════════════════════════════\n";
+    std::cout << (allPassed ? "ALL MATRIX-VECTOR TESTS PASSED " : "SOME MATRIX-VECTOR TESTS FAILED ") << "\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
 
     return allPassed;
 }
 
 int main(int argc, char const *argv[])
 {
-    bool vectorPass = vector_tests();
-    bool matrixPass = matrix_tests();
-    bool matrixVectorPass = matrix_vector_tests();
+    std::cout << "\n";
+    std::cout << "║   COMPREHENSIVE  SUITE      ║\n";
+    std::cout << "\n";
 
-    return 0;
+    bool vectorPass = vector_tests();
+    std::cout << "\n";
     
+    bool matrixPass = matrix_tests();
+    std::cout << "\n";
+    
+    bool matrixVectorPass = matrix_vector_tests();
+    std::cout << "\n";
+
+    std::cout << " ════════════════════════════════════════════════ \n";
+    std::cout << "║              FINAL TEST SUMMARY                ║\n";
+    std::cout << " ════════════════════════════════════════════════ \n";
+    std::cout << "║ Vector Tests:        " << (vectorPass ? " PASSED" : " FAILED") << "                  ║\n";
+    std::cout << "║ Matrix Tests:        " << (matrixPass ? " PASSED" : " FAILED") << "                  ║\n";
+    std::cout << "║ Matrix-Vector Tests: " << (matrixVectorPass ? " PASSED" : " FAILED") << "                  ║\n";
+    std::cout << " ════════════════════════════════════════════════ \n";
+    std::cout << "║ Overall:             " << (vectorPass && matrixPass && matrixVectorPass ? " ALL PASSED" : " SOME FAILED") << "              ║\n";
+    std::cout << " ════════════════════════════════════════════════ \n";
+
+    return (vectorPass && matrixPass && matrixVectorPass) ? 0 : 1;
 }
