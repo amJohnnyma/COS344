@@ -56,5 +56,7 @@ public:
     
 };
 
+#include "../src/Matrix.cpp"
+
 
 #endif /*MATRIX_H*/

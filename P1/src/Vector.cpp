@@ -31,6 +31,7 @@ template<int n>
 Vector<n>::~Vector()
 {
    delete[] arr;
+   arr = nullptr;
 }
 
 
