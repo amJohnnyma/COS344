@@ -1,8 +1,8 @@
 #include "../include/Matrix.h"
 #include "../include/Vector.h"
-//#include "../include/Shape.h"
+#include "../include/Shape.h"
 //#include "../include/Triangle.h"
-//#include "../include/Square.h"
+#include "../include/Square.h"
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -14,7 +14,7 @@ bool approxEqual(float a, float b, float epsilon = 1e-5f) {
 
 void printTestResult(const std::string& testName, bool passed) {
     std::cout << std::left << std::setw(50) << testName
-              << (passed ? "[PASS]" : "[FAIL]") << "\n";
+        << (passed ? "[PASS]" : "[FAIL]") << "\n";
 }
 
 template<int rows>
@@ -34,7 +34,7 @@ bool vector_tests()
     bool allPassed = true;
 
     std::cout << "--- Basic Constructors ---\n";
-    
+
     //Default constructor
     {
         Vector<3> v;
@@ -341,8 +341,8 @@ bool vector_tests()
             Vector<3> u = v.unitVector();
             // Check if result contains NaN or Inf
             bool containsInvalid = std::isnan(u[0]) || std::isinf(u[0]) ||
-                                   std::isnan(u[1]) || std::isinf(u[1]) ||
-                                   std::isnan(u[2]) || std::isinf(u[2]);
+                std::isnan(u[1]) || std::isinf(u[1]) ||
+                std::isnan(u[2]) || std::isinf(u[2]);
             hasError = containsInvalid;
         } catch (...) {
             hasError = true;
@@ -562,7 +562,7 @@ bool matrix_tests()
 
         Matrix<2,3> b(a);
         bool ok = approxEqual(b[0][0],1) && approxEqual(b[0][1],2) && approxEqual(b[0][2],3) &&
-                  approxEqual(b[1][0],4) && approxEqual(b[1][1],5) && approxEqual(b[1][2],6);
+            approxEqual(b[1][0],4) && approxEqual(b[1][1],5) && approxEqual(b[1][2],6);
         printTestResult("Copy constructor", ok);
         allPassed &= ok;
     }
@@ -577,7 +577,7 @@ bool matrix_tests()
         b = a;
 
         bool ok = approxEqual(b[0][0],7) && approxEqual(b[0][1],-1) && approxEqual(b[0][2],0) &&
-                  approxEqual(b[1][0],3) && approxEqual(b[1][1],9)  && approxEqual(b[1][2],-4);
+            approxEqual(b[1][0],3) && approxEqual(b[1][1],9)  && approxEqual(b[1][2],-4);
         printTestResult("Copy assignment operator=", ok);
         allPassed &= ok;
     }
@@ -607,7 +607,7 @@ bool matrix_tests()
         Matrix<2,3> sum = a + b;
 
         bool ok = approxEqual(sum[0][0],8)  && approxEqual(sum[0][1],1)  && approxEqual(sum[0][2],3) &&
-                  approxEqual(sum[1][0],2)  && approxEqual(sum[1][1],8)  && approxEqual(sum[1][2],14);
+            approxEqual(sum[1][0],2)  && approxEqual(sum[1][1],8)  && approxEqual(sum[1][2],14);
         printTestResult("operator+ (addition)", ok);
         allPassed &= ok;
     }
@@ -623,7 +623,7 @@ bool matrix_tests()
         Matrix<2,3> sum = a + zero;
 
         bool ok = approxEqual(sum[0][0],5) && approxEqual(sum[0][1],-3) && approxEqual(sum[0][2],2) &&
-                  approxEqual(sum[1][0],1) && approxEqual(sum[1][1],7)  && approxEqual(sum[1][2],-4);
+            approxEqual(sum[1][0],1) && approxEqual(sum[1][1],7)  && approxEqual(sum[1][2],-4);
         printTestResult("Addition with zero matrix", ok);
         allPassed &= ok;
     }
@@ -640,7 +640,7 @@ bool matrix_tests()
         Matrix<2,3> sum = a + b;
 
         bool ok = approxEqual(sum[0][0],-8) && approxEqual(sum[0][1],-10) && approxEqual(sum[0][2],-12) &&
-                  approxEqual(sum[1][0],-14) && approxEqual(sum[1][1],-16) && approxEqual(sum[1][2],-18);
+            approxEqual(sum[1][0],-14) && approxEqual(sum[1][1],-16) && approxEqual(sum[1][2],-18);
         printTestResult("Addition with all negative values", ok);
         allPassed &= ok;
     }
@@ -654,7 +654,7 @@ bool matrix_tests()
         Matrix<2,3> res = m * 2.5f;
 
         bool ok = approxEqual(res[0][0],2.5f) && approxEqual(res[0][1],-5.0f) && approxEqual(res[0][2],10.0f) &&
-                  approxEqual(res[1][0],0.0f) && approxEqual(res[1][1],7.5f)  && approxEqual(res[1][2],-2.5f);
+            approxEqual(res[1][0],0.0f) && approxEqual(res[1][1],7.5f)  && approxEqual(res[1][2],-2.5f);
         printTestResult("operator* (scalar)", ok);
         allPassed &= ok;
     }
@@ -684,7 +684,7 @@ bool matrix_tests()
         Matrix<2,3> res = m * 1.0f;
 
         bool ok = approxEqual(res[0][0],3) && approxEqual(res[0][1],-4) && approxEqual(res[0][2],5) &&
-                  approxEqual(res[1][0],6) && approxEqual(res[1][1],7)  && approxEqual(res[1][2],-8);
+            approxEqual(res[1][0],6) && approxEqual(res[1][1],7)  && approxEqual(res[1][2],-8);
         printTestResult("Scalar multiplication by one", ok);
         allPassed &= ok;
     }
@@ -698,7 +698,7 @@ bool matrix_tests()
         Matrix<2,3> res = m * (-1.0f);
 
         bool ok = approxEqual(res[0][0],-2) && approxEqual(res[0][1],3) && approxEqual(res[0][2],-4) &&
-                  approxEqual(res[1][0],-1) && approxEqual(res[1][1],-5) && approxEqual(res[1][2],2);
+            approxEqual(res[1][0],-1) && approxEqual(res[1][1],-5) && approxEqual(res[1][2],2);
         printTestResult("Scalar multiplication by negative", ok);
         allPassed &= ok;
     }
@@ -719,7 +719,7 @@ bool matrix_tests()
         Matrix<2,4> c = a * b;
 
         bool ok = approxEqual(c[0][0], 74) && approxEqual(c[0][1], 80) && approxEqual(c[0][2], 86) && approxEqual(c[0][3], 92) &&
-                  approxEqual(c[1][0],173) && approxEqual(c[1][1],188) && approxEqual(c[1][2],203) && approxEqual(c[1][3],218);
+            approxEqual(c[1][0],173) && approxEqual(c[1][1],188) && approxEqual(c[1][2],203) && approxEqual(c[1][3],218);
         printTestResult("operator* (matrix multiplication 2×3 × 3×4)", ok);
         allPassed &= ok;
     }
@@ -739,8 +739,8 @@ bool matrix_tests()
         Matrix<3,3> result = a * identity;
 
         bool ok = approxEqual(result[0][0],2) && approxEqual(result[0][1],3) && approxEqual(result[0][2],4) &&
-                  approxEqual(result[1][0],5) && approxEqual(result[1][1],6) && approxEqual(result[1][2],7) &&
-                  approxEqual(result[2][0],8) && approxEqual(result[2][1],9) && approxEqual(result[2][2],10);
+            approxEqual(result[1][0],5) && approxEqual(result[1][1],6) && approxEqual(result[1][2],7) &&
+            approxEqual(result[2][0],8) && approxEqual(result[2][1],9) && approxEqual(result[2][2],10);
         printTestResult("Matrix multiplication with identity", ok);
         allPassed &= ok;
     }
@@ -776,7 +776,7 @@ bool matrix_tests()
 
         // Expected: [[19, 22], [43, 50]]
         bool ok = approxEqual(c[0][0],19) && approxEqual(c[0][1],22) &&
-                  approxEqual(c[1][0],43) && approxEqual(c[1][1],50);
+            approxEqual(c[1][0],43) && approxEqual(c[1][1],50);
         printTestResult("Square matrix multiplication 2×2", ok);
         allPassed &= ok;
     }
@@ -794,7 +794,7 @@ bool matrix_tests()
         Matrix<2,2> ba = b * a;
 
         bool ok = !approxEqual(ab[0][0], ba[0][0]) || !approxEqual(ab[0][1], ba[0][1]) ||
-                  !approxEqual(ab[1][0], ba[1][0]) || !approxEqual(ab[1][1], ba[1][1]);
+            !approxEqual(ab[1][0], ba[1][0]) || !approxEqual(ab[1][1], ba[1][1]);
         printTestResult("Matrix multiplication non-commutativity", ok);
         allPassed &= ok;
     }
@@ -810,8 +810,8 @@ bool matrix_tests()
         Matrix<3,2> t = ~a;
 
         bool ok = approxEqual(t[0][0],1) && approxEqual(t[0][1],4) &&
-                  approxEqual(t[1][0],2) && approxEqual(t[1][1],5) &&
-                  approxEqual(t[2][0],3) && approxEqual(t[2][1],6);
+            approxEqual(t[1][0],2) && approxEqual(t[1][1],5) &&
+            approxEqual(t[2][0],3) && approxEqual(t[2][1],6);
         printTestResult("operator~ (transpose)", ok);
         allPassed &= ok;
     }
@@ -826,8 +826,8 @@ bool matrix_tests()
         Matrix<3,3> t = ~a;
 
         bool ok = approxEqual(t[0][0],1) && approxEqual(t[0][1],4) && approxEqual(t[0][2],7) &&
-                  approxEqual(t[1][0],2) && approxEqual(t[1][1],5) && approxEqual(t[1][2],8) &&
-                  approxEqual(t[2][0],3) && approxEqual(t[2][1],6) && approxEqual(t[2][2],9);
+            approxEqual(t[1][0],2) && approxEqual(t[1][1],5) && approxEqual(t[1][2],8) &&
+            approxEqual(t[2][0],3) && approxEqual(t[2][1],6) && approxEqual(t[2][2],9);
         printTestResult("Transpose of square matrix", ok);
         allPassed &= ok;
     }
@@ -841,7 +841,7 @@ bool matrix_tests()
         Matrix<2,3> tt = ~(~a);
 
         bool ok = approxEqual(tt[0][0],1) && approxEqual(tt[0][1],2) && approxEqual(tt[0][2],3) &&
-                  approxEqual(tt[1][0],4) && approxEqual(tt[1][1],5) && approxEqual(tt[1][2],6);
+            approxEqual(tt[1][0],4) && approxEqual(tt[1][1],5) && approxEqual(tt[1][2],6);
         printTestResult("Double transpose returns original", ok);
         allPassed &= ok;
     }
@@ -854,7 +854,7 @@ bool matrix_tests()
         Matrix<4,1> col = ~row;
 
         bool ok = approxEqual(col[0][0],1) && approxEqual(col[1][0],2) &&
-                  approxEqual(col[2][0],3) && approxEqual(col[3][0],4);
+            approxEqual(col[2][0],3) && approxEqual(col[3][0],4);
         printTestResult("Transpose of row to column vector", ok);
         allPassed &= ok;
     }
@@ -1105,6 +1105,219 @@ bool matrix_tests()
     return allPassed;
 }
 
+bool square_tests()
+{
+    std::cout << "═══════════════════════════════════════════════\n";
+    std::cout << "Square tests (2D and 3D homogeneous)\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
+    bool allPassed = true;
+
+    auto approxEqual = [](float a, float b, float eps = 1e-5f) {
+        return std::abs(a - b) < eps;
+    };
+
+    auto pointsApproxEqual = [&](const Vector<2>& a, const Vector<2>& b) {
+        return approxEqual(a[0], b[0]) && approxEqual(a[1], b[1]);
+    };
+
+    auto pointsApproxEqual3 = [&](const Vector<3>& a, const Vector<3>& b) {
+        return approxEqual(a[0], b[0]) && approxEqual(a[1], b[1]) && approxEqual(a[2], b[2]);
+    };
+
+    std::cout << "--- Square<2> basic construction & access ---\n";
+
+    // Default-like construction via center + size (assuming it exists)
+    {
+        Vector<2> center{4.0f, 5.0f};
+        Square<2> sq(center, 6.0f, 8.0f);  // height=6, width=8
+        // expected
+        // tl = (0,8)
+        // tr = (8,8)
+        // bl = (0,2)
+        // br = (8,2)
+
+        // Expected corners (assuming center-based constructor)
+        Vector<2> exp_tl{0.0f, 8.0f};   // x-4, y+3
+        Vector<2> exp_tr{8.0f, 8.0f};
+        Vector<2> exp_br{8.0f, 2.0f};
+        Vector<2> exp_bl{0.0f, 2.0f};
+
+        /*
+        std::cout << "Center: " << std::endl;
+        center.print();
+        std::cout << "Square: " << std::endl;
+        sq.print();
+        std::cout << "Expected: " << std::endl;
+        exp_tl.print();
+        exp_tr.print();
+        exp_bl.print();
+        exp_br.print();
+        */
+
+        float* pts = sq.getPoints();
+        bool ok = 
+            approxEqual(pts[0],  exp_tl[0]) && approxEqual(pts[1],  exp_tl[1]) &&
+            approxEqual(pts[2],  exp_tr[0]) && approxEqual(pts[3],  exp_tr[1]) &&
+            approxEqual(pts[4],  exp_br[0]) && approxEqual(pts[5],  exp_br[1]) &&
+            approxEqual(pts[6],  exp_bl[0]) && approxEqual(pts[7],  exp_bl[1]);
+
+        printTestResult("Square<2>(center, height, width) – checking via getPoints()", ok);
+        allPassed &= ok;
+
+    }
+
+    // Four-points constructor
+    {
+        Vector<2> p1{0, 3};
+        Vector<2> p2{4, 3};
+        Vector<2> p3{4, 0};
+        Vector<2> p4{0, 0};
+
+        Square<2> sq(p1, p2, p3, p4);
+
+        float* pts = sq.getPoints();
+        bool ok = 
+            approxEqual(pts[0],  p1[0]) && approxEqual(pts[1],  p1[1]) &&
+            approxEqual(pts[2],  p2[0]) && approxEqual(pts[3],  p2[1]) &&
+            approxEqual(pts[4],  p3[0]) && approxEqual(pts[5],  p3[1]) &&
+            approxEqual(pts[6],  p4[0]) && approxEqual(pts[7],  p4[1]);
+
+        printTestResult("Square<2> four-points constructor", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Square<2> transformation (*=) ---\n";
+
+    // Simple translation
+    {
+        Square<2> sq(
+                Vector<2>{0, 2},
+                Vector<2>{4, 2},
+                Vector<2>{4, 0},
+                Vector<2>{0, 0}
+                );
+
+        // Translation matrix (move +3 right, +1 up)
+        float** trans_data = new float*[2];
+        for (int i = 0; i < 2; ++i) {
+            trans_data[i] = new float[2];
+        }
+
+        trans_data[0][0] = 1.0f; trans_data[0][1] = 0.0f;
+        trans_data[1][0] = 0.0f; trans_data[1][1] = 1.0f;
+
+        Matrix<2,2> identity(trans_data);
+        // Note: for translation in 2D affine you normally need 3×3 matrix
+
+        // For real translation test → better use n=3
+        float** scale_data= new float*[2];
+        for (int i = 0; i < 2; ++i) {
+            scale_data[i] = new float[2];
+        }
+
+        scale_data[0][0] = 2.0f; scale_data[0][1] = 0.0f;
+        scale_data[1][0] = 0.0f; scale_data[1][1] = 1.5f;
+        Matrix<2,2> scale(scale_data);
+
+        sq *= scale;
+
+        float* pts = sq.getPoints();
+
+        Vector<2> got_tl { pts[0], pts[1] };
+        Vector<2> got_tr { pts[2], pts[3] };
+        Vector<2> got_br { pts[4], pts[5] };
+        Vector<2> got_bl { pts[6], pts[7] };
+
+        bool ok = 
+            pointsApproxEqual(got_tl, {0.0f, 3.0f}) &&
+            pointsApproxEqual(got_tr, {8.0f, 3.0f}) &&
+            pointsApproxEqual(got_br, {8.0f, 0.0f}) &&
+            pointsApproxEqual(got_bl, {0.0f, 0.0f});
+
+
+        printTestResult("Square<2> *= uniform-ish scale (2×, 1.5×)", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Square<3> (homogeneous) transformation ---\n";
+    // Square in homogeneous coordinates (z=1) - translation
+    {
+        Vector<3> tl_h{1, 4, 1};
+        Vector<3> tr_h{5, 4, 1};
+        Vector<3> br_h{5, 1, 1};
+        Vector<3> bl_h{1, 1, 1};
+
+        Square<3> sq(tl_h, tr_h, br_h, bl_h);
+
+        // Translation: move +2 in x, +3 in y
+        float** tmat = new float*[3];
+        tmat[0] = new float[3]{1, 0, 2};
+        tmat[1] = new float[3]{0, 1, 3};
+        tmat[2] = new float[3]{0, 0, 1};
+
+        Matrix<3,3> translate(tmat);
+
+        sq *= translate;
+
+        float* pts = sq.getPoints();
+
+        bool ok =
+            // tl → expected {3, 7, 1}
+            approxEqual(pts[0],  3.0f) && approxEqual(pts[1],  7.0f) && approxEqual(pts[2],  1.0f) &&
+            // tr → {7, 7, 1}
+            approxEqual(pts[3],  7.0f) && approxEqual(pts[4],  7.0f) && approxEqual(pts[5],  1.0f) &&
+            // br → {7, 4, 1}
+            approxEqual(pts[6],  7.0f) && approxEqual(pts[7],  4.0f) && approxEqual(pts[8],  1.0f) &&
+            // bl → {3, 4, 1}
+            approxEqual(pts[9],  3.0f) && approxEqual(pts[10], 4.0f) && approxEqual(pts[11], 1.0f);
+
+        printTestResult("Square<3> *= translation (homogeneous) via getPoints()", ok);
+        allPassed &= ok;
+
+    }
+
+    // Rotation test (90° CCW around origin)
+    {
+        Vector<3> tl_h{1, 1, 1};
+        Vector<3> tr_h{3, 1, 1};
+        Vector<3> br_h{3, -1, 1};
+        Vector<3> bl_h{1, -1, 1};
+
+        Square<3> sq(tl_h, tr_h, br_h, bl_h);
+
+        // 90° CCW rotation matrix
+        float** rmat = new float*[3];
+        rmat[0] = new float[3]{ 0, -1, 0 };
+        rmat[1] = new float[3]{ 1,  0, 0 };
+        rmat[2] = new float[3]{ 0,  0, 1 };
+
+        Matrix<3,3> rot(rmat);
+
+        sq *= rot;
+
+        float* pts = sq.getPoints();
+
+        bool ok =
+            // tl → expected {-1, 1, 1}
+            approxEqual(pts[0], -1.0f) && approxEqual(pts[1],  1.0f) && approxEqual(pts[2],  1.0f) &&
+            // tr → {-1, 3, 1}
+            approxEqual(pts[3], -1.0f) && approxEqual(pts[4],  3.0f) && approxEqual(pts[5],  1.0f) &&
+            // br → {1, 3, 1}
+            approxEqual(pts[6],  1.0f) && approxEqual(pts[7],  3.0f) && approxEqual(pts[8],  1.0f) &&
+            // bl → {1, 1, 1}
+            approxEqual(pts[9],  1.0f) && approxEqual(pts[10], 1.0f) && approxEqual(pts[11], 1.0f);
+
+        printTestResult("Square<3> *= 90° rotation CCW via getPoints()", ok);
+        allPassed &= ok;
+
+    }
+
+
+    std::cout << "\n";
+    printTestResult("Square overall result", allPassed);
+    return allPassed;
+}
+
 bool matrix_vector_tests()
 {
     std::cout << "═══════════════════════════════════════════════\n";
@@ -1127,8 +1340,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = A * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 5.0f) &&
-                  approxEqual(result[1][0], 14.0f) &&
-                  approxEqual(result[2][0], 33.0f);
+            approxEqual(result[1][0], 14.0f) &&
+            approxEqual(result[2][0], 33.0f);
 
         printTestResult("Matrix<3,3> × Vector<3> (diagonal scaling)", ok);
         allPassed &= ok;
@@ -1145,7 +1358,7 @@ bool matrix_vector_tests()
         Matrix<2,1> res = M * to_column_vector(u);
 
         bool ok = approxEqual(res[0][0], 8.5f, 1e-4f) &&
-                  approxEqual(res[1][0], 18.5f, 1e-4f);
+            approxEqual(res[1][0], 18.5f, 1e-4f);
 
         printTestResult("Matrix<2,4> × Vector<4>", ok);
         allPassed &= ok;
@@ -1163,8 +1376,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = I * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 7.0f) &&
-                  approxEqual(result[1][0], -3.0f) &&
-                  approxEqual(result[2][0], 5.0f);
+            approxEqual(result[1][0], -3.0f) &&
+            approxEqual(result[2][0], 5.0f);
 
         printTestResult("Identity matrix × vector", ok);
         allPassed &= ok;
@@ -1179,8 +1392,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = zero * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 0.0f) &&
-                  approxEqual(result[1][0], 0.0f) &&
-                  approxEqual(result[2][0], 0.0f);
+            approxEqual(result[1][0], 0.0f) &&
+            approxEqual(result[2][0], 0.0f);
 
         printTestResult("Zero matrix × vector", ok);
         allPassed &= ok;
@@ -1198,8 +1411,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = M * to_column_vector(zero);
 
         bool ok = approxEqual(result[0][0], 0.0f) &&
-                  approxEqual(result[1][0], 0.0f) &&
-                  approxEqual(result[2][0], 0.0f);
+            approxEqual(result[1][0], 0.0f) &&
+            approxEqual(result[2][0], 0.0f);
 
         printTestResult("Matrix × zero vector", ok);
         allPassed &= ok;
@@ -1218,7 +1431,7 @@ bool matrix_vector_tests()
         Matrix<2,1> result = rot90 * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 0.0f, 1e-5f) &&
-                  approxEqual(result[1][0], 1.0f, 1e-5f);
+            approxEqual(result[1][0], 1.0f, 1e-5f);
 
         printTestResult("2D rotation 90° (1,0) → (0,1)", ok);
         allPassed &= ok;
@@ -1236,8 +1449,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = scale * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 2.0f) &&
-                  approxEqual(result[1][0], 3.0f) &&
-                  approxEqual(result[2][0], 4.0f);
+            approxEqual(result[1][0], 3.0f) &&
+            approxEqual(result[2][0], 4.0f);
 
         printTestResult("Scaling transformation", ok);
         allPassed &= ok;
@@ -1254,7 +1467,7 @@ bool matrix_vector_tests()
         Matrix<2,1> result = reflect * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], 3.0f) &&
-                  approxEqual(result[1][0], -4.0f);
+            approxEqual(result[1][0], -4.0f);
 
         printTestResult("Reflection across x-axis", ok);
         allPassed &= ok;
@@ -1291,10 +1504,10 @@ bool matrix_vector_tests()
 
         // Row i: (i+1)*2 + (i+1)*3 = (i+1)*5
         bool ok = approxEqual(result[0][0], 5.0f) &&
-                  approxEqual(result[1][0], 10.0f) &&
-                  approxEqual(result[2][0], 15.0f) &&
-                  approxEqual(result[3][0], 20.0f) &&
-                  approxEqual(result[4][0], 25.0f);
+            approxEqual(result[1][0], 10.0f) &&
+            approxEqual(result[2][0], 15.0f) &&
+            approxEqual(result[3][0], 20.0f) &&
+            approxEqual(result[4][0], 25.0f);
 
         printTestResult("5×2 matrix × 2D vector", ok);
         allPassed &= ok;
@@ -1312,8 +1525,8 @@ bool matrix_vector_tests()
         Matrix<3,1> result = M * to_column_vector(v);
 
         bool ok = approxEqual(result[0][0], -6.0f) &&
-                  approxEqual(result[1][0], -15.0f) &&
-                  approxEqual(result[2][0], -24.0f);
+            approxEqual(result[1][0], -15.0f) &&
+            approxEqual(result[2][0], -24.0f);
 
         printTestResult("Matrix with negative values × vector", ok);
         allPassed &= ok;
@@ -1332,7 +1545,7 @@ bool matrix_vector_tests()
         // Row 0: 1*2 + -2*-1 + 3*3 = 2 + 2 + 9 = 13
         // Row 1: -4*2 + 5*-1 + -6*3 = -8 - 5 - 18 = -31
         bool ok = approxEqual(result[0][0], 13.0f) &&
-                  approxEqual(result[1][0], -31.0f);
+            approxEqual(result[1][0], -31.0f);
 
         printTestResult("Matrix × vector with mixed signs", ok);
         allPassed &= ok;
@@ -1361,7 +1574,7 @@ bool matrix_vector_tests()
         Matrix<2,1> result2 = M1 * to_column_vector(M2v_vec);
 
         bool ok = approxEqual(result1[0][0], result2[0][0], 1e-4f) &&
-                  approxEqual(result1[1][0], result2[1][0], 1e-4f);
+            approxEqual(result1[1][0], result2[1][0], 1e-4f);
 
         printTestResult("Associativity: (M1×M2)×v = M1×(M2×v)", ok);
         allPassed &= ok;
@@ -1399,11 +1612,14 @@ int main(int argc, char const *argv[])
 
     bool vectorPass = vector_tests();
     std::cout << "\n";
-    
+
     bool matrixPass = matrix_tests();
     std::cout << "\n";
-    
+
     bool matrixVectorPass = matrix_vector_tests();
+    std::cout << "\n";
+
+    bool squarePass = square_tests();
     std::cout << "\n";
 
     std::cout << " ════════════════════════════════════════════════ \n";
@@ -1412,8 +1628,9 @@ int main(int argc, char const *argv[])
     std::cout << "║ Vector Tests:        " << (vectorPass ? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << "║ Matrix Tests:        " << (matrixPass ? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << "║ Matrix-Vector Tests: " << (matrixVectorPass ? " PASSED" : " FAILED") << "                  ║\n";
+    std::cout << "║ Square Tests: " << (squarePass? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << " ════════════════════════════════════════════════ \n";
-    std::cout << "║ Overall:             " << (vectorPass && matrixPass && matrixVectorPass ? " ALL PASSED" : " SOME FAILED") << "              ║\n";
+    std::cout << "║ Overall:             " << (vectorPass && matrixPass && matrixVectorPass && squarePass ? " ALL PASSED" : " SOME FAILED") << "              ║\n";
     std::cout << " ════════════════════════════════════════════════ \n";
 
     return (vectorPass && matrixPass && matrixVectorPass) ? 0 : 1;

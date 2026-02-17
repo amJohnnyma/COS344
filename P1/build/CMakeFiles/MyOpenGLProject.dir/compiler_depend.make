@@ -5,17 +5,19 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
   /home/johnny/Documents/School/COS344/Practicals/P1/include/Vector.h \
   /home/johnny/Documents/School/COS344/Practicals/P1/src/Vector.cpp \
   /home/johnny/Documents/School/COS344/Practicals/P1/include/Matrix.h \
+  /home/johnny/Documents/School/COS344/Practicals/P1/include/Square.h \
   /home/johnny/Documents/School/COS344/Practicals/P1/include/Vector.h \
   /home/johnny/Documents/School/COS344/Practicals/P1/src/Matrix.cpp \
+  /home/johnny/Documents/School/COS344/Practicals/P1/src/Square.cpp \
   /home/johnny/Documents/School/COS344/Practicals/P1/include/Matrix.h \
+  /home/johnny/Documents/School/COS344/Practicals/P1/include/Shape.h \
+  /home/johnny/Documents/School/COS344/Practicals/P1/include/Square.h \
   /home/johnny/Documents/School/COS344/Practicals/P1/include/Vector.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
-  /usr/include/c++/13/algorithm \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
-  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocator.h \
   /usr/include/c++/13/bits/basic_ios.h \
@@ -63,21 +65,17 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
-  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
-  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
-  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
-  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -109,8 +107,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
   /usr/include/c++/13/locale \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
-  /usr/include/c++/13/pstl/execution_defs.h \
-  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
@@ -272,6 +268,8 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
@@ -298,8 +296,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
@@ -323,6 +319,8 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
@@ -368,8 +366,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/features.h:
 
-/usr/include/ctype.h:
-
 /usr/include/c++/13/cstdlib:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
@@ -381,14 +377,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/c++/13/stdexcept:
 
 /usr/include/c++/13/bits/specfun.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/libintl.h:
-
-/usr/include/c++/13/tr1/poly_laguerre.tcc:
-
-/usr/include/c++/13/bits/basic_string.h:
 
 /usr/include/c++/13/bits/locale_facets_nonio.tcc:
 
@@ -420,41 +408,19 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/bits/locale_classes.h:
 
+/usr/include/ctype.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 /usr/include/c++/13/bits/char_traits.h:
-
-/usr/include/errno.h:
-
-/usr/include/c++/13/bits/functional_hash.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
-
-/usr/include/c++/13/bits/nested_exception.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/c++/13/bits/hash_bytes.h:
 
-/usr/include/asm-generic/errno-base.h:
-
 /usr/include/features-time64.h:
 
 /usr/include/c++/13/string_view:
-
-/usr/include/c++/13/algorithm:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/c++/13/bits/ptr_traits.h:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/13/bits/locale_conv.h:
 
 /usr/include/c++/13/bits/sstream.tcc:
 
@@ -465,6 +431,22 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/c++/13/iosfwd:
 
 /usr/include/c++/13/cwchar:
+
+/usr/include/asm-generic/errno-base.h:
+
+/home/johnny/Documents/School/COS344/Practicals/P1/src/Square.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+
+/usr/include/c++/13/bits/basic_ios.h:
+
+/usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/home/johnny/Documents/School/COS344/Practicals/P1/include/Square.h:
+
+/home/johnny/Documents/School/COS344/Practicals/P1/src/main.cpp:
 
 /usr/include/stdio.h:
 
@@ -480,10 +462,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/bits/exception.h:
 
-/usr/include/c++/13/typeinfo:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
 /usr/include/c++/13/bits/ostream.tcc:
 
 /usr/include/c++/13/locale:
@@ -491,12 +469,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
 
 /usr/include/c++/13/bits/ios_base.h:
-
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
-
-/usr/include/c++/13/type_traits:
-
-/usr/include/c++/13/tr1/hypergeometric.tcc:
 
 /usr/include/c++/13/bits/invoke.h:
 
@@ -516,7 +488,11 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/bit:
 
-/home/johnny/Documents/School/COS344/Practicals/P1/src/main.cpp:
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+
+/usr/include/c++/13/tr1/hypergeometric.tcc:
+
+/usr/include/c++/13/type_traits:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
 
@@ -530,17 +506,37 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/backward/binders.h:
 
+/usr/include/c++/13/bits/stringfwd.h:
+
 /usr/include/c++/13/bits/codecvt.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+/usr/include/c++/13/ios:
 
-/usr/include/c++/13/bits/stl_tempbuf.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
+
+/usr/include/c++/13/bits/basic_ios.tcc:
+
+/usr/include/c++/13/bits/nested_exception.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
+/usr/include/c++/13/bits/ptr_traits.h:
+
+/usr/include/c++/13/bits/locale_conv.h:
+
+/usr/include/c++/13/bits/alloc_traits.h:
+
+/usr/include/c++/13/bits/concept_check.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
 /usr/include/c++/13/bits/localefwd.h:
 
 /usr/include/math.h:
+
+/home/johnny/Documents/School/COS344/Practicals/P1/include/Shape.h:
 
 /usr/include/c++/13/bits/exception_defines.h:
 
@@ -556,25 +552,17 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
 
-/usr/include/c++/13/bits/concept_check.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
-/usr/include/c++/13/bits/alloc_traits.h:
+/usr/include/libintl.h:
 
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+/usr/include/c++/13/bits/basic_string.h:
 
-/usr/include/c++/13/bits/algorithmfwd.h:
-
-/usr/include/c++/13/ios:
+/usr/include/c++/13/tr1/poly_laguerre.tcc:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
 /usr/include/c++/13/bits/stl_construct.h:
-
-/usr/include/c++/13/bits/stl_heap.h:
-
-/usr/include/c++/13/ext/alloc_traits.h:
-
-/usr/include/c++/13/new:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
 
@@ -591,16 +579,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
-
-/usr/include/endian.h:
-
-/usr/include/c++/13/bits/streambuf.tcc:
-
-/usr/include/c++/13/bits/stringfwd.h:
-
-/usr/include/c++/13/bits/uniform_int_dist.h:
-
-/usr/include/c++/13/tr1/poly_hermite.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
@@ -626,8 +604,6 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/include/c++/13/bits/stl_algo.h:
-
 /usr/include/c++/13/cstddef:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
@@ -648,6 +624,10 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/tuple:
 
+/usr/include/c++/13/bits/functional_hash.h:
+
+/usr/include/errno.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/include/c++/13/ext/numeric_traits.h:
@@ -662,11 +642,11 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
-/usr/include/c++/13/bits/std_abs.h:
-
 /usr/include/c++/13/bits/postypes.h:
 
 /usr/include/c++/13/bits/uses_allocator.h:
+
+/usr/include/c++/13/bits/std_abs.h:
 
 /usr/include/c++/13/iomanip:
 
@@ -676,13 +656,9 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 
 /usr/include/c++/13/limits:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
+/usr/include/c++/13/ext/alloc_traits.h:
 
-/usr/include/c++/13/bits/basic_ios.tcc:
-
-/usr/include/c++/13/pstl/execution_defs.h:
-
-/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+/usr/include/c++/13/new:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
@@ -693,6 +669,10 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/c++/13/bits/range_access.h:
 
 /usr/include/c++/13/system_error:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/13/typeinfo:
 
 /usr/include/c++/13/tr1/bessel_function.tcc:
 
@@ -713,3 +693,9 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: /home/johnny/Documents/School/COS
 /usr/include/c++/13/tr1/gamma.tcc:
 
 /usr/include/c++/13/tr1/legendre_function.tcc:
+
+/usr/include/c++/13/tr1/poly_hermite.tcc:
+
+/usr/include/c++/13/bits/streambuf.tcc:
+
+/usr/include/endian.h:

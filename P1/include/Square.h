@@ -33,5 +33,7 @@ class Square: public Shape<n> {
         }
 };
 
+#include "../src/Square.cpp"
+
 
 #endif /*SQUARE_H*/

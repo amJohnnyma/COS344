@@ -1,6 +1,5 @@
 #include "../include/Matrix.h"
 #include "../include/Vector.h"
-#include <algorithm>   // for std::swap
 #include <cmath>       // for std::abs
 
 template<int n, int m>
