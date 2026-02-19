@@ -191,8 +191,11 @@ CMakeFiles/MyOpenGLProject.dir/src/main.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Shape.h \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Matrix.h \
- /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Square.h \
+ /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Triangle.h \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Shape.h \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/../src/Triangle.cpp \
+ /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/../src/../include/Triangle.h \
+ /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/Square.h \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/../src/Square.cpp \
  /home/johnny/Documents/School/COS344/Practicals/P1/src/../include/../src/../include/Square.h

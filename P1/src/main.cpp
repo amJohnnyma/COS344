@@ -1,7 +1,7 @@
 #include "../include/Matrix.h"
 #include "../include/Vector.h"
 #include "../include/Shape.h"
-//#include "../include/Triangle.h"
+#include "../include/Triangle.h"
 #include "../include/Square.h"
 #include <iostream>
 #include <sstream>
@@ -1317,6 +1317,192 @@ bool square_tests()
     printTestResult("Square overall result", allPassed);
     return allPassed;
 }
+bool triangle_tests()
+{
+    std::cout << "═══════════════════════════════════════════════\n";
+    std::cout << "Triangle tests – trying to cover all public interface\n";
+    std::cout << "═══════════════════════════════════════════════\n\n";
+    bool allPassed = true;
+
+    auto approxEqual = [](float a, float b, float eps = 1e-5f) {
+        return std::abs(a - b) < eps;
+    };
+
+    auto vec2eq = [&](const Vector<2>& a, const Vector<2>& b) {
+        return approxEqual(a[0], b[0]) && approxEqual(a[1], b[1]);
+    };
+
+    auto vec3eq = [&](const Vector<3>& a, const Vector<3>& b) {
+        return approxEqual(a[0], b[0]) && approxEqual(a[1], b[1]) && approxEqual(a[2], b[2]);
+    };
+
+    std::cout << "--- Triangle<2> construction variants & getPoints() ---\n";
+
+    // 1. Normal constructor + getPoints()
+    {
+        Vector<2> p1{1.0f, 3.0f};
+        Vector<2> p2{5.0f, 2.0f};
+        Vector<2> p3{2.0f, 7.0f};
+        Triangle<2> tri(p1, p2, p3);
+
+        float* pts = tri.getPoints();
+        bool ok = 
+            vec2eq({pts[0], pts[1]}, p1) &&
+            vec2eq({pts[2], pts[3]}, p2) &&
+            vec2eq({pts[4], pts[5]}, p3);
+
+        printTestResult("Triangle<2> (p1,p2,p3) → getPoints() order correct", ok);
+        allPassed &= ok;
+    }
+
+    // 2. Copy constructor
+    {
+        Vector<2> a{0,0}, b{4,0}, c{2,5};
+        Triangle<2> original(a, b, c);
+        Triangle<2> copy(original);
+
+        float* pts = copy.getPoints();
+        bool ok = 
+            approxEqual(pts[0], 0.0f) && approxEqual(pts[1], 0.0f) &&
+            approxEqual(pts[2], 4.0f) && approxEqual(pts[3], 0.0f) &&
+            approxEqual(pts[4], 2.0f) && approxEqual(pts[5], 5.0f);
+
+        printTestResult("Triangle<2> copy constructor preserves points", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Triangle<2> operator*= (in-place transform) ---\n";
+
+    {
+        Vector<2> a{1,1}, b{5,1}, c{3,4};
+        Triangle<2> tri(a, b, c);
+
+                                                  //
+        float** m = new float*[2];
+        m[0] = new float[3]{0.0f, -1.0f};
+        m[1] = new float[3]{1.0f, 0.0f};
+        Matrix<2,2> rot(m);
+
+        tri *= rot;
+
+        float* pts = tri.getPoints();
+        bool ok =
+            vec2eq({pts[0], pts[1]}, {-1, 1}) &&
+            vec2eq({pts[2], pts[3]}, {-1, 5}) &&
+            vec2eq({pts[4], pts[5]}, {-4, 3});
+
+        printTestResult("Triangle<2> *= 90° CCW rotation", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Triangle<3> (homogeneous) – construction & getPoints ---\n";
+
+    {
+        Vector<3> p1{2,1,1}, p2{6,1,1}, p3{4,5,1};
+        Triangle<3> tri(p1, p2, p3);
+
+        float* pts = tri.getPoints();
+        bool ok = 
+            vec3eq({pts[0],pts[1],pts[2]}, p1) &&
+            vec3eq({pts[3],pts[4],pts[5]}, p2) &&
+            vec3eq({pts[6],pts[7],pts[8]}, p3);
+
+        printTestResult("Triangle<3> constructor + getPoints()", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Triangle<3> operator*= (affine transforms) ---\n";
+
+    // Translation
+    {
+        Vector<3> a{0,0,1}, b{4,0,1}, c{2,3,1};
+        Triangle<3> tri(a, b, c);
+
+
+        float** m = new float*[3];
+        m[0] = new float[3]{1.0f, 0.0f, 5.0f};
+        m[1] = new float[3]{0.0f, 1.0f,  2.0f};
+        m[2] = new float[3]{0.0f, 0.0f,  1.0f};
+        Matrix<3,3> trans(m);
+
+        tri *= trans;
+
+        float* pts = tri.getPoints();
+        bool ok =
+            vec3eq({pts[0],pts[1],pts[2]}, {5,2,1}) &&
+            vec3eq({pts[3],pts[4],pts[5]}, {9,2,1}) &&
+            vec3eq({pts[6],pts[7],pts[8]}, {7,5,1});
+
+        printTestResult("Triangle<3> *= translation", ok);
+        allPassed &= ok;
+    }
+
+    // Scale + rotation combo
+    {
+        Vector<3> a{1,0,1}, b{3,0,1}, c{2,2,1};
+        Triangle<3> tri(a, b, c);
+
+
+        float** m = new float*[3];
+        m[0] = new float[3]{0.0f, 2.0f, 0.0f};
+        m[1] = new float[3]{2.0f, 0.0f,  0.0f};
+        m[2] = new float[3]{0.0f, 0.0f,  1.0f};
+        Matrix<3,3> xf(m);
+
+        tri *= xf;
+
+        float* pts = tri.getPoints();
+        bool ok =
+            vec3eq({pts[0],pts[1],pts[2]}, { 0, 2,1}) &&
+            vec3eq({pts[3],pts[4],pts[5]}, { 0, 6,1}) &&
+            vec3eq({pts[6],pts[7],pts[8]}, {4, 4,1});
+
+        printTestResult("Triangle<3> *= rot90° + scale×2", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n--- Triangle<n> operator* (new object) ---\n";
+
+    {
+        Vector<3> p1{1,1,1}, p2{5,1,1}, p3{3,4,1};
+        Triangle<3> tri(p1, p2, p3);
+
+        float** m = new float*[3];
+        m[0] = new float[3]{1.0f, 0.0f, 10.0f};
+        m[1] = new float[3]{0.0f, 1.0f,  5.0f};
+        m[2] = new float[3]{0.0f, 0.0f,  1.0f};
+        Matrix<3,3> shift(m);
+
+        Triangle<3>* shifted = tri * shift;   // calls operator*
+
+        float* pts = shifted->getPoints();
+        bool ok =
+            vec3eq({pts[0],pts[1],pts[2]}, {11,6,1}) &&
+            vec3eq({pts[3],pts[4],pts[5]}, {15,6,1}) &&
+            vec3eq({pts[6],pts[7],pts[8]}, {13,9,1});
+
+        printTestResult("Triangle<3> * Matrix → new translated triangle", ok);
+        allPassed &= ok;
+
+        delete shifted;
+    }
+
+    std::cout << "\n--- getNumPoints() consistency ---\n";
+
+    {
+        Triangle<2> t2({0,0},{1,0},{0,1});
+        Triangle<3> t3({0,0,1},{1,0,1},{0,1,1});
+
+        bool ok = (t2.getNumPoints() == 3) && (t3.getNumPoints() == 3);
+
+        printTestResult("getNumPoints() returns 3 for both <2> and <3>", ok);
+        allPassed &= ok;
+    }
+
+    std::cout << "\n";
+    printTestResult("ALL Triangle tests summary", allPassed);
+    return allPassed;
+}
 
 bool matrix_vector_tests()
 {
@@ -1622,6 +1808,9 @@ int main(int argc, char const *argv[])
     bool squarePass = square_tests();
     std::cout << "\n";
 
+    bool trianglePass = triangle_tests();
+    std::cout << "\n";
+
     std::cout << " ════════════════════════════════════════════════ \n";
     std::cout << "║              FINAL TEST SUMMARY                ║\n";
     std::cout << " ════════════════════════════════════════════════ \n";
@@ -1629,8 +1818,9 @@ int main(int argc, char const *argv[])
     std::cout << "║ Matrix Tests:        " << (matrixPass ? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << "║ Matrix-Vector Tests: " << (matrixVectorPass ? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << "║ Square Tests: " << (squarePass? " PASSED" : " FAILED") << "                  ║\n";
+    std::cout << "║ Triangle Tests: " << (trianglePass ? " PASSED" : " FAILED") << "                  ║\n";
     std::cout << " ════════════════════════════════════════════════ \n";
-    std::cout << "║ Overall:             " << (vectorPass && matrixPass && matrixVectorPass && squarePass ? " ALL PASSED" : " SOME FAILED") << "              ║\n";
+    std::cout << "║ Overall:             " << (vectorPass && matrixPass && matrixVectorPass && squarePass && trianglePass ? " ALL PASSED" : " SOME FAILED") << "              ║\n";
     std::cout << " ════════════════════════════════════════════════ \n";
 
     return (vectorPass && matrixPass && matrixVectorPass) ? 0 : 1;
