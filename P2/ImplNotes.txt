@@ -1,0 +1,7 @@
+Square -> renamed Rectangle
+-> Add "Curved points" to constructor
+-> This allows for curved rectangles/squares
+
+Circle ->
+-> Exact same as rectangle except no width/height, just radius (Then treat constuction like the curvature of rects)
+-> Check Pezzas work for reference

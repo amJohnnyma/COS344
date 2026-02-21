@@ -1,4 +1,4 @@
-#include "../include/Square.h"
+#include "../include/math/Square.h"
 
 template<int n>
 Square<n>::Square(const Vector<n>& center, float height, float width)
@@ -104,20 +104,25 @@ Square<n>* Square<n>::operator*(const Matrix<n,n>& other) const
     return result;
 
 }
+
+// return 6 vertices
 template<int n>
 float* Square<n>::getPoints() const
 {
-    float* points = new float[4 * n];
+    float* points = new float[6 * n];
     int idx = 0;
 
-    // tl
+    // Triangle 1:  tl → tr → bl
     for (int k = 0; k < n; ++k) points[idx++] = tl[k];
-    // tr
     for (int k = 0; k < n; ++k) points[idx++] = tr[k];
-    // br
-    for (int k = 0; k < n; ++k) points[idx++] = br[k];
-    // bl
     for (int k = 0; k < n; ++k) points[idx++] = bl[k];
+
+    // Triangle 2:  tr → br → bl
+    for (int k = 0; k < n; ++k) points[idx++] = tr[k];
+    for (int k = 0; k < n; ++k) points[idx++] = br[k];
+    for (int k = 0; k < n; ++k) points[idx++] = bl[k];
+
+
 
     return points;
 
@@ -125,6 +130,9 @@ float* Square<n>::getPoints() const
 template<int n>
 int Square<n>::getNumPoints() const 
 {
-    return 4;
+    return 6;
 
 }
+
+
+template class Square<2>;

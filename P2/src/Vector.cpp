@@ -1,4 +1,4 @@
-#include "../include/Vector.h"
+#include "../include/math/Vector.h"
 #include <cmath>
 #include <iostream>
 
@@ -47,7 +47,7 @@ Vector<n>::Vector(const Matrix<n,1>& mat)
     arr = new float[n]();
     for(int i = 0; i < n; i ++)
     {
-        arr[i] = mat.arr[i][0];
+        arr[i] = mat.get_arr()[i][0];
     }
 }
 
@@ -147,9 +147,9 @@ Vector<3> Vector<n>::crossProduct(const Vector<3> other) const
     if (n != 3) return Vector<3>(); // maybe make throw
 //a2b3 - a3b2, a3b1 - a1b3, a1b2 - a2b1
     Vector<3> result;
-    result.arr[0] = (arr[1] * other.arr[2]) - (arr[2] * other.arr[1]); 
-    result.arr[1] = (arr[2] * other.arr[0]) - (arr[0] * other.arr[2]); 
-    result.arr[2] = (arr[0] * other.arr[1]) - (arr[1] * other.arr[0]); 
+    result.get_arr()[0] = (arr[1] * other.get_arr()[2]) - (arr[2] * other.get_arr()[1]); 
+    result.get_arr()[1] = (arr[2] * other.get_arr()[0]) - (arr[0] * other.get_arr()[2]); 
+    result.get_arr()[2] = (arr[0] * other.get_arr()[1]) - (arr[1] * other.get_arr()[0]); 
 
     return result;
 
@@ -177,3 +177,5 @@ int Vector<n>::getN() const
     return n;
 }
 
+template class Vector<2>;
+template class Vector<3>;

@@ -1,4 +1,4 @@
-#include "../include/Triangle.h"
+#include "../include/math//Triangle.h"
 
 template<int n>
 Triangle<n>::Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3)
@@ -64,12 +64,12 @@ float* Triangle<n>::getPoints() const
     float* points = new float[3 * n];
     int idx = 0;
 
+    // p3
+    for (int k = 0; k < n; ++k) points[idx++] = p3[k];
     // p1
     for (int k = 0; k < n; ++k) points[idx++] = p1[k];
     // p2
     for (int k = 0; k < n; ++k) points[idx++] = p2[k];
-    // p3
-    for (int k = 0; k < n; ++k) points[idx++] = p3[k];
 
     return points;
 
@@ -79,3 +79,6 @@ int Triangle<n>::getNumPoints() const
 {
     return 3;
 }
+
+
+template class Triangle<2>;

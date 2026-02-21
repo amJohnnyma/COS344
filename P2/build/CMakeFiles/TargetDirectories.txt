@@ -1,0 +1,5 @@
+/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles/MyOpenGLProject.dir
+/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles/run.dir
+/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles/clean-all.dir
+/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles/edit_cache.dir
+/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles/rebuild_cache.dir

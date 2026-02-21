@@ -1,5 +1,5 @@
-#include "../include/Matrix.h"
-#include "../include/Vector.h"
+#include "../include/math/Matrix.h"
+#include "../include/math/Vector.h"
 #include <cmath>       // for std::abs
 
 template<int n, int m>
@@ -209,3 +209,9 @@ float Matrix<n,m>::determinant() const
 
     return (sign < 0 ? -det : det);
 }
+
+template class Matrix<2,2>;
+template class Matrix<3,3>;
+template class Matrix<4,4>;
+template class Matrix<2,1>;
+template class Matrix<3,1>;
