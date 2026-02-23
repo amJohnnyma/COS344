@@ -1,4 +1,5 @@
-#include "../include/math//Triangle.h"
+#include "../include/math/Triangle.h"
+#include "../include/engine/Renderer.h"
 
 template<int n>
 Triangle<n>::Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3)
@@ -50,14 +51,6 @@ Triangle<n>& Triangle<n>::operator*=(const Matrix<n,n>& mat)
 }
 
 template<int n>
-Triangle<n>* Triangle<n>::operator*(const Matrix<n,n>& mat) const
-{
-
-    Triangle<n>* result = new Triangle<n>(*this);
-    *result *= mat;
-    return result;
-}
-template<int n>
 float* Triangle<n>::getPoints() const 
 {
 
@@ -78,6 +71,14 @@ template<int n>
 int Triangle<n>::getNumPoints() const 
 {
     return 3;
+}
+
+template<int n>
+void Triangle<n>::render(Renderer<n>& r) const
+{   
+    Color4 c(this->color[0], this->color[1], this->color[2], this->color[3]);
+
+    r.drawShape(this, c);
 }
 
 

@@ -5,6 +5,19 @@ template<int n>
 Circle<n>::Circle(const Vector<n>& c, float r, int segs)
     : center(c), radius(r), segments(segs)
 {
+    float step = 2.0f * M_PI / segs;
+    for (int i = 0; i < segs; i++) {
+        float theta0 = step * i;
+        float theta1 = step * (i + 1);
+
+        Vector<n> p1, p2;
+        p1[0] = center[0] + radius * std::cos(theta0);
+        p1[1] = center[1] + radius * std::sin(theta0);
+        p2[0] = center[0] + radius * std::cos(theta1);
+        p2[1] = center[1] + radius * std::sin(theta1);
+
+        children.push_back(new Triangle<n>(center, p1, p2));
+    }
 }
 
 // Copy constructor
@@ -31,13 +44,6 @@ Circle<n>& Circle<n>::operator*=(const Matrix<n,n>& mat)
     return *this;
 }
 
-template<int n>
-Circle<n>* Circle<n>::operator*(const Matrix<n,n>& mat) const
-{
-    Circle<n>* result = new Circle<n>(*this);
-    *result *= mat;
-    return result;
-}
 
 // getPoints — decompose the disc into `segments` triangles (triangle fan)
 // expressed as individual triangles so GL_TRIANGLES can be used directly.
@@ -81,5 +87,6 @@ float* Circle<n>::getPoints() const
 
     return pts;
 }
+
 
 template class Circle<2>;

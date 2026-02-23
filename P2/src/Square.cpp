@@ -43,6 +43,8 @@ should have the value of 5 for the third component.
         br[i] = center[i];
         bl[i] = center[i];
     }
+    children.push_back(new Triangle<n>(tl, tr, br));
+    children.push_back(new Triangle<n>(tl, br, bl));
 }
 template<int n>
 Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br, const Vector<n>& bl) 
@@ -51,6 +53,8 @@ Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br,
     this->tr = Vector<n>(tr);
     this->bl = Vector<n>(bl);
     this->br = Vector<n>(br);
+    children.push_back(new Triangle<n>(tl, tr, br));
+    children.push_back(new Triangle<n>(tl, br, bl));
 
 }
 template<int n>
@@ -60,6 +64,8 @@ Square<n>::Square(const Square<n>& other)
     tr = Vector<n>(other.tr);
     bl = Vector<n>(other.bl);
     br = Vector<n>(other.br);
+    children.push_back(new Triangle<n>(tl, tr, br));
+    children.push_back(new Triangle<n>(tl, br, bl));
 
 }
 template<int n>
@@ -95,14 +101,6 @@ Square<n>& Square<n>::operator*=(const Matrix<n,n>& other)
     }
 
     return *this;
-}
-template<int n>
-Square<n>* Square<n>::operator*(const Matrix<n,n>& other) const 
-{
-    Square<n>* result = new Square<n>(*this);
-    *result *= other;
-    return result;
-
 }
 
 // return 6 vertices

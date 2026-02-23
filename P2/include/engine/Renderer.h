@@ -7,8 +7,8 @@
 // We do NOT call any glm math functions.
 #include <glm/glm.hpp>
 
-#include "../math/Shape.h"
 #include "../math/Matrix.h"
+#include "../math/Shape.h"
 #include <vector>
 
 // Lightweight RGBA colour (replaces glm::vec4 for colours)
@@ -50,7 +50,7 @@ public:
     void setViewProj(const Matrix<4,4>& v, const Matrix<4,4>& p);
 
     void beginFrame();
-    void drawShape(const Shape<n>* shape, const Color4& color = Color4());
+    void drawShape(const Shape<n>* shape, const Color4& color);
     void endFrame();
 
 private:

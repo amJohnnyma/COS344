@@ -4,6 +4,7 @@
 #include "Shape.h"
 #include "Vector.h"
 
+//leaf
 template <int n>
 class Triangle : public Shape<n> {
 private:
@@ -13,16 +14,16 @@ private:
 public:
     Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3);
     Triangle(const Triangle<n>&);
-    virtual Triangle<n>& operator*=(const Matrix<n,n>&);
-    virtual Triangle<n>* operator*(const Matrix<n,n>&) const;
-    virtual float* getPoints() const;
-    virtual int getNumPoints() const;
+    virtual Triangle<n>& operator*=(const Matrix<n,n>&) override;
+    virtual float* getPoints() const override;
+    virtual int getNumPoints() const override;
 
-    virtual void print() const {
+    virtual void print() const override{
         std::cout << "_ P1 _ " << std::endl; p1.print();
         std::cout << "_ P2 _ " << std::endl; p2.print();
         std::cout << "_ P3 _ " << std::endl; p3.print();
     }
+    virtual void render(Renderer<n>& r) const override;
 };
 
 #endif /*TRIANGLE_H*/

@@ -120,7 +120,7 @@ void processInput(GLFWwindow* window)
 // main
 int main()
 {
-    srand(42);   // reproducible pseudo-random layout
+    srand(42);
 
     GLFWwindow* window = setUp();
 
@@ -129,134 +129,47 @@ int main()
 
     Renderer<2> renderer(w, h);
 
-    // Build view (identity) and proj (our custom ortho) and pass to renderer.
-    // These replace the old glm::ortho / glm::mat4(1) calls.
     Matrix<4,4> viewMat = buildIdentity4();
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
     renderer.setViewProj(viewMat, projMat);
 
-    // Scene geometry — created from first principles using Shape classes
-    // Background
-    Square<2> background = Square<2>(Vector<2>{0.0f,0.0f}, 13, 18);
-    Square<2> courseBorder = Square<2>(Vector<2>{0.0f,0.0f}, 12, 17);
-    Square<2> courseGround = Square<2>(Vector<2>{0.0f,0.0f}, 11, 16);
+    Square<2> background(Vector<2>{0.0f, 0.0f}, 13, 18);
+    background.setColor(0.25f, 0.28f, 0.32f);
 
-    //obstacles
-    // water feature
-    Square<2> waterFeature = Square<2>(Vector<2>{0.0f,0.0f}, 11, 1.5);
-    Square<2> waterBridge1 = Square<2>(Vector<2>{0.0f, -3.0f}, 1.5, 3);
-    Square<2> waterBridge2 = Square<2>(Vector<2>{0.0f, 3.0f}, 1.5, 3);
+    Square<2> courseBorder(Vector<2>{0.0f, 0.0f}, 12, 17);
+    courseBorder.setColor(0.50f, 0.28f, 0.10f);
 
-    // Projected square obastacles
-    Square<2> reboundObstacle1 = Square<2>(Vector<2>{-6, -4}, 1, 2); 
-    Square<2> reboundObstacle2 = Square<2>(Vector<2>{-6, 4}, 1, 2); 
-    /*
-        float** rmat = new float*[2];
-        rmat[0] = new float[2]{ 0, -0.5 };
-        rmat[1] = new float[2]{ 0.5,  0 };
-        Matrix<2,2> rot(rmat);
-        reboundObstacle *= rot;
-        */
+    Square<2> courseGround(Vector<2>{0.0f, 0.0f}, 11, 16);
+    courseGround.setColor(0.10f, 0.80f, 0.20f);
 
-    // A circle (golf ball placeholder)
-    Circle<2> ball({ 0.0f, 0.0f }, 0.35f, 32);
+    Square<2> waterFeature(Vector<2>{0.0f, 0.0f}, 11, 1.5);
+    waterFeature.setColor(0.10f, 0.30f, 0.90f);
 
-    /*
-    // Grid of background squares
-    const int   gridSize = 8;
-    const float cellSize = 1.5f;
+    Square<2> waterBridge1(Vector<2>{0.0f, -3.0f}, 1.5, 3);
+    waterBridge1.setColor(0.35f, 0.18f, 0.05f);
 
-    std::vector<Square<2>> squares;
-    for (int x = -gridSize; x <= gridSize; ++x) {
-        for (int y = -gridSize; y <= gridSize; ++y) {
-            Vector<2> center{ static_cast<float>(x) * cellSize,
-                              static_cast<float>(y) * cellSize };
-            squares.emplace_back(center, cellSize * 0.9f, cellSize * 0.9f);
-        }
-    }
+    Square<2> waterBridge2(Vector<2>{0.0f, 3.0f}, 1.5, 3);
+    waterBridge2.setColor(0.35f, 0.18f, 0.05f);
 
-    // Random triangles — use our randF instead of std::uniform_real_distribution
-    const int numTriangles = 15;
-    std::vector<Triangle<2>> triangles;
-    triangles.reserve(numTriangles);
-    for (int i = 0; i < numTriangles; ++i) {
-        Vector<2> p1{ randF(-8.0f, 8.0f), randF(-8.0f, 8.0f) };
-        Vector<2> p2 = p1 + Vector<2>{ randF(0.6f, 2.2f), randF(0.6f, 2.2f) * 0.7f };
-        Vector<2> p3 = p1 + Vector<2>{ randF(0.6f, 2.2f) * -0.6f,
-                                        randF(0.6f, 2.2f) * 1.2f };
-        triangles.emplace_back(p1, p2, p3);
-    }
+    Square<2> reboundObstacle1(Vector<2>{-6, -4}, 1, 2);
+    reboundObstacle1.setColor(1.00f, 0.75f, 0.00f);
 
-    // Named obstacle shapes
-    Square<2>   bigSquare({ 5.0f,  4.0f }, 3.5f, 3.5f);
-    Triangle<2> bigTri(  { -6.0f, 5.0f }, { -4.0f, 7.0f }, { -8.0f, 7.0f });
-    Square<2>   obstacle({ 0.0f,  6.0f }, 2.8f, 1.2f);
+    Square<2> reboundObstacle2(Vector<2>{-6, 4}, 1, 2);
+    reboundObstacle2.setColor(1.00f, 0.75f, 0.00f);
 
-    */
+    Circle<2> ball(Vector<2>{0.0f, 0.0f}, 0.35f, 32);
+    ball.setColor(1.00f, 1.00f, 1.00f);
 
-    // Colour palette — using Color4 (replaces glm::vec4)
-    // Neutrals
-    Color4 colWhite      ( 1.00f, 1.00f, 1.00f, 1.0f );
-    Color4 colBlack      ( 0.00f, 0.00f, 0.00f, 1.0f );
-    Color4 colGray       ( 0.50f, 0.50f, 0.50f, 1.0f );
-    Color4 colLightGray  ( 0.80f, 0.80f, 0.80f, 1.0f );
-    Color4 colDarkGray   ( 0.20f, 0.20f, 0.20f, 1.0f );
-    Color4 colGrid       ( 0.25f, 0.28f, 0.32f, 1.0f );
+    courseGround.add(&waterFeature);
+    courseGround.add(&waterBridge1);
+    courseGround.add(&waterBridge2);
+    courseGround.add(&reboundObstacle1);
+    courseGround.add(&reboundObstacle2);
+    courseGround.add(&ball);
 
-    // Reds / Pinks
-    Color4 colRed        ( 0.90f, 0.10f, 0.10f, 1.0f );
-    Color4 colCrimson    ( 0.70f, 0.05f, 0.10f, 1.0f );
-    Color4 colPink       ( 0.95f, 0.55f, 0.70f, 1.0f );
-    Color4 colMagenta    ( 0.90f, 0.10f, 0.50f, 1.0f );
-    Color4 colRose       ( 0.95f, 0.30f, 0.45f, 1.0f );
-    Color4 colSalmon     ( 0.95f, 0.55f, 0.45f, 1.0f );
+    courseBorder.add(&courseGround);
+    background.add(&courseBorder);
 
-    // Oranges / Yellows
-    Color4 colOrange     ( 0.95f, 0.60f, 0.10f, 1.0f );
-    Color4 colAmber      ( 1.00f, 0.75f, 0.00f, 1.0f );
-    Color4 colYellow     ( 0.95f, 0.95f, 0.10f, 1.0f );
-    Color4 colGold       ( 1.00f, 0.84f, 0.10f, 1.0f );
-    Color4 colLime       ( 0.75f, 0.95f, 0.10f, 1.0f );
-    Color4 colPeach      ( 1.00f, 0.75f, 0.55f, 1.0f );
-
-    // Greens
-    Color4 colGreen      ( 0.10f, 0.80f, 0.20f, 1.0f );
-    Color4 colDarkGreen  ( 0.05f, 0.45f, 0.10f, 1.0f );
-    Color4 colMint       ( 0.40f, 0.95f, 0.70f, 1.0f );
-    Color4 colOlive      ( 0.50f, 0.55f, 0.10f, 1.0f );
-    Color4 colTeal       ( 0.10f, 0.65f, 0.60f, 1.0f );
-    Color4 colSage       ( 0.55f, 0.70f, 0.50f, 1.0f );
-
-    // Blues
-    Color4 colBlue       ( 0.10f, 0.30f, 0.90f, 1.0f );
-    Color4 colNavy       ( 0.05f, 0.10f, 0.45f, 1.0f );
-    Color4 colSkyBlue    ( 0.45f, 0.75f, 0.95f, 1.0f );
-    Color4 colCyan       ( 0.10f, 0.60f, 0.90f, 1.0f );
-    Color4 colIce        ( 0.75f, 0.90f, 1.00f, 1.0f );
-    Color4 colCobalt     ( 0.15f, 0.35f, 0.75f, 1.0f );
-
-    // Purples
-    Color4 colPurple     ( 0.55f, 0.10f, 0.85f, 1.0f );
-    Color4 colViolet     ( 0.70f, 0.30f, 0.95f, 1.0f );
-    Color4 colIndigo     ( 0.30f, 0.10f, 0.60f, 1.0f );
-    Color4 colLavender   ( 0.75f, 0.65f, 0.95f, 1.0f );
-    Color4 colPlum       ( 0.50f, 0.15f, 0.45f, 1.0f );
-    Color4 colOrchid     ( 0.80f, 0.45f, 0.85f, 1.0f );
-
-    // Browns / Earth tones
-    Color4 colBrown      ( 0.50f, 0.28f, 0.10f, 1.0f );
-    Color4 colSienna     ( 0.65f, 0.30f, 0.10f, 1.0f );
-    Color4 colTan        ( 0.80f, 0.68f, 0.50f, 1.0f );
-    Color4 colSand       ( 0.90f, 0.82f, 0.62f, 1.0f );
-    Color4 colChocolate  ( 0.35f, 0.18f, 0.05f, 1.0f );
-
-    // Semi-transparent variants (useful for overlays / debug)
-    Color4 colRedFaint   ( 0.90f, 0.10f, 0.10f, 0.4f );
-    Color4 colGreenFaint ( 0.10f, 0.80f, 0.20f, 0.4f );
-    Color4 colBlueFaint  ( 0.10f, 0.30f, 0.90f, 0.4f );
-    Color4 colBlackFaint ( 0.00f, 0.00f, 0.00f, 0.5f );
-
-    // Main loop
     FrameLimiter limiter(60.0);
 
     while (!glfwWindowShouldClose(window))
@@ -266,30 +179,7 @@ int main()
         renderer.beginFrame();
         processInput(window);
 
-        // Background grid
-      //  for (const auto& sq : squares)
-    //        renderer.drawShape(&sq, colGrid);
-
-        // Random coloured triangles
-  //      for (int i = 0; i < static_cast<int>(triangles.size()); ++i)
-//            renderer.drawShape(&triangles[i], triColors[i % 5]);
-
-        // Named obstacles
-        //renderer.drawShape(&bigSquare, colCyan);
-        //renderer.drawShape(&bigTri,    colMagenta);
-        //renderer.drawShape(&obstacle,  colOrange);
-
-        renderer.drawShape(&background, colGrid);
-        renderer.drawShape(&courseBorder, colBrown);
-        renderer.drawShape(&courseGround, colGreen);
-        renderer.drawShape(&waterFeature, colBlue);
-        renderer.drawShape(&waterBridge1, colChocolate);
-        renderer.drawShape(&waterBridge2, colChocolate);
-        renderer.drawShape(&reboundObstacle1, colAmber);
-        renderer.drawShape(&reboundObstacle2, colAmber);
-
-        // Ball (circle)
-        renderer.drawShape(&ball, colWhite);
+        background.render(renderer);
 
         renderer.endFrame();
 

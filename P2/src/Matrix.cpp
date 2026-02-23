@@ -215,3 +215,4 @@ template class Matrix<3,3>;
 template class Matrix<4,4>;
 template class Matrix<2,1>;
 template class Matrix<3,1>;
+template class Matrix<4,1>;
