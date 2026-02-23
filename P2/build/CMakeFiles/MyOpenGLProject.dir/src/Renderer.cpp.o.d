@@ -218,7 +218,6 @@ CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/iosfwd \
@@ -315,7 +314,9 @@ CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: \
  /usr/include/c++/13/bits/locale_conv.h \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Vector.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
