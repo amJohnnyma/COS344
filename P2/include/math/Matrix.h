@@ -5,7 +5,6 @@
 #include <cmath>
 #include <iomanip>
 
-
 template <int n>
 class Vector;
 
@@ -20,48 +19,40 @@ public:
     Matrix(float **);
     Matrix(const Matrix<n,m> &);
     virtual ~Matrix();
+
     float *&operator[](int index) const
     {
         if (index >= n || index < 0)
-        {
             throw "Invalid index";
-        }
-
         return arr[index];
     }
 
-    
     Matrix<n,m>& operator=(const Matrix<n,m>&);
+
     template<int a>
     Matrix<n,a> operator*(const Matrix<m,a>) const;
+
     Matrix<n,m> operator*(const float) const;
     Matrix<n,m> operator+(const Matrix<n,m>) const;
-    Matrix<m,n> operator~() const;
+    Matrix<m,n> operator~() const;   // transpose
+
     void print() const
     {
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < m; j++)
-            {
-                std::cout << (*this)[i][j] << " ";
-            }
+                std::cout << arr[i][j] << " ";
             std::cout << std::endl;
         }
     }
+
     int getM() const;
     int getN() const;
-    float** get_arr() const {
-    return arr;
-    }
-    float** get_arr() {
-        return arr;
-    }
+
+    float** get_arr() const { return arr; }
+    float** get_arr()       { return arr; }
 
     float determinant() const;
-
-    
 };
-
-
 
 #endif /*MATRIX_H*/

@@ -7,11 +7,11 @@
 template<int n, int m>
 class Matrix;
 
-template<int n>// size of the vector
+template<int n>
 class Vector
 {
-private:   
-    float *arr; // array containing the elements in the vector
+private:
+    float *arr;
 
 public:
     Vector();
@@ -19,18 +19,16 @@ public:
     Vector(float *);
     ~Vector();
     Vector(const Vector<n> &);
-    Vector(const Matrix<n,1>& );
+    Vector(const Matrix<n,1>&);
     Vector<n>& operator=(const Vector<n>&);
     Vector<n> operator+(const Vector<n>) const;
     Vector<n> operator-(const Vector<n>) const;
     Vector<n> operator*(const float) const;
-    float operator*(const Vector<n>) const;
+    float operator*(const Vector<n>) const;   // dot product
     float &operator[](int index) const
     {
         if (index < 0 || index >= n)
-        {
             throw "Invalid Index";
-        }
         return arr[index];
     }
     float magnitude() const;
@@ -41,20 +39,11 @@ public:
     void print() const
     {
         for (int i = 0; i < n; i++)
-        {
             std::cout << arr[i] << "\n";
-        }
         std::cout << std::endl;
-    };
-    const float* get_arr() const {
-    return arr;
     }
-    float* get_arr() {
-        return arr;
-    }
-
+    const float* get_arr() const { return arr; }
+    float*       get_arr()       { return arr; }
 };
-
-
 
 #endif /*VECTOR_H*/
