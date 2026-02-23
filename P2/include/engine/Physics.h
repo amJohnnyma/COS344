@@ -30,8 +30,8 @@ public:
     Vec2 vel;
     float radius       = 0.25f;   // typical mini-golf ball
     float mass         = 1.0f;
-    float friction     = 0.985f;  // 0.98–0.995 feels nice for putting
-    float restitution  = 0.82f;   // bounciness (golf ball ~0.8–0.9)
+    float friction     = 0.985f;  // 0.98–0.995 feels nice for balls
+    float restitution  = 0.82f;   // bounciness 
 
     void applyForce(const Vec2& force, float dt) {
         vel = vel + force * (dt / mass);

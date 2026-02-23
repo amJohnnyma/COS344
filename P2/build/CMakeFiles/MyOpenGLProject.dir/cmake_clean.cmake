@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MyOpenGLProject.dir/main.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/main.cpp.o.d"
+  "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o"
+  "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o"

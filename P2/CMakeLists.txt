@@ -34,6 +34,7 @@ add_executable(${PROJECT_NAME}
     src/Square.cpp
     src/Matrix.cpp
     src/Triangle.cpp
+    src/Circle.cpp
     src/Renderer.cpp
     src/shader.cpp
 )

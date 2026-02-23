@@ -139,10 +139,24 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P2/src/Triangle.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.s
 
+CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
+CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P2/src/Circle.cpp
+CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P2/src/Circle.cpp
+
+CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/P2/src/Circle.cpp > CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.i
+
+CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P2/src/Circle.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.s
+
 CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P2/src/Renderer.cpp
 CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P2/src/Renderer.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.s: cmake_force
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P2/src/shader.cpp
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P2/src/shader.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.i: cmake_force
@@ -174,6 +188,7 @@ MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o" \
+"CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"
 
@@ -185,6 +200,7 @@ bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Vector.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o
+bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/build.make
@@ -200,7 +216,7 @@ bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXfixes.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable bin/MyOpenGLProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable bin/MyOpenGLProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyOpenGLProject.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders folder..."
 	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/P2/src/shaders /home/johnny/Documents/School/COS344/Practicals/P2/build/bin/shaders
