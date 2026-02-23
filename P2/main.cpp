@@ -59,7 +59,7 @@ inline GLFWwindow* setUp()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(1000, 1000, "Mini-Golf", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1000, 1000, "Mini-Golf (u23536030)", NULL, NULL);
     if (!window) {
         std::cout << getError() << std::endl;
         glfwTerminate();
@@ -147,6 +147,20 @@ int main()
     Square<2> waterBridge1 = Square<2>(Vector<2>{0.0f, -3.0f}, 1.5, 3);
     Square<2> waterBridge2 = Square<2>(Vector<2>{0.0f, 3.0f}, 1.5, 3);
 
+    // Projected square obastacles
+    Square<2> reboundObstacle1 = Square<2>(Vector<2>{-6, -4}, 1, 2); 
+    Square<2> reboundObstacle2 = Square<2>(Vector<2>{-6, 4}, 1, 2); 
+    /*
+        float** rmat = new float*[2];
+        rmat[0] = new float[2]{ 0, -0.5 };
+        rmat[1] = new float[2]{ 0.5,  0 };
+        Matrix<2,2> rot(rmat);
+        reboundObstacle *= rot;
+        */
+
+    // A circle (golf ball placeholder)
+    Circle<2> ball({ 0.0f, 0.0f }, 0.35f, 32);
+
     /*
     // Grid of background squares
     const int   gridSize = 8;
@@ -179,8 +193,6 @@ int main()
     Square<2>   obstacle({ 0.0f,  6.0f }, 2.8f, 1.2f);
 
     */
-    // A circle (golf ball placeholder)
-    Circle<2> ball({ 0.0f, 0.0f }, 0.35f, 32);
 
     // Colour palette — using Color4 (replaces glm::vec4)
     // Neutrals
@@ -273,6 +285,8 @@ int main()
         renderer.drawShape(&waterFeature, colBlue);
         renderer.drawShape(&waterBridge1, colChocolate);
         renderer.drawShape(&waterBridge2, colChocolate);
+        renderer.drawShape(&reboundObstacle1, colAmber);
+        renderer.drawShape(&reboundObstacle2, colAmber);
 
         // Ball (circle)
         renderer.drawShape(&ball, colWhite);
