@@ -22,10 +22,8 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
-  /usr/include/c++/13/algorithm \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
-  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocator.h \
   /usr/include/c++/13/bits/basic_ios.h \
@@ -76,17 +74,14 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_thread.h \
-  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
-  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
-  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
@@ -94,7 +89,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/this_thread_sleep.h \
-  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
@@ -133,8 +127,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/c++/13/locale \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
-  /usr/include/c++/13/pstl/execution_defs.h \
-  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/sstream \
@@ -425,10 +417,8 @@ CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: /home/johnny/Documents/School/C
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
-  /usr/include/c++/13/algorithm \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
-  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocator.h \
   /usr/include/c++/13/bits/basic_ios.h \
@@ -476,24 +466,20 @@ CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: /home/johnny/Documents/School/C
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
-  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
-  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
-  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
-  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -526,8 +512,6 @@ CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o: /home/johnny/Documents/School/C
   /usr/include/c++/13/locale \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
-  /usr/include/c++/13/pstl/execution_defs.h \
-  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
@@ -1287,10 +1271,8 @@ CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o: /home/johnny/Documents/School/C
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
-  /usr/include/c++/13/algorithm \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
-  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocator.h \
   /usr/include/c++/13/bits/basic_ios.h \
@@ -1338,24 +1320,20 @@ CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o: /home/johnny/Documents/School/C
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
-  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
-  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
-  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
-  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1388,8 +1366,6 @@ CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o: /home/johnny/Documents/School/C
   /usr/include/c++/13/locale \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
-  /usr/include/c++/13/pstl/execution_defs.h \
-  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
@@ -2365,7 +2341,19 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/string.h:
 
+/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/13/pstl/execution_defs.h:
+
 /usr/include/c++/13/fstream:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/bits/stl_heap.h:
+
+/usr/include/c++/13/bits/stl_algo.h:
+
+/usr/include/c++/13/algorithm:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Vector.cpp:
 
@@ -2541,27 +2529,7 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/ext/vector_int4.hpp:
 
-/usr/include/glm/ext/vector_int3.hpp:
-
-/home/johnny/Documents/School/COS344/Practicals/P2/src/Renderer.cpp:
-
-/usr/include/glm/ext/vector_int2_sized.hpp:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/glm/ext/vector_float4_precision.hpp:
-
-/usr/include/glm/ext/vector_float4.hpp:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/usr/include/glm/ext/vector_float3.hpp:
-
-/usr/include/glm/ext/vector_float2_precision.hpp:
+/usr/include/c++/13/pstl/pstl_config.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -2595,10 +2563,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/tr1/gamma.tcc:
 
-/usr/include/glm/ext/vector_float3_precision.hpp:
-
-/usr/include/c++/13/debug/assertions.h:
-
 /usr/include/c++/13/ctime:
 
 /usr/include/c++/13/cstdio:
@@ -2619,13 +2583,15 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/cstddef:
 
-/usr/include/c++/13/bits/stl_algo.h:
+/usr/include/glm/ext/vector_float4.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 /usr/include/glm/exponential.hpp:
+
+/usr/include/c++/13/chrono:
 
 /usr/include/c++/13/bits/locale_facets.h:
 
@@ -2658,8 +2624,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /usr/include/c++/13/bits/unique_ptr.h:
 
 /usr/include/glm/detail/func_matrix.inl:
-
-/usr/include/c++/13/bits/stringfwd.h:
 
 /usr/include/c++/13/bits/this_thread_sleep.h:
 
@@ -2707,9 +2671,15 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/ext/matrix_float2x4.hpp:
 
-/usr/include/c++/13/bits/stl_algobase.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
 
-/usr/include/c++/13/chrono:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/usr/include/glm/ext/vector_float3.hpp:
+
+/usr/include/c++/13/bits/stl_algobase.h:
 
 /usr/include/glm/ext/matrix_float4x3_precision.hpp:
 
@@ -2737,47 +2707,31 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/iosfwd:
 
-/usr/include/c++/13/bits/stl_heap.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
-/usr/include/c++/13/bits/std_abs.h:
+/usr/include/c++/13/bits/chrono.h:
 
-/usr/include/c++/13/bits/parse_numbers.h:
+/usr/include/glm/ext/vector_uint4_sized.hpp:
 
-/usr/include/glm/detail/type_vec1.inl:
-
-/usr/include/c++/13/bits/ostream_insert.h:
-
-/usr/include/c++/13/backward/binders.h:
+/usr/include/glm/detail/type_mat3x3.inl:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Matrix.cpp:
 
 /usr/include/glm/detail/type_vec3.hpp:
 
-/usr/include/strings.h:
+/usr/include/c++/13/bits/stringfwd.h:
 
-/usr/include/c++/13/iomanip:
+/usr/include/c++/13/backward/binders.h:
 
-/usr/include/glm/detail/compute_common.hpp:
+/usr/include/glm/ext/vector_double3_precision.hpp:
 
-/usr/include/c++/13/ext/alloc_traits.h:
-
-/usr/include/c++/13/new:
-
-/usr/include/c++/13/bits/alloc_traits.h:
-
-/usr/include/c++/13/bits/concept_check.h:
-
-/usr/include/glm/ext/matrix_double3x3_precision.hpp:
-
-/usr/include/c++/13/ios:
-
-/usr/include/glm/ext/matrix_float4x2_precision.hpp:
-
-/usr/include/glm/ext/vector_double4.hpp:
+/usr/include/c++/13/bits/basic_string.tcc:
 
 /usr/include/glm/ext/vector_int3_sized.hpp:
 
 /usr/include/assert.h:
+
+/usr/include/c++/13/stdexcept:
 
 /usr/include/linux/errno.h:
 
@@ -2795,8 +2749,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/bits/stl_vector.h:
 
-/usr/include/c++/13/bits/stl_tempbuf.h:
-
 /usr/include/c++/13/bits/codecvt.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
@@ -2804,6 +2756,18 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /usr/include/c++/13/cwchar:
 
 /usr/include/glm/detail/type_mat3x4.hpp:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
+
+/usr/include/glm/ext/matrix_float4x2.hpp:
+
+/home/johnny/Documents/School/COS344/Practicals/P2/include/math/Shape.h:
+
+/usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+
+/usr/include/c++/13/bits/char_traits.h:
 
 /usr/include/c++/13/bits/streambuf.tcc:
 
@@ -2819,19 +2783,45 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /home/johnny/Documents/School/COS344/Practicals/P2/include/DebugOptions.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
+/usr/include/c++/13/ext/alloc_traits.h:
 
-/usr/include/glm/ext/matrix_float4x2.hpp:
+/usr/include/c++/13/new:
 
-/home/johnny/Documents/School/COS344/Practicals/P2/include/math/Shape.h:
+/usr/include/c++/13/bits/alloc_traits.h:
 
-/usr/include/c++/13/bits/exception_ptr.h:
+/usr/include/c++/13/bits/concept_check.h:
+
+/usr/include/glm/ext/matrix_double3x3_precision.hpp:
+
+/usr/include/c++/13/ios:
+
+/usr/include/glm/ext/matrix_float4x2_precision.hpp:
+
+/usr/include/glm/ext/vector_double4.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
+
+/usr/include/c++/13/sstream:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/glm/detail/type_mat4x3.hpp:
 
 /usr/include/c++/13/bits/uniform_int_dist.h:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
 
 /usr/include/glm/detail/type_vec3.inl:
+
+/usr/include/c++/13/ostream:
+
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
+/usr/include/GLFW/glfw3.h:
+
+/usr/include/c++/13/bits/streambuf_iterator.h:
+
+/usr/include/c++/13/tr1/riemann_zeta.tcc:
 
 /usr/include/c++/13/cmath:
 
@@ -2845,23 +2835,19 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/bits/ios_base.h:
 
+/usr/include/c++/13/debug/assertions.h:
+
+/usr/include/glm/ext/vector_float3_precision.hpp:
+
 /usr/include/glm/ext/matrix_double2x3.hpp:
 
-/usr/include/c++/13/algorithm:
+/home/johnny/Documents/School/COS344/Practicals/P2/src/Renderer.cpp:
 
-/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/13/bits/hash_bytes.h:
+/usr/include/glm/ext/vector_int2_sized.hpp:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Vector.h:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/FpsLimiter.h:
-
-/usr/include/glm/ext/vector_double3_precision.hpp:
-
-/usr/include/c++/13/bits/basic_string.tcc:
 
 /usr/include/glm/ext/vector_bool2.hpp:
 
@@ -2873,39 +2859,15 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/c++/13/bits/basic_ios.tcc:
 
-/usr/include/c++/13/pstl/execution_defs.h:
-
 /usr/include/glm/vec4.hpp:
 
 /usr/include/glm/ext/matrix_double2x4_precision.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
-
-/usr/include/GLFW/glfw3.h:
-
-/usr/include/c++/13/bits/streambuf_iterator.h:
-
-/usr/include/c++/13/ostream:
-
-/usr/include/c++/13/tr1/riemann_zeta.tcc:
 
 /usr/include/c++/13/cassert:
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
 /usr/include/c++/13/bits/move.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/c++/13/bits/chrono.h:
-
-/usr/include/glm/ext/vector_uint4_sized.hpp:
-
-/usr/include/glm/detail/type_mat3x3.inl:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
-
-/usr/include/c++/13/bits/char_traits.h:
 
 /usr/include/c++/13/bits/istream.tcc:
 
@@ -2961,6 +2923,12 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/errno.h:
 
+/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/13/bits/hash_bytes.h:
+
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/c++/13/bits/locale_classes.h:
@@ -2977,19 +2945,13 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/detail/type_mat2x2.hpp:
 
-/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+/usr/include/c++/13/bits/std_abs.h:
 
-/usr/include/c++/13/pstl/pstl_config.h:
+/usr/include/c++/13/bits/parse_numbers.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
+/usr/include/glm/detail/type_vec1.inl:
 
-/usr/include/c++/13/sstream:
-
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/glm/detail/type_mat4x3.hpp:
-
-/usr/include/c++/13/stdexcept:
+/usr/include/c++/13/bits/ostream_insert.h:
 
 /usr/include/c++/13/stdlib.h:
 
@@ -3063,6 +3025,12 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/detail/_vectorize.hpp:
 
+/usr/include/strings.h:
+
+/usr/include/c++/13/iomanip:
+
+/usr/include/glm/detail/compute_common.hpp:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h:
 
 /usr/include/glm/detail/compute_vector_relational.hpp:
@@ -3111,9 +3079,9 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/detail/type_mat3x2.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/long-double.h:
-
 /usr/include/c++/13/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/glm/ext/matrix_double2x3_precision.hpp:
 
@@ -3155,9 +3123,9 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/detail/type_vec4.inl:
 
-/usr/include/glm/detail/type_mat2x3.inl:
-
 /usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/glm/detail/type_mat2x3.inl:
 
 /usr/include/glm/detail/type_vec2.hpp:
 
@@ -3210,3 +3178,11 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /usr/include/glm/ext/vector_double2.hpp:
 
 /usr/include/glm/ext/vector_double4_precision.hpp:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/glm/ext/vector_float4_precision.hpp:
+
+/usr/include/glm/ext/vector_float2_precision.hpp:
+
+/usr/include/glm/ext/vector_int3.hpp:

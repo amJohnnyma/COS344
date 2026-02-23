@@ -333,13 +333,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Shape.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Triangle.h \
- /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
- /usr/include/c++/13/bits/algorithmfwd.h \
- /usr/include/c++/13/bits/stl_heap.h \
- /usr/include/c++/13/bits/uniform_int_dist.h \
- /usr/include/c++/13/bits/stl_tempbuf.h \
- /usr/include/c++/13/pstl/glue_algorithm_defs.h \
- /usr/include/c++/13/pstl/execution_defs.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Square.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Matrix.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Triangle.h \
