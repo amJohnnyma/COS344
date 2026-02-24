@@ -18,6 +18,7 @@ private:
     Vector<n> bl;
     
     std::vector<Shape<n>*> children;
+    std::vector<Shape<n>*> own_shape; // the square stores it's own triangle 
     
 public:
     ~Square() override {for(Shape<n>* child : children) delete child;}
@@ -61,6 +62,8 @@ public:
         for (Shape<n>* child : children)
             child->setColor(r, g, b, a);
     }
+
+    virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
 };
 

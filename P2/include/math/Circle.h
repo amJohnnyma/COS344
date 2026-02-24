@@ -14,6 +14,8 @@ private:
     float radius;
     int segments;   // e.g. 32 for a smooth circle
     std::vector<Shape<n>*> children;
+
+    std::vector<Shape<n>*> own_shape; // the square stores it's own triangle 
 public:
     ~Circle() override {for(Shape<n>* child : children) delete child;}
     Circle(const Vector<n>& c, float r, int segs = 32);
@@ -55,6 +57,8 @@ public:
         for (Shape<n>* child : children)
             child->setColor(r, g, b, a);
     }
+
+    virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 };
 
 #endif /*CIRCLE_H*/

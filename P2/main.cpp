@@ -101,6 +101,7 @@ static Matrix<4,4> buildIdentity4()
     return m;
 }
 
+
 // Temporary input handling (W key toggles wireframe)
 void processInput(GLFWwindow* window)
 {
@@ -133,32 +134,40 @@ int main()
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
     renderer.setViewProj(viewMat, projMat);
 
+    Color4 colGrid        ( 0.25f, 0.28f, 0.32f, 1.0f );
+    Color4 colBrown       ( 0.50f, 0.28f, 0.10f, 1.0f );
+    Color4 colGreen       ( 0.10f, 0.80f, 0.20f, 1.0f );
+    Color4 colBlue        ( 0.10f, 0.30f, 0.90f, 1.0f );
+    Color4 colChocolate   ( 0.35f, 0.18f, 0.05f, 1.0f );
+    Color4 colAmber       ( 1.00f, 0.75f, 0.00f, 1.0f );
+    Color4 colWhite       ( 1.00f, 1.00f, 1.00f, 1.0f );
+
     Square<2> background(Vector<2>{0.0f, 0.0f}, 13, 18);
-    background.setColor(0.25f, 0.28f, 0.32f);
+    background.setColor(colGrid.r, colGrid.g, colGrid.b);
 
     Square<2> courseBorder(Vector<2>{0.0f, 0.0f}, 12, 17);
-    courseBorder.setColor(0.50f, 0.28f, 0.10f);
+    courseBorder.setColor(colBrown.r, colBrown.g, colBrown.b);
 
     Square<2> courseGround(Vector<2>{0.0f, 0.0f}, 11, 16);
-    courseGround.setColor(0.10f, 0.80f, 0.20f);
+    courseGround.setColor(colGreen.r, colGreen.g, colGreen.b);
 
     Square<2> waterFeature(Vector<2>{0.0f, 0.0f}, 11, 1.5);
-    waterFeature.setColor(0.10f, 0.30f, 0.90f);
+    waterFeature.setColor(colBlue.r, colBlue.g, colBlue.b);
 
     Square<2> waterBridge1(Vector<2>{0.0f, -3.0f}, 1.5, 3);
-    waterBridge1.setColor(0.35f, 0.18f, 0.05f);
+    waterBridge1.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
 
     Square<2> waterBridge2(Vector<2>{0.0f, 3.0f}, 1.5, 3);
-    waterBridge2.setColor(0.35f, 0.18f, 0.05f);
+    waterBridge2.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
 
     Square<2> reboundObstacle1(Vector<2>{-6, -4}, 1, 2);
-    reboundObstacle1.setColor(1.00f, 0.75f, 0.00f);
+    reboundObstacle1.setColor(colAmber.r, colAmber.g, colAmber.b);
 
     Square<2> reboundObstacle2(Vector<2>{-6, 4}, 1, 2);
-    reboundObstacle2.setColor(1.00f, 0.75f, 0.00f);
+    reboundObstacle2.setColor(colAmber.r, colAmber.g, colAmber.b);
 
-    Circle<2> ball(Vector<2>{0.0f, 0.0f}, 0.35f, 32);
-    ball.setColor(1.00f, 1.00f, 1.00f);
+    Circle<2> ball(Vector<2>{7.0f, -5.0f}, 0.35f, 32);
+    ball.setColor(colWhite.r, colWhite.g, colWhite.b);
 
     courseGround.add(&waterFeature);
     courseGround.add(&waterBridge1);
@@ -172,14 +181,17 @@ int main()
 
     FrameLimiter limiter(60.0);
 
+
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
 
         renderer.beginFrame();
         processInput(window);
+        background.rotate(1 / 60.0f);
 
         background.render(renderer);
+        
 
         renderer.endFrame();
 

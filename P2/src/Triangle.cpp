@@ -1,5 +1,6 @@
 #include "../include/math/Triangle.h"
 #include "../include/engine/Renderer.h"
+#include <cmath>
 
 template<int n>
 Triangle<n>::Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3)
@@ -81,5 +82,32 @@ void Triangle<n>::render(Renderer<n>& r) const
     r.drawShape(this, c);
 }
 
+template <int n>
+void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
+{
+    if constexpr (n != 2) {
+        // or static_assert(n == 2, "Rotation only for 2D");
+        return;
+    }
+
+    const float Cx = rotate_point[0];
+    const float Cy = rotate_point[1];
+    const float c  = std::cos(theta);
+    const float s  = std::sin(theta);
+
+    // Rotate one point (DRY)
+    auto do_rotate = [&](Vector<n>& p) {
+        const float dx = p[0] - Cx;
+        const float dy = p[1] - Cy;
+
+        p[0] = Cx + dx * c - dy * s;
+        p[1] = Cy + dx * s + dy * c;      };
+
+    do_rotate(p1);
+    do_rotate(p2);
+    do_rotate(p3);
+
+
+}
 
 template class Triangle<2>;

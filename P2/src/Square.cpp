@@ -132,5 +132,47 @@ int Square<n>::getNumPoints() const
 
 }
 
+template <int n>
+void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
+{
+    // center of a square is the same no matter rotation
+    // Im a square. Set the origin for my kids (And triangles will use that origin to rotate)
+    Vector<n> pivot;
+
+    if(hasCentroid)
+    {
+        pivot = rotate_point;
+    }
+    else {
+        pivot = (tl + tr + bl + br) * 0.25f;
+    }
+
+    // only 2D
+    if constexpr (n == 2)
+    {
+        const float c = std::cos(theta);
+        const float s = std::sin(theta);
+        const float Cx = pivot[0];
+        const float Cy = pivot[1];
+
+        auto rotate_vertex = [&](Vector<n>& p)
+        {
+            const float dx = p[0] - Cx;
+            const float dy = p[1] - Cy;
+            p[0] = Cx + dx * c - dy * s;
+            p[1] = Cy + dx * s + dy * c;
+        };
+
+        rotate_vertex(tl);
+        rotate_vertex(tr);
+        rotate_vertex(bl);
+        rotate_vertex(br);
+
+        for (Shape<n>* child : children)
+        {
+            child->rotate(theta, pivot, true);
+        }
+    }
+}
 
 template class Square<2>;

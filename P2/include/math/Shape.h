@@ -25,6 +25,8 @@ class Shape {
         {
             color[0]=r;color[1]=g;color[2]=b;color[3]=a;
         }
+
+        virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) = 0;
 };
 
 #endif /*SHAPE_H*/

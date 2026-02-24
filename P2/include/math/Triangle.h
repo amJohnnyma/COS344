@@ -24,6 +24,9 @@ public:
         std::cout << "_ P3 _ " << std::endl; p3.print();
     }
     virtual void render(Renderer<n>& r) const override;
+
+    virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
+
 };
 
 #endif /*TRIANGLE_H*/
