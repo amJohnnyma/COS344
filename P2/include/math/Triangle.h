@@ -12,6 +12,7 @@ private:
     Vector<n> p2;
     Vector<n> p3;
 public:
+    ~Triangle() override {}
     Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3);
     Triangle(const Triangle<n>&);
     virtual Triangle<n>& operator*=(const Matrix<n,n>&) override;

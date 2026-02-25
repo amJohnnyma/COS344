@@ -141,6 +141,7 @@ int main()
     Color4 colChocolate   ( 0.35f, 0.18f, 0.05f, 1.0f );
     Color4 colAmber       ( 1.00f, 0.75f, 0.00f, 1.0f );
     Color4 colWhite       ( 1.00f, 1.00f, 1.00f, 1.0f );
+    Color4 colMagenta( 1.00f, 0.00f, 1.00f, 1.0f );
 
     Square<2> background(Vector<2>{0.0f, 0.0f}, 13, 18);
     background.setColor(colGrid.r, colGrid.g, colGrid.b);
@@ -160,20 +161,31 @@ int main()
     Square<2> waterBridge2(Vector<2>{0.0f, 3.0f}, 1.5, 3);
     waterBridge2.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
 
-    Square<2> reboundObstacle1(Vector<2>{-6, -4}, 1, 2);
+    Square<2> reboundObstacle1(Vector<2>{-7, -4}, 1, 2);
     reboundObstacle1.setColor(colAmber.r, colAmber.g, colAmber.b);
+    reboundObstacle1.rotate(-45.f);
 
-    Square<2> reboundObstacle2(Vector<2>{-6, 4}, 1, 2);
+    Square<2> reboundObstacle2(Vector<2>{-7, 4}, 1, 2);
     reboundObstacle2.setColor(colAmber.r, colAmber.g, colAmber.b);
+    reboundObstacle2.rotate(45.f);
 
-    Circle<2> ball(Vector<2>{7.0f, -5.0f}, 0.35f, 32);
+    Square<2> midCourseWall(Vector<2>{1.5f, 0.f}, 1.f, 13.f);
+    midCourseWall.setColor(colBrown.r, colBrown.g, colBrown.b);
+
+    Circle<2> ball(Vector<2>{7.0f, -3.0f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+
+    Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
+    startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
+
 
     courseGround.add(&waterFeature);
     courseGround.add(&waterBridge1);
     courseGround.add(&waterBridge2);
     courseGround.add(&reboundObstacle1);
     courseGround.add(&reboundObstacle2);
+    courseGround.add(&midCourseWall);
+    courseGround.add(&startArea);
     courseGround.add(&ball);
 
     courseBorder.add(&courseGround);
@@ -188,7 +200,8 @@ int main()
 
         renderer.beginFrame();
         processInput(window);
-        background.rotate(1 / 60.0f);
+       // background.rotate(1 / 60.0f);
+        ball.rotate(1/60.0f);
 
         background.render(renderer);
         
