@@ -28,22 +28,13 @@ public:
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
-    virtual void updatePhysics(float dt) override
+    virtual void applyTranslation(const Vector<n>& disp) override
     {
-        this->physicsBody.vel = Vector<2>{0.01f, 0.f};
-            this->physicsBody.update(dt); 
-            this->position = this->physicsBody.pos;
-            updatePosition();
-
+        p1 = p1 + disp;
+        p2 = p2 + disp;
+        p3 = p3 + disp;
     }
 
-    virtual void updatePosition() override 
-    {
-        std::cout << "Vel: "; this->physicsBody.vel.print();
-        p1 = p1 + this->physicsBody.vel;
-        p2 = p2 + this->physicsBody.vel;
-        p3 = p3 + this->physicsBody.vel;
-    }
 
 };
 

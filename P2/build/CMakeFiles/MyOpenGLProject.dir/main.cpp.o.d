@@ -338,4 +338,5 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Square.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Matrix.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Triangle.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/DebugOptions.h
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/DebugOptions.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Vector.h

@@ -13,16 +13,17 @@ public:
     float restitution  = 0.82f;   // bounciness 
 
     PhysicsBody() {}
+    PhysicsBody(const Vec2& initial_pos, const Vec2& initial_vel) : pos(initial_pos), vel(initial_vel) {}
 
     void applyForce(const Vec2& force, float dt) {
         vel = vel + force * (dt / mass);
     }
 
     void update(float dt) {
-        std::cout << "Phys update" << std::endl;
         pos = pos + vel * dt;
-        //vel = vel * friction;   // simple air/rolling drag
+        vel = vel * friction;   // simple air/rolling drag
     }
+    void setVelocity(const Vec2& v) { vel = v; }
 
     // void applyGravity() { vel.y -= 9.81f * dt; }
 };

@@ -62,19 +62,20 @@ public:
 
     virtual void updatePhysics(float dt) override
     {
+        Shape<n>::updatePhysics(dt);
         for(auto * child : children)
         {
             child->updatePhysics(dt);
         }
     }
 
-    virtual void updatePosition() override 
+    virtual void applyTranslation(const Vector<n>& disp) override
     {
-        for(auto* child : children)
-        {
-            child->setPosition(this->position);
-        }
+        center = center +  disp;
+        for (Shape<n>* child : children) child->applyTranslation(disp);
+
     }
+
 };
 
 #endif /*CIRCLE_H*/

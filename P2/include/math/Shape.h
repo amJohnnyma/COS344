@@ -16,6 +16,7 @@ class Shape {
         Vector<4> color = Vector<4>{1.0f,1.0f,1.0f,1.0f};
         Vector<2> position; // the center position
         PhysicsBody physicsBody;
+        bool hasPhysics = false;
 
     public:
         virtual ~Shape() = default;
@@ -25,12 +26,36 @@ class Shape {
         virtual void print() const = 0;
         virtual void render(Renderer<n>& r) const = 0;
 
-        void addPhysicsBody() {physicsBody.pos = position; physicsBody.vel = Vector<2>{1.f, 1.f};}
-        virtual void updatePhysics(float dt) = 0; 
+        void setVelocity(const Vector<2>& v) {physicsBody.setVelocity(v);}
+        void enablePhysics(const Vector<2>& initial_vel = Vector<2>{0.f,0.f})
+        {
+            physicsBody = PhysicsBody(position, initial_vel);
+            hasPhysics = true;
+        }
+        virtual void updatePhysics(float dt)
+        {
+            if(hasPhysics)
+            {
+
+                // then update this 
+                Vec2 old_pos = position;
+                physicsBody.update(dt);
+                position = physicsBody.pos;
+                Vector<2> displacement = position - old_pos;
+                applyTranslation(displacement);
+
+                // update children
+
+            }
+
+
+        }
+
+        virtual void applyTranslation(const Vector<n>& disp) = 0;
+        
 
         void setPosition(Vector<2> pos) {position = pos;}
 
-        virtual void updatePosition() = 0;
 
         virtual void setColor(float r, float g, float b, float a = 1.0f)
         {

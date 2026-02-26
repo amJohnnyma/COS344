@@ -3,7 +3,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-// glm/glm.hpp is in the allowed list — included only for GL type compatibility.
+// glm/glm.hpp is in the allowed list. included only for GL type compatibility.
 // No glm math functions (ortho, mat4 arithmetic, etc.) are called.
 #include <glm/glm.hpp>
 
@@ -16,6 +16,7 @@
 #include "include/math/Triangle.h"
 
 #include "include/DebugOptions.h"
+#include "include/math/Vector.h"
 
 #include <cmath>   // for random placement helpers
 
@@ -174,7 +175,6 @@ int main()
 
     Circle<2> ball(Vector<2>{7.0f, -3.0f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
-    ball.addPhysicsBody();
 
     Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
     startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
@@ -191,6 +191,9 @@ int main()
 
     courseBorder.add(&courseGround);
     background.add(&courseBorder);
+    //ball.enablePhysics(Vector<2>{-10.f, 0.f});
+    background.enablePhysics(Vector<2>{-10.f, 0.f});
+    ball.enablePhysics(Vector<2>{-5.f, 0.f});
 
 
     FrameLimiter limiter(60.0);
@@ -204,7 +207,7 @@ int main()
         processInput(window);
        // background.rotate(1 / 60.0f);
         ball.rotate(1/60.0f);
-        ball.updatePhysics(dt);
+        background.updatePhysics(dt);
 
         background.render(renderer);
         

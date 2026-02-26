@@ -65,21 +65,23 @@ public:
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
+    virtual void applyTranslation(const Vector<n>& disp) override
+    {
+        tl = tl + disp; tr = tr + disp; br = br + disp; bl = bl + disp;
+        for (Shape<n>* child : children) child->applyTranslation(disp);
+
+    }
+
     virtual void updatePhysics(float dt) override
     {
+        Shape<n>::updatePhysics(dt);
+
         for(auto * child : children)
         {
             child->updatePhysics(dt);
         }
     }
 
-    virtual void updatePosition() override 
-    {
-        for(auto* child : children)
-        {
-            child->setPosition(this->position);
-        }
-    }
 
 };
 

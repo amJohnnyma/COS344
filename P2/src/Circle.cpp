@@ -20,8 +20,6 @@ Circle<n>::Circle(const Vector<n>& c, float r, int segs)
     }
 
     this->position = c;
-    // temporary
-    this->addPhysicsBody();
 }
 
 // Copy constructor
