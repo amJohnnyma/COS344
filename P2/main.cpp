@@ -17,6 +17,7 @@
 
 #include "include/DebugOptions.h"
 #include "include/math/Vector.h"
+#include "include/engine/Physics.h"
 
 #include <cmath>   // for random placement helpers
 
@@ -147,6 +148,7 @@ int main()
     Square<2> background(Vector<2>{0.0f, 0.0f}, 13, 18);
     background.setColor(colGrid.r, colGrid.g, colGrid.b);
 
+    /*
     Square<2> courseBorder(Vector<2>{0.0f, 0.0f}, 12, 17);
     courseBorder.setColor(colBrown.r, colBrown.g, colBrown.b);
 
@@ -172,14 +174,15 @@ int main()
 
     Square<2> midCourseWall(Vector<2>{1.5f, 0.f}, 1.f, 13.f);
     midCourseWall.setColor(colBrown.r, colBrown.g, colBrown.b);
-
+*/
     Circle<2> ball(Vector<2>{7.0f, -3.0f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
 
-    Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
-    startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
+ //   Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
+  //  startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
 
 
+    /*
     courseGround.add(&waterFeature);
     courseGround.add(&waterBridge1);
     courseGround.add(&waterBridge2);
@@ -195,8 +198,16 @@ int main()
     background.enablePhysics(Vector<2>{-10.f, 0.f});
     ball.enablePhysics(Vector<2>{-5.f, 0.f});
 
+    */
+    background.add(&ball);
+
+    //background.enablePhysics(Vector<2>{-10.f, 0.f});
+    ball.enablePhysics(Vector<2>{-5.f, 0.f});
 
     FrameLimiter limiter(60.0);
+    PhysicsEngine physics;
+    std::vector<Shape<2>*> scene;
+    scene.push_back(&background);
 
 
     while (!glfwWindowShouldClose(window))
@@ -207,7 +218,7 @@ int main()
         processInput(window);
        // background.rotate(1 / 60.0f);
         ball.rotate(1/60.0f);
-        background.updatePhysics(dt);
+        physics.update(scene, dt);
 
         background.render(renderer);
         
