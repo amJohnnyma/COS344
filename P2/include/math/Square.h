@@ -65,6 +65,14 @@ public:
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
+    virtual void updatePhysics(float dt) override
+    {
+        for(auto * child : children)
+        {
+            child->updatePhysics(dt);
+        }
+    }
+
     virtual void updatePosition() override 
     {
         for(auto* child : children)

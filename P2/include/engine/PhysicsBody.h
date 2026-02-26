@@ -21,7 +21,7 @@ public:
     void update(float dt) {
         std::cout << "Phys update" << std::endl;
         pos = pos + vel * dt;
-        vel = vel * friction;   // simple air/rolling drag
+        //vel = vel * friction;   // simple air/rolling drag
     }
 
     // void applyGravity() { vel.y -= 9.81f * dt; }

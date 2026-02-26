@@ -25,12 +25,8 @@ class Shape {
         virtual void print() const = 0;
         virtual void render(Renderer<n>& r) const = 0;
 
-        void addPhysicsBody() {physicsBody.pos = position; physicsBody.vel = Vector<2>{0.1f, 0.f};}
-        void updatePhysics(float dt) {
-            physicsBody.update(dt); 
-            position = physicsBody.pos;
-            updatePosition();
-        }
+        void addPhysicsBody() {physicsBody.pos = position; physicsBody.vel = Vector<2>{1.f, 1.f};}
+        virtual void updatePhysics(float dt) = 0; 
 
         void setPosition(Vector<2> pos) {position = pos;}
 
