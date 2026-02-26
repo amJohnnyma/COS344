@@ -130,7 +130,7 @@ int main()
     int w, h;
     glfwGetFramebufferSize(window, &w, &h);
 
-    Renderer<2> renderer(w, h);
+    Renderer<3> renderer(w, h);
 
     Matrix<4,4> viewMat = buildIdentity4();
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
@@ -145,8 +145,6 @@ int main()
     Color4 colWhite       ( 1.00f, 1.00f, 1.00f, 1.0f );
     Color4 colMagenta( 1.00f, 0.00f, 1.00f, 1.0f );
 
-    Square<2> background(Vector<2>{0.0f, 0.0f}, 13, 18);
-    background.setColor(colGrid.r, colGrid.g, colGrid.b);
 
     /*
     Square<2> courseBorder(Vector<2>{0.0f, 0.0f}, 12, 17);
@@ -164,19 +162,12 @@ int main()
     Square<2> waterBridge2(Vector<2>{0.0f, 3.0f}, 1.5, 3);
     waterBridge2.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
 
-    Square<2> reboundObstacle1(Vector<2>{-7, -4}, 1, 2);
-    reboundObstacle1.setColor(colAmber.r, colAmber.g, colAmber.b);
-    reboundObstacle1.rotate(-45.f);
 
-    Square<2> reboundObstacle2(Vector<2>{-7, 4}, 1, 2);
-    reboundObstacle2.setColor(colAmber.r, colAmber.g, colAmber.b);
-    reboundObstacle2.rotate(45.f);
 
     Square<2> midCourseWall(Vector<2>{1.5f, 0.f}, 1.f, 13.f);
     midCourseWall.setColor(colBrown.r, colBrown.g, colBrown.b);
 */
-    Circle<2> ball(Vector<2>{7.0f, -3.0f}, 0.3f, 32);
-    ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+
 
  //   Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
   //  startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
@@ -199,15 +190,54 @@ int main()
     ball.enablePhysics(Vector<2>{-5.f, 0.f});
 
     */
+
+    Square<3> background(Vector<3>{0.0f, 0.0f, 0.f}, 13, 18);
+    background.setColor(colGrid.r, colGrid.g, colGrid.b);
+
+    Square<3> reboundObstacle1(Vector<3>{-7, -4, 1.f}, 1, 2);
+    reboundObstacle1.setColor(colAmber.r, colAmber.g, colAmber.b);
+    reboundObstacle1.rotate(-45.f);
+    Square<3> reboundObstacle2(Vector<3>{-7, 4, 1.f}, 1, 2);
+    reboundObstacle2.setColor(colAmber.r, colAmber.g, colAmber.b);
+    reboundObstacle2.rotate(45.f);
+    Circle<3> ball(Vector<3>{7.0f, -3.0f, 1.f}, 0.3f, 32);
+    ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+
+    const float wallThick = 1.0f;
+    const float halfW = 9.0f;   // half of width  18
+    const float halfH = 6.5f;   // half of height 13
+
+    Square<3> wallLeft  (Vector<3>{-(halfW + wallThick * 0.5f),  0.0f, 1.f}, 13.0f + wallThick * 2, wallThick);
+    Square<3> wallRight (Vector<3>{+(halfW + wallThick * 0.5f),  0.0f, 1.f}, 13.0f + wallThick * 2, wallThick);
+    Square<3> wallBottom(Vector<3>{0.0f, -(halfH + wallThick * 0.5f), 1.f}, wallThick, 18.0f);
+    Square<3> wallTop   (Vector<3>{0.0f, +(halfH + wallThick * 0.5f), 1.f}, wallThick, 18.0f);
+
+    wallLeft.setColor(colAmber.r, colAmber.g, colAmber.b);
+    wallRight.setColor(colAmber.r,colAmber.g,colAmber.b);
+    wallBottom.setColor(colAmber.r,colAmber.g,colAmber.b);
+    wallTop.setColor(colAmber.r,colAmber.g,colAmber.b);
+    background.add(&reboundObstacle1);
+    background.add(&reboundObstacle2);
+    background.add(&wallLeft);
+    background.add(&wallRight);
+    background.add(&wallBottom);
+    background.add(&wallTop);
     background.add(&ball);
 
     //background.enablePhysics(Vector<2>{-10.f, 0.f});
-    ball.enablePhysics(Vector<2>{-5.f, 0.f});
+    ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
 
     FrameLimiter limiter(60.0);
     PhysicsEngine physics;
-    std::vector<Shape<2>*> scene;
+    std::vector<Shape<3>*> scene;
     scene.push_back(&background);
+    scene.push_back(&ball);
+    scene.push_back(&reboundObstacle1);
+    scene.push_back(&reboundObstacle2);
+    scene.push_back(&wallLeft);         
+    scene.push_back(&wallRight);        
+    scene.push_back(&wallBottom);       
+    scene.push_back(&wallTop);
 
 
     while (!glfwWindowShouldClose(window))
@@ -217,7 +247,7 @@ int main()
         renderer.beginFrame();
         processInput(window);
        // background.rotate(1 / 60.0f);
-        ball.rotate(1/60.0f);
+       // ball.rotate(1/60.0f);
         physics.update(scene, dt);
 
         background.render(renderer);

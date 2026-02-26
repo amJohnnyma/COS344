@@ -26,6 +26,10 @@ class Shape {
         virtual void print() const = 0;
         virtual void render(Renderer<n>& r) const = 0;
 
+
+        PhysicsBody<n>& getPhysicsBody() { return physicsBody; }
+        const PhysicsBody<n>& getPhysicsBody() const { return physicsBody; }
+        bool physicsBodyActive() {return hasPhysics;}
         void setVelocity(const Vector<n>& v) {physicsBody.setVelocity(v);}
         void enablePhysics(const Vector<n>& initial_vel = Vector<n>())
         {

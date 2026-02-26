@@ -35,6 +35,7 @@ public:
     operator Matrix<n,1>() const;
     Vector<3> crossProduct(const Vector<3>) const;
     Vector<n> unitVector() const;
+    Vector<n> normalized() const;   // alias for unitVector(); returns zero vector instead of throwing error
     int getN() const;
     void print() const
     {

@@ -170,6 +170,21 @@ Vector<n> Vector<n>::unitVector() const
     }
     return result;
 }
+template<int n>
+Vector<n> Vector<n>::normalized() const
+{
+    float mag = magnitude();
+    if (mag == 0.0f || std::isnan(mag)) {
+        return Vector<n>();   // zero vector — caller should check if needed
+    }
+
+    Vector<n> result(*this);
+    float inv = 1.0f / mag;
+    for (int i = 0; i < n; ++i) {
+        result.arr[i] *= inv;
+    }
+    return result;
+}
 
 template<int n>
 int Vector<n>::getN() const

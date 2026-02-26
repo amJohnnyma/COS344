@@ -93,18 +93,11 @@ float* Circle<n>::getPoints() const
 template <int n>
 void Circle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 {
-    Vector<n> pivot;
+    Vector<n> pivot = hasCentroid ? rotate_point : center;
 
-    if(hasCentroid)
-    {
-        pivot = rotate_point;
-    }
-    else {
-        pivot = center;
-    }
 
     // only 2D
-    if constexpr (n == 2)
+    if constexpr (n >= 2)
     {
         const float c = std::cos(theta);
         const float s = std::sin(theta);
@@ -126,3 +119,4 @@ void Circle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 
 
 template class Circle<2>;
+template class Circle<3>;

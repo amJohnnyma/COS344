@@ -148,7 +148,7 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
     }
 
     // only 2D
-    if constexpr (n == 2)
+    if constexpr (n >= 2)
     {
         const float c = std::cos(theta);
         const float s = std::sin(theta);
@@ -176,3 +176,4 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 }
 
 template class Square<2>;
+template class Square<3>;

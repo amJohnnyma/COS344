@@ -85,8 +85,7 @@ void Triangle<n>::render(Renderer<n>& r) const
 template <int n>
 void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 {
-    if constexpr (n != 2) {
-        // or static_assert(n == 2, "Rotation only for 2D");
+    if constexpr (n < 2) {
         return;
     }
 
@@ -95,7 +94,7 @@ void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
     const float c  = std::cos(theta);
     const float s  = std::sin(theta);
 
-    // Rotate one point (DRY)
+    // Rotate one point
     auto do_rotate = [&](Vector<n>& p) {
         const float dx = p[0] - Cx;
         const float dy = p[1] - Cy;
@@ -111,3 +110,4 @@ void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 }
 
 template class Triangle<2>;
+template class Triangle<3>;

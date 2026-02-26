@@ -129,21 +129,27 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
         delete[] points;
         return;
     }
-
-    // Set colour uniform (r, g, b, a) — fixed the original bug where
-    // the first argument was hardcoded to 1 instead of color.r
-    GLint locColor = glGetUniformLocation(programID, "uColor");
-    glUniform4f(locColor, color.r, color.g, color.b, color.a);
-
-    // Upload vertex data for this shape and draw immediately
-    glBufferData(GL_ARRAY_BUFFER,
-                 numPoints * 2 * sizeof(float),
-                 points,
-                 GL_DYNAMIC_DRAW);
+    // Build a xy-only buffer
+    std::vector<float> xy;
+    xy.reserve(numPoints * 2);
+    for (int i = 0; i < numPoints; ++i) {
+        xy.push_back(points[i * n + 0]);   // x
+        xy.push_back(points[i * n + 1]);   // y
+        // z (and higher) intentionally ignored — z is a logical layer, not depth // for P2 atleast
+    }
 
     delete[] points;
 
+    GLint locColor = glGetUniformLocation(programID, "uColor");
+    glUniform4f(locColor, color.r, color.g, color.b, color.a);
+
+    glBufferData(GL_ARRAY_BUFFER,
+                 xy.size() * sizeof(float),
+                 xy.data(),
+                 GL_DYNAMIC_DRAW);
+
     glDrawArrays(GL_TRIANGLES, 0, numPoints);
+
 }
 
 // endFrame — handles any deferred batch data (currently unused — each shape
@@ -169,3 +175,4 @@ void Renderer<n>::endFrame()
 }
 
 template class Renderer<2>;
+template class Renderer<3>;
