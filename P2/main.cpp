@@ -103,24 +103,68 @@ static Matrix<4,4> buildIdentity4()
     return m;
 }
 
+// Input state
+struct InputState {
+    bool wWasPressed     = false;
+    bool pWasPressed     = false;
+    bool rWasPressed     = false;
+    bool upWasPressed    = false;
+    bool downWasPressed  = false;
+    bool paused          = false;
+};
 
-// Temporary input handling (W key toggles wireframe)
-void processInput(GLFWwindow* window)
+static InputState input;
+
+void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart)
 {
-    static bool wWasPressed = false;
+    // Wireframe (W)
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        if (!wWasPressed) {
+        if (!input.wWasPressed) {
             DebugOptions::get().wireframe = !DebugOptions::get().wireframe;
-            std::cout << "Wireframe: "
-                      << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
-            wWasPressed = true;
+            std::cout << "Wireframe: " << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
+            input.wWasPressed = true;
         }
-    } else {
-        wWasPressed = false;
-    }
-}
+    } else { input.wWasPressed = false; }
 
-// main
+    // Pause (P)
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+        if (!input.pWasPressed) {
+            input.paused = !input.paused;
+            std::cout << (input.paused ? "PAUSED" : "RESUMED") << "\n";
+            input.pWasPressed = true;
+        }
+    } else { input.pWasPressed = false; }
+
+    // Restart (R)
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        if (!input.rWasPressed) {
+            shouldRestart = true;
+            input.paused  = false;
+            std::cout << "RESTARTING...\n";
+            input.rWasPressed = true;
+        }
+    } else { input.rWasPressed = false; }
+
+    // Increase FPS (UP arrow)
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        if (!input.upWasPressed) {
+            targetFps = std::min(targetFps + 10.0, 240.0);
+            limiter.setFPS(targetFps);
+            std::cout << "FPS target: " << targetFps << "\n";
+            input.upWasPressed = true;
+        }
+    } else { input.upWasPressed = false; }
+
+    // Decrease FPS (DOWN arrow)
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        if (!input.downWasPressed) {
+            targetFps = std::max(targetFps - 10.0, 10.0);
+            limiter.setFPS(targetFps);
+            std::cout << "FPS target: " << targetFps << "\n";
+            input.downWasPressed = true;
+        }
+    } else { input.downWasPressed = false; }
+}
 int main()
 {
     srand(42);
@@ -131,6 +175,9 @@ int main()
     glfwGetFramebufferSize(window, &w, &h);
 
     Renderer<3> renderer(w, h);
+
+    double targetFps = 60.0;
+    FrameLimiter limiter(targetFps);
 
     Matrix<4,4> viewMat = buildIdentity4();
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
@@ -145,52 +192,6 @@ int main()
     Color4 colWhite       ( 1.00f, 1.00f, 1.00f, 1.0f );
     Color4 colMagenta( 1.00f, 0.00f, 1.00f, 1.0f );
 
-
-    /*
-    Square<2> courseBorder(Vector<2>{0.0f, 0.0f}, 12, 17);
-    courseBorder.setColor(colBrown.r, colBrown.g, colBrown.b);
-
-    Square<2> courseGround(Vector<2>{0.0f, 0.0f}, 11, 16);
-    courseGround.setColor(colGreen.r, colGreen.g, colGreen.b);
-
-    Square<2> waterFeature(Vector<2>{0.0f, 0.0f}, 11, 1.5);
-    waterFeature.setColor(colBlue.r, colBlue.g, colBlue.b);
-
-    Square<2> waterBridge1(Vector<2>{0.0f, -3.0f}, 1.5, 3);
-    waterBridge1.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
-
-    Square<2> waterBridge2(Vector<2>{0.0f, 3.0f}, 1.5, 3);
-    waterBridge2.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
-
-
-
-    Square<2> midCourseWall(Vector<2>{1.5f, 0.f}, 1.f, 13.f);
-    midCourseWall.setColor(colBrown.r, colBrown.g, colBrown.b);
-*/
-
-
- //   Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
-  //  startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
-
-
-    /*
-    courseGround.add(&waterFeature);
-    courseGround.add(&waterBridge1);
-    courseGround.add(&waterBridge2);
-    courseGround.add(&reboundObstacle1);
-    courseGround.add(&reboundObstacle2);
-    courseGround.add(&midCourseWall);
-    courseGround.add(&startArea);
-    courseGround.add(&ball);
-
-    courseBorder.add(&courseGround);
-    background.add(&courseBorder);
-    //ball.enablePhysics(Vector<2>{-10.f, 0.f});
-    background.enablePhysics(Vector<2>{-10.f, 0.f});
-    ball.enablePhysics(Vector<2>{-5.f, 0.f});
-
-    */
-
     Square<3> background(Vector<3>{0.0f, 0.0f, 0.f}, 13, 18);
     background.setColor(colGrid.r, colGrid.g, colGrid.b);
 
@@ -202,6 +203,9 @@ int main()
     reboundObstacle2.rotate(45.f);
     Circle<3> ball(Vector<3>{7.0f, -3.0f, 1.f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+
+    Circle<3> ball1(Vector<3>{-6.0f, -3.0f, 1.f}, 0.3f, 32);
+    ball1.setColor(colGrid.r, colGreen.g, colGreen.b);
 
     const float wallThick = 1.0f;
     const float halfW = 9.0f;   // half of width  18
@@ -223,15 +227,16 @@ int main()
     background.add(&wallBottom);
     background.add(&wallTop);
     background.add(&ball);
+    background.add(&ball1);
 
     //background.enablePhysics(Vector<2>{-10.f, 0.f});
     ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
+    ball1.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
 
-    FrameLimiter limiter(60.0);
-    PhysicsEngine physics;
     std::vector<Shape<3>*> scene;
     scene.push_back(&background);
     scene.push_back(&ball);
+    scene.push_back(&ball1);
     scene.push_back(&reboundObstacle1);
     scene.push_back(&reboundObstacle2);
     scene.push_back(&wallLeft);         
@@ -239,26 +244,49 @@ int main()
     scene.push_back(&wallBottom);       
     scene.push_back(&wallTop);
 
+    // Lambda to (re)initialize scene state
+    auto initScene = [&]() {
+        ball.setPosition(Vector<3>{7.0f, -3.0f, 1.f});
+        ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
+        ball1.setPosition(Vector<3>{-6.0f, -3.0f, 1.f});
+        ball1.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
+        input = InputState{}; // reset input state
+    };
+
+    PhysicsEngine physics;
+    bool shouldRestart = false;
+
+    std::cout << "Controls:\n"
+              << "  W        - Toggle wireframe\n"
+              << "  P        - Pause / Resume\n"
+              << "  R        - Restart\n"
+              << "  UP/DOWN  - Increase / Decrease FPS target\n";
 
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
 
+        processInput(window, limiter, targetFps, shouldRestart);
+
+        if (shouldRestart) {
+            initScene();
+            physics = PhysicsEngine{};
+            shouldRestart = false;
+        }
+
         renderer.beginFrame();
-        processInput(window);
-       // background.rotate(1 / 60.0f);
-       // ball.rotate(1/60.0f);
-        physics.update(scene, dt);
+
+        if (!input.paused)
+            physics.update(scene, dt);
 
         background.render(renderer);
-        
-
         renderer.endFrame();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        printf("dt: %.4f s  |  fps: %.1f\n", dt, 1.0 / dt);
+        printf("dt: %.4f s  |  fps: %.1f  |  target: %.0f  |  %s\n",
+               dt, 1.0 / dt, targetFps, input.paused ? "PAUSED" : "");
 
         limiter.limit();
     }

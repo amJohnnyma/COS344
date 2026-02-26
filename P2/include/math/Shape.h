@@ -58,7 +58,12 @@ class Shape {
         virtual void applyTranslation(const Vector<n>& disp) = 0;
         
 
-        void setPosition(Vector<n> pos) {position = pos;}
+        void setPosition(Vector<n> pos) 
+        {
+            Vector<n> delta = pos - position;
+            applyTranslation(delta);
+            position = pos;
+        }
 
 
         virtual void setColor(float r, float g, float b, float a = 1.0f)
