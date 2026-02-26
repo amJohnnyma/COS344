@@ -18,6 +18,10 @@ Circle<n>::Circle(const Vector<n>& c, float r, int segs)
 
         children.push_back(new Triangle<n>(center, p1, p2));
     }
+
+    this->position = c;
+    // temporary
+    this->addPhysicsBody();
 }
 
 // Copy constructor

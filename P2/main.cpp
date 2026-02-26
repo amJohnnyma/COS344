@@ -174,6 +174,7 @@ int main()
 
     Circle<2> ball(Vector<2>{7.0f, -3.0f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+    ball.addPhysicsBody();
 
     Square<2> startArea(Vector<2>{7.f, -3.f}, 3.f, 1.f);
     startArea.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
@@ -202,6 +203,7 @@ int main()
         processInput(window);
        // background.rotate(1 / 60.0f);
         ball.rotate(1/60.0f);
+        ball.updatePhysics(dt);
 
         background.render(renderer);
         

@@ -28,6 +28,13 @@ public:
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
+    virtual void updatePosition() override 
+    {
+        p1 = p1 + this->position;
+        p2 = p2 + this->position;
+        p3 = p3 + this->position;
+    }
+
 };
 
 #endif /*TRIANGLE_H*/

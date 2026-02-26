@@ -65,6 +65,14 @@ public:
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
 
+    virtual void updatePosition() override 
+    {
+        for(auto* child : children)
+        {
+            child->setPosition(this->position);
+        }
+    }
+
 };
 
 #endif /*SQUARE_H*/

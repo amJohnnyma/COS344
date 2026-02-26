@@ -1,6 +1,9 @@
+#ifndef PHYSICS_H
+#define PHYSICS_H
 
 #include "../math/Vector.h"
 #include "../math/Shape.h"  
+#include "PhysicsBody.h"
 #include <vector>
 #include <algorithm>
 #include <cmath>
@@ -24,32 +27,13 @@ struct LineSegment {
     }
 };
 
-class PhysicsBody {
-public:
-    Vec2 pos;
-    Vec2 vel;
-    float radius       = 0.25f;   // typical mini-golf ball
-    float mass         = 1.0f;
-    float friction     = 0.985f;  // 0.98–0.995 feels nice for balls
-    float restitution  = 0.82f;   // bounciness 
-
-    void applyForce(const Vec2& force, float dt) {
-        vel = vel + force * (dt / mass);
-    }
-
-    void update(float dt) {
-        pos = pos + vel * dt;
-        vel = vel * friction;   // simple air/rolling drag
-    }
-
-    // void applyGravity() { vel.y -= 9.81f * dt; }
-};
 
 class PhysicsEngine {
 public:
-    void update(std::vector<PhysicsBody*>& bodies, float dt) {
+    template<int n>
+    void update(std::vector<Shape<n>*>& bodies, float dt) {
         for (auto* body : bodies) {
-            body->update(dt);
+            body->updatePhysics(dt);
         }
     }
 
@@ -135,3 +119,5 @@ public:
         ball.vel = ball.vel - tangent * (vTangent * 0.15f);  // small sliding friction
     }
 };
+
+#endif
