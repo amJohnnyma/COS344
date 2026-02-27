@@ -15,6 +15,9 @@ struct Collision {
     float penetration; // positive = overlap depth
     Vector<n> contactPoint; // useful for better response
     bool valid = false;
+    bool rebound = true;
+    bool applyWaterFriction = false;
+    float waterFriction = 0.1f;
 };
 
 template <int n>
@@ -64,6 +67,7 @@ private:
         return circleVsShape<n>(b.getPhysicsBody(), &a);
     }
 
+
     template <int n>
     Collision<n> circleVsLineSegment(const PhysicsBody<n>& circle,
                                      const Vector<n>& lineStart,
@@ -106,7 +110,6 @@ private:
         col.valid = true;
         return col;
     }
-
     // Circle vs arbitrary Shape<n> (polygon edges)
     // Z-layer gating: only collide if the circle's z overlaps the shape's z range.
     // For n=2 there is no z, so always collide. For n=3, z is "height" and two
@@ -134,10 +137,16 @@ private:
             }
             float circleZ = circle.pos[2];
             // If the circle's z is completely outside [shapeZMin, shapeZMax], skip
-            if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
+            if(shapeZMin == -1.f)
+            {
+                deepest.applyWaterFriction = true;
+                
+            }
+            else if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
                 delete[] raw;
                 return deepest;   // no collision — different layers
             }
+
         }
 
         for (int i = 0; i < num; ++i) {
@@ -150,13 +159,19 @@ private:
 
             Collision<n> c = circleVsLineSegment(circle, a, b);
             if (c.valid && c.penetration > deepest.penetration) {
-                deepest = c;
+
+                if(deepest.applyWaterFriction)
+                {
+                    deepest = c;
+                    deepest.applyWaterFriction = true;
+                }
             }
         }
 
         delete[] raw;
         return deepest;
     }
+/*
 
     // Circle vs AABB (faster for axis-aligned squares)
     template<int n>
@@ -189,6 +204,7 @@ private:
         col.valid = true;
         return col;
     }
+    */
 
     // Resolve collision against a static wall.
     // All impulse math is 2D (x-y plane); z velocity is left untouched.
@@ -196,13 +212,24 @@ private:
     void resolveCollision(PhysicsBody<n>& ball, const Collision<n>& col) {
         if (!col.valid || col.penetration <= 0) return;
 
+        // Reflect velocity in 2D
+        Vector<2> vel2  = ball.vel2D();
+        Vector<2> norm2 = {col.normal[0], col.normal[1]};
+
+        if(col.applyWaterFriction)
+        {
+
+            // Tangential friction
+            vel2 = vel2 * 0.5f;
+            // Write x,y back; z velocity is unchanged
+            ball.setVel2D(vel2);
+            return;
+        }
+
         // Push ball out of the wall along the collision normal (x,y only)
         ball.pos[0] += col.normal[0] * (col.penetration + 0.001f);
         ball.pos[1] += col.normal[1] * (col.penetration + 0.001f);
 
-        // Reflect velocity in 2D
-        Vector<2> vel2  = ball.vel2D();
-        Vector<2> norm2 = {col.normal[0], col.normal[1]};
 
         float vDotN = vel2 * norm2;
         if (vDotN >= 0) return;   // already separating
@@ -215,6 +242,7 @@ private:
         Vector<2> tangent2 = {-norm2[1], norm2[0]};
         float vTan = vel2 * tangent2;
         vel2 = vel2 - tangent2 * (vTan * 0.15f);
+
 
         // Write x,y back; z velocity is unchanged
         ball.setVel2D(vel2);

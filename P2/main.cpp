@@ -220,12 +220,17 @@ int main()
     wallRight.setColor(colAmber.r,colAmber.g,colAmber.b);
     wallBottom.setColor(colAmber.r,colAmber.g,colAmber.b);
     wallTop.setColor(colAmber.r,colAmber.g,colAmber.b);
+
+    Square<3> river(Vector<3>{0.f,0.f,-1.f}, 13.f, 2.f);
+    river.setColor(colBlue.r, colBlue.g, colBlue.b);
+
     background.add(&reboundObstacle1);
     background.add(&reboundObstacle2);
     background.add(&wallLeft);
     background.add(&wallRight);
     background.add(&wallBottom);
     background.add(&wallTop);
+    background.add(&river);
     background.add(&ball);
     background.add(&ball1);
 
@@ -243,6 +248,7 @@ int main()
     scene.push_back(&wallRight);        
     scene.push_back(&wallBottom);       
     scene.push_back(&wallTop);
+    scene.push_back(&river);
 
     // Lambda to (re)initialize scene state
     auto initScene = [&]() {
