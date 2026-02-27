@@ -235,8 +235,8 @@ int main()
     background.add(&ball1);
 
     //background.enablePhysics(Vector<2>{-10.f, 0.f});
-    ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
-    ball1.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
+    ball.enablePhysics(Vector<3>{30.f, 0.f, 0.f});
+    ball1.enablePhysics(Vector<3>{-30.f, 0.f, 0.f});
 
     std::vector<Shape<3>*> scene;
     scene.push_back(&background);

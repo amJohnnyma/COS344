@@ -17,7 +17,7 @@ struct Collision {
     bool valid = false;
     bool rebound = true;
     bool applyWaterFriction = false;
-    float waterFriction = 0.1f;
+    float waterFriction = 0.5f;
 };
 
 template <int n>
@@ -50,7 +50,7 @@ public:
 
                 Collision<n> col = detectCollision<n>(*a, *b);
 
-                if (col.valid && col.penetration > 0) {
+                if ((col.valid && col.penetration > 0) || col.applyWaterFriction) {
                     resolveCollision<n>(a->getPhysicsBody(), col);
                 }
             }
@@ -137,12 +137,12 @@ private:
             }
             float circleZ = circle.pos[2];
             // If the circle's z is completely outside [shapeZMin, shapeZMax], skip
-            if(shapeZMin == -1.f)
+            if(shapeZMin == -1.f || shapeZMax == -1.f)
             {
                 deepest.applyWaterFriction = true;
                 
             }
-            else if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
+            if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
                 delete[] raw;
                 return deepest;   // no collision — different layers
             }
@@ -160,9 +160,9 @@ private:
             Collision<n> c = circleVsLineSegment(circle, a, b);
             if (c.valid && c.penetration > deepest.penetration) {
 
+                deepest = c;
                 if(deepest.applyWaterFriction)
                 {
-                    deepest = c;
                     deepest.applyWaterFriction = true;
                 }
             }
@@ -210,7 +210,7 @@ private:
     // All impulse math is 2D (x-y plane); z velocity is left untouched.
     template <int n>
     void resolveCollision(PhysicsBody<n>& ball, const Collision<n>& col) {
-        if (!col.valid || col.penetration <= 0) return;
+        if ((!col.valid || col.penetration <= 0)) return;
 
         // Reflect velocity in 2D
         Vector<2> vel2  = ball.vel2D();
@@ -218,9 +218,9 @@ private:
 
         if(col.applyWaterFriction)
         {
+            std::cout << "Water friction" << std::endl;
 
-            // Tangential friction
-            vel2 = vel2 * 0.5f;
+            vel2 = vel2 * col.waterFriction;
             // Write x,y back; z velocity is unchanged
             ball.setVel2D(vel2);
             return;
@@ -230,6 +230,7 @@ private:
         ball.pos[0] += col.normal[0] * (col.penetration + 0.001f);
         ball.pos[1] += col.normal[1] * (col.penetration + 0.001f);
 
+        vel2  = ball.vel2D();
 
         float vDotN = vel2 * norm2;
         if (vDotN >= 0) return;   // already separating
