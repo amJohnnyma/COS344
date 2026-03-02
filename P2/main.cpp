@@ -18,6 +18,7 @@
 #include "include/DebugOptions.h"
 #include "include/math/Vector.h"
 #include "include/engine/Physics.h"
+#include "include/engine/Input.h"
 
 #include <cmath>   // for random placement helpers
 
@@ -103,73 +104,56 @@ static Matrix<4,4> buildIdentity4()
     return m;
 }
 
-// Input state
-struct InputState {
-    bool wWasPressed     = false;
-    bool pWasPressed     = false;
-    bool rWasPressed     = false;
-    bool upWasPressed    = false;
-    bool downWasPressed  = false;
-    bool paused          = false;
-};
-
-static InputState input;
+static bool paused = false;
+auto& input = InputManager::get_instance();
 
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart)
 {
+
     // Wireframe (W)
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        if (!input.wWasPressed) {
-            DebugOptions::get().wireframe = !DebugOptions::get().wireframe;
-            std::cout << "Wireframe: " << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
-            input.wWasPressed = true;
-        }
-    } else { input.wWasPressed = false; }
+    if (input.is_key_pressed(GLFW_KEY_W))
+    {
+        DebugOptions::get().wireframe = !DebugOptions::get().wireframe;
+        std::cout << "Wireframe: " << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
+    }
 
     // Pause (P)
-    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
-        if (!input.pWasPressed) {
-            input.paused = !input.paused;
-            std::cout << (input.paused ? "PAUSED" : "RESUMED") << "\n";
-            input.pWasPressed = true;
-        }
-    } else { input.pWasPressed = false; }
+    if (input.is_key_pressed(GLFW_KEY_P))
+    {
+        paused = !paused;
+        std::cout << (paused ? "PAUSED" : "RESUMED") << "\n";
+    }
 
     // Restart (R)
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-        if (!input.rWasPressed) {
-            shouldRestart = true;
-            input.paused  = false;
-            std::cout << "RESTARTING...\n";
-            input.rWasPressed = true;
-        }
-    } else { input.rWasPressed = false; }
+    if (input.is_key_pressed(GLFW_KEY_R))
+    {
+        shouldRestart = true;
+        paused        = false;
+        std::cout << "RESTARTING...\n";
+    }
 
-    // Increase FPS (UP arrow)
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-        if (!input.upWasPressed) {
-            targetFps = std::min(targetFps + 10.0, 240.0);
-            limiter.setFPS(targetFps);
-            std::cout << "FPS target: " << targetFps << "\n";
-            input.upWasPressed = true;
-        }
-    } else { input.upWasPressed = false; }
+    // Increase FPS (UP)
+    if (input.is_key_pressed(GLFW_KEY_UP))
+    {
+        targetFps = std::min(targetFps + 10.0, 240.0);
+        limiter.setFPS(targetFps);
+        std::cout << "FPS target: " << targetFps << "\n";
+    }
 
-    // Decrease FPS (DOWN arrow)
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        if (!input.downWasPressed) {
-            targetFps = std::max(targetFps - 10.0, 10.0);
-            limiter.setFPS(targetFps);
-            std::cout << "FPS target: " << targetFps << "\n";
-            input.downWasPressed = true;
-        }
-    } else { input.downWasPressed = false; }
+    // Decrease FPS (DOWN)
+    if (input.is_key_pressed(GLFW_KEY_DOWN))
+    {
+        targetFps = std::max(targetFps - 10.0, 10.0);
+        limiter.setFPS(targetFps);
+        std::cout << "FPS target: " << targetFps << "\n";
+    }
 }
 int main()
 {
     srand(42);
 
     GLFWwindow* window = setUp();
+    InputManager::get_instance().register_window(window);
 
     int w, h;
     glfwGetFramebufferSize(window, &w, &h);
@@ -178,6 +162,7 @@ int main()
 
     double targetFps = 60.0;
     FrameLimiter limiter(targetFps);
+
 
     Matrix<4,4> viewMat = buildIdentity4();
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
@@ -256,7 +241,6 @@ int main()
         ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
         ball1.setPosition(Vector<3>{-6.0f, -3.0f, 1.f});
         ball1.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
-        input = InputState{}; // reset input state
     };
 
     PhysicsEngine physics;
@@ -282,17 +266,18 @@ int main()
 
         renderer.beginFrame();
 
-        if (!input.paused)
+        if (!paused)
             physics.update(scene, dt);
 
         background.render(renderer);
         renderer.endFrame();
 
+        InputManager::get_instance().update();
         glfwSwapBuffers(window);
         glfwPollEvents();
 
         printf("dt: %.4f s  |  fps: %.1f  |  target: %.0f  |  %s\n",
-               dt, 1.0 / dt, targetFps, input.paused ? "PAUSED" : "");
+               dt, 1.0 / dt, targetFps, paused ? "PAUSED" : "");
 
         limiter.limit();
     }
