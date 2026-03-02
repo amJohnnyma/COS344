@@ -6,7 +6,6 @@
 #include "Vector.h"
 #include "Triangle.h"
 
-#include <vector>
 
 // composite
 template <int n>
@@ -17,8 +16,9 @@ private:
     Vector<n> br;
     Vector<n> bl;
     
-    std::vector<Shape<n>*> children;
-    std::vector<Shape<n>*> own_shape; // the square stores it's own triangle 
+    static const int MAX_CHILDREN = 128;
+    Shape<n>* children[MAX_CHILDREN] = {};
+    int childCount = 0;
     
 public:
     ~Square() override {for(Shape<n>* child : children) delete child;}
@@ -38,12 +38,17 @@ public:
     }
 
     // for composite
-    void add(Shape<n> * child) {children.push_back(child); }
+    void add(Shape<n>* child)   
+    { 
+        if (childCount < MAX_CHILDREN) 
+            children[childCount++] = child; 
+    }
     void remove(Shape<n>* child) {
-        for (auto it = children.begin(); it != children.end(); ++it) {
-            if (*it == child) {
-                children.erase(it);
-                break;
+        for (int i = 0; i < childCount; i++) {
+            if (children[i] == child) {
+                for (int j = i; j < childCount - 1; j++) children[j] = children[j+1];
+                childCount--;
+                return;
             }
         }
     }
@@ -51,16 +56,12 @@ public:
 
     void render(Renderer<n>& r) const override
     {
-        for (Shape<n>* child : children)
-        {
-            child->render(r);
-        }
+        for(int i = 0; i < childCount; i ++) children[i]->render(r);
     }
     void setColor(float r, float g, float b, float a = 1.0f) override
     {
-        Shape<n>::setColor(r, g, b, a);
-        for (Shape<n>* child : children)
-            child->setColor(r, g, b, a);
+
+        for(int i = 0; i < childCount; i ++) children[i]->setColor(r,g,b,a);
     }
 
     virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) override;
@@ -68,18 +69,15 @@ public:
     virtual void applyTranslation(const Vector<n>& disp) override
     {
         tl = tl + disp; tr = tr + disp; br = br + disp; bl = bl + disp;
-        for (Shape<n>* child : children) child->applyTranslation(disp);
+
+        for(int i = 0; i < childCount; i ++) children[i]->applyTranslation(disp);
 
     }
 
     virtual void updatePhysics(float dt) override
     {
         Shape<n>::updatePhysics(dt);
-
-        for(auto * child : children)
-        {
-            child->updatePhysics(dt);
-        }
+        for(int i = 0; i < childCount; i ++) children[i]->updatePhysics(dt);
     }
 
 

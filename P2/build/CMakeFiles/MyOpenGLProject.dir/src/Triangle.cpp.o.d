@@ -317,8 +317,4 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h \
- /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_uninitialized.h \
- /usr/include/c++/13/bits/stl_vector.h \
- /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h

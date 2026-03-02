@@ -223,17 +223,19 @@ int main()
     ball.enablePhysics(Vector<3>{30.f, 0.f, 0.f});
     ball1.enablePhysics(Vector<3>{-30.f, 0.f, 0.f});
 
-    std::vector<Shape<3>*> scene;
-    scene.push_back(&background);
-    scene.push_back(&ball);
-    scene.push_back(&ball1);
-    scene.push_back(&reboundObstacle1);
-    scene.push_back(&reboundObstacle2);
-    scene.push_back(&wallLeft);         
-    scene.push_back(&wallRight);        
-    scene.push_back(&wallBottom);       
-    scene.push_back(&wallTop);
-    scene.push_back(&river);
+    Shape<3>* scene[] = {
+    &background
+    ,&ball
+    ,&ball1
+    ,&reboundObstacle1
+    ,&reboundObstacle2
+    ,&wallLeft         
+    ,&wallRight        
+    ,&wallBottom       
+    ,&wallTop
+    ,&river};
+
+    int sceneCount = sizeof(scene) / sizeof(scene[0]);
 
     // Lambda to (re)initialize scene state
     auto initScene = [&]() {
@@ -267,7 +269,7 @@ int main()
         renderer.beginFrame();
 
         if (!paused)
-            physics.update(scene, dt);
+            physics.update(scene, sceneCount, dt);
 
         background.render(renderer);
         renderer.endFrame();

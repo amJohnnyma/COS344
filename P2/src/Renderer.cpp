@@ -63,6 +63,7 @@ Renderer<n>::Renderer(int width, int height)
 template <int n>
 Renderer<n>::~Renderer()
 {
+    delete[] m_vertexData;
     glDeleteProgram(programID);
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
@@ -92,7 +93,7 @@ void Renderer<n>::beginFrame()
     glClearColor(0.12f, 0.15f, 0.18f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    vertexData.clear();
+    m_vertexCount = 0;
 
     glUseProgram(programID);
     glBindVertexArray(vao);
@@ -130,11 +131,10 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
         return;
     }
     // Build a xy-only buffer
-    std::vector<float> xy;
-    xy.reserve(numPoints * 2);
+    m_vertexCount = 0;
     for (int i = 0; i < numPoints; ++i) {
-        xy.push_back(points[i * n + 0]);   // x
-        xy.push_back(points[i * n + 1]);   // y
+        pushFloat(points[i * n + 0]);   // x
+        pushFloat(points[i * n + 1]);   // y
         // z (and higher) intentionally ignored — z is a logical layer, not depth // for P2 atleast
     }
 
@@ -144,8 +144,8 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
     glUniform4f(locColor, color.r, color.g, color.b, color.a);
 
     glBufferData(GL_ARRAY_BUFFER,
-                 xy.size() * sizeof(float),
-                 xy.data(),
+                 m_vertexCount * sizeof(float),
+                 m_vertexData,
                  GL_DYNAMIC_DRAW);
 
     glDrawArrays(GL_TRIANGLES, 0, numPoints);
@@ -157,21 +157,24 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
 template <int n>
 void Renderer<n>::endFrame()
 {
-    if (!vertexData.empty()) {
-        std::cout << "Drawing " << (vertexData.size() / 2) << " deferred vertices\n";
-
-        glBufferData(GL_ARRAY_BUFFER,
-                     vertexData.size() * sizeof(float),
-                     vertexData.data(),
-                     GL_DYNAMIC_DRAW);
-
-        glDrawArrays(GL_TRIANGLES, 0,
-                     static_cast<GLsizei>(vertexData.size() / 2));
-    }
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glLineWidth(1.0f);
     glBindVertexArray(0);
+}
+
+template <int n>
+void Renderer<n>::pushFloat(float f)
+{
+    if (m_vertexCount >= m_vertexCap) {
+        int newCap = m_vertexCap == 0 ? 1024 : m_vertexCap * 2;
+        float* newBuf = new float[newCap];
+        for (int i = 0; i < m_vertexCount; i++) newBuf[i] = m_vertexData[i];
+        delete[] m_vertexData;
+        m_vertexData = newBuf;
+        m_vertexCap  = newCap;
+    }
+    m_vertexData[m_vertexCount++] = f;
 }
 
 template class Renderer<2>;

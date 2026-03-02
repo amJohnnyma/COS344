@@ -187,8 +187,4 @@ CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/../engine/PhysicsBody.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/../engine/../math/Vector.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Triangle.h \
- /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_uninitialized.h \
- /usr/include/c++/13/bits/stl_vector.h \
- /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Triangle.h

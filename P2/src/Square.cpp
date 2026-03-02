@@ -43,8 +43,8 @@ should have the value of 5 for the third component.
         br[i] = center[i];
         bl[i] = center[i];
     }
-    children.push_back(new Triangle<n>(tl, tr, br));
-    children.push_back(new Triangle<n>(tl, br, bl));
+    add(new Triangle<n>(tl, tr, br));
+    add(new Triangle<n>(tl, br, bl));
 }
 template<int n>
 Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br, const Vector<n>& bl) 
@@ -53,8 +53,8 @@ Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br,
     this->tr = Vector<n>(tr);
     this->bl = Vector<n>(bl);
     this->br = Vector<n>(br);
-    children.push_back(new Triangle<n>(tl, tr, br));
-    children.push_back(new Triangle<n>(tl, br, bl));
+    add(new Triangle<n>(tl, tr, br));
+    add(new Triangle<n>(tl, br, bl));
 
 }
 template<int n>
@@ -64,8 +64,8 @@ Square<n>::Square(const Square<n>& other)
     tr = Vector<n>(other.tr);
     bl = Vector<n>(other.bl);
     br = Vector<n>(other.br);
-    children.push_back(new Triangle<n>(tl, tr, br));
-    children.push_back(new Triangle<n>(tl, br, bl));
+    add(new Triangle<n>(tl, tr, br));
+    add(new Triangle<n>(tl, br, bl));
 
 }
 template<int n>
@@ -168,10 +168,8 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
         rotate_vertex(bl);
         rotate_vertex(br);
 
-        for (Shape<n>* child : children)
-        {
-            child->rotate(theta, pivot, true);
-        }
+        for(int i = 0; i < childCount; i ++)
+            children[i]->rotate(theta, pivot, true);
     }
 }
 

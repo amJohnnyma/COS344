@@ -9,7 +9,6 @@
 
 #include "../math/Matrix.h"
 #include "../math/Shape.h"
-#include <vector>
 
 // Lightweight RGBA colour (replaces glm::vec4 for colours)
 struct Color4 {
@@ -40,7 +39,9 @@ private:
     Matrix<4,4> view;
     Matrix<4,4> proj;
 
-    std::vector<float> vertexData;
+    float* m_vertexData  = nullptr;
+    int m_vertexCount = 0;
+    int m_vertexCap = 0;
 
 public:
     Renderer(int width, int height);
@@ -63,6 +64,8 @@ private:
 
     // Identity 4×4
     static Matrix<4,4> identity4();
+
+    void pushFloat(float f);
 };
 
 #endif // RENDERER_H

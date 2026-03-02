@@ -16,7 +16,7 @@ Circle<n>::Circle(const Vector<n>& c, float r, int segs)
         p2[0] = center[0] + radius * std::cos(theta1);
         p2[1] = center[1] + radius * std::sin(theta1);
 
-        children.push_back(new Triangle<n>(center, p1, p2));
+        add(new Triangle<n>(center, p1, p2));
     }
 
     this->position = c;
@@ -110,10 +110,8 @@ void Circle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
         center[0] = Cx + dx * c - dy * s;
         center[1] = Cy + dx * s + dy * c;
 
-        for (Shape<n>* child : children)
-        {
-            child->rotate(theta, pivot, true);
-        }
+        for(int i = 0; i < childCount; i ++)
+            children[i]->rotate(theta, pivot, true);
     }
 }
 

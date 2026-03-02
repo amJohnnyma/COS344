@@ -4,8 +4,6 @@
 #include "../math/Vector.h"
 #include "../math/Shape.h"  
 #include "PhysicsBody.h"
-#include <vector>
-#include <algorithm>
 #include <cmath>
 
 
@@ -30,29 +28,23 @@ struct LineSegment {
         return len > 1e-6f ? direction() * (1.0f / len) : Vector<n>{0,0};
     }
 };
+template<typename T>
+static T clamp(T v, T lo, T hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
 class PhysicsEngine {
 public:
     template<int n>
-    void update(std::vector<Shape<n>*>& bodies, float dt) {
-        for (auto* body : bodies) {
-            if(body->physicsBodyActive())
-                body->updatePhysics(dt);
+    void update(Shape<n>** bodies, int count, float dt) {
+        for (int i = 0; i < count; i++) {
+            if (bodies[i]->physicsBodyActive())
+                bodies[i]->updatePhysics(dt);
         }
-
-        // collision
-        for (size_t i = 0; i < bodies.size(); ++i) {
-            auto* a = bodies[i];
-            if (!a->physicsBodyActive()) continue;  // optional skip
-
-            for (size_t j = i + 1; j < bodies.size(); ++j) {
-                if (i == j) continue;
-                auto* b = bodies[j];
-
-                Collision<n> col = detectCollision<n>(*a, *b);
-
-                if ((col.valid && col.penetration > 0) || col.applyWaterFriction) {
-                    resolveCollision<n>(a->getPhysicsBody(), col);
-                }
+        for (int i = 0; i < count; i++) {
+            if (!bodies[i]->physicsBodyActive()) continue;
+            for (int j = i + 1; j < count; j++) {
+                Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
+                if ((col.valid && col.penetration > 0) || col.applyWaterFriction)
+                    resolveCollision<n>(bodies[i]->getPhysicsBody(), col);
             }
         }
     }
@@ -84,11 +76,11 @@ private:
         if (lenSq < 1e-8f) return col;
 
         Vector<2> toCircle = c2 - s2;
-        float     t = std::clamp((toCircle * L) / lenSq, 0.0f, 1.0f);
+        float t = clamp((toCircle * L) / lenSq, 0.0f, 1.0f);
 
         Vector<2> closest2 = s2 + L * t;
         Vector<2> delta2   = c2 - closest2;
-        float     distSq   = delta2 * delta2;
+        float distSq   = delta2 * delta2;
 
         if (distSq > circle.radius * circle.radius) return col;
 
