@@ -99,10 +99,6 @@ void Renderer<n>::beginFrame()
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-    if (DebugOptions::get().wireframe)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    else
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Upload view/proj uniforms — convert our row-major matrix to
     // the column-major flat array that OpenGL expects.
@@ -130,12 +126,33 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
         delete[] points;
         return;
     }
-    // Build a xy-only buffer
+
     m_vertexCount = 0;
-    for (int i = 0; i < numPoints; ++i) {
-        pushFloat(points[i * n + 0]);   // x
-        pushFloat(points[i * n + 1]);   // y
-        // z (and higher) intentionally ignored — z is a logical layer, not depth // for P2 atleast
+    // Build a xy-only buffer
+    if (DebugOptions::get().wireframe)
+    {
+        // GL_LINES expects explicit pairs: for each triangle (i, i+1, i+2)
+        // emit 3 edges — each as two vertices
+        for (int i = 0; i < numPoints; i += 3)
+        {
+            int tri[3] = { i, i+1, i+2 };
+            for (int e = 0; e < 3; ++e)
+            {
+                int a = tri[e];
+                int b = tri[(e + 1) % 3];
+                pushFloat(points[a * n + 0]);
+                pushFloat(points[a * n + 1]);
+                pushFloat(points[b * n + 0]);
+                pushFloat(points[b * n + 1]);
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < numPoints; ++i) {
+            pushFloat(points[i * n + 0]);
+            pushFloat(points[i * n + 1]);
+        }
     }
 
     delete[] points;
@@ -148,7 +165,10 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
                  m_vertexData,
                  GL_DYNAMIC_DRAW);
 
-    glDrawArrays(GL_TRIANGLES, 0, numPoints);
+    if (DebugOptions::get().wireframe)
+        glDrawArrays(GL_LINES, 0, (numPoints/3)*6);
+    else
+        glDrawArrays(GL_TRIANGLES,0,numPoints);
 
 }
 
