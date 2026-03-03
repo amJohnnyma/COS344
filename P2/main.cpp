@@ -110,8 +110,64 @@ auto& input = InputManager::get_instance();
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart)
 {
 
+    // slected must have colour changed to a pastel version
+    if(input.is_key_pressed(GLFW_KEY_1))
+    {
+        //select golf ball
+    }
+    if(input.is_key_pressed(GLFW_KEY_2))
+    {
+        //select obstacle
+    }
+    if(input.is_key_pressed(GLFW_KEY_3))
+    {
+        //select other type of obstacle
+    }
+    if(input.is_key_pressed(GLFW_KEY_4))
+    {
+        //select golf hole
+    }
+    if(input.is_key_pressed(GLFW_KEY_0))
+    {
+        //deselect current selection
+    }
+
+    //transformations, apply a force to the object
+    if(input.is_key_pressed(GLFW_KEY_W))
+    {
+        // move up
+    }
+    if(input.is_key_pressed(GLFW_KEY_S))
+    {
+        // move down
+    }
+    if(input.is_key_pressed(GLFW_KEY_A))
+    {
+        // move left
+    }
+    if(input.is_key_pressed(GLFW_KEY_D))
+    {
+        // move right
+    }
+    if(input.is_key_pressed(GLFW_KEY_EQUAL))
+    {
+        //scale up
+    }
+    if(input.is_key_pressed(GLFW_KEY_MINUS))
+    {
+        //scale down
+    }
+    if(input.is_key_pressed(GLFW_KEY_E))
+    {
+        // rotate CW
+    }
+    if(input.is_key_pressed(GLFW_KEY_Q))
+    {
+        // rotate CCW
+    }
+
     // Wireframe (W)
-    if (input.is_key_pressed(GLFW_KEY_W))
+    if (input.is_key_pressed(GLFW_KEY_ENTER))
     {
         DebugOptions::get().wireframe = !DebugOptions::get().wireframe;
         std::cout << "Wireframe: " << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
@@ -248,12 +304,6 @@ int main()
     PhysicsEngine physics;
     bool shouldRestart = false;
 
-    std::cout << "Controls:\n"
-              << "  W        - Toggle wireframe\n"
-              << "  P        - Pause / Resume\n"
-              << "  R        - Restart\n"
-              << "  UP/DOWN  - Increase / Decrease FPS target\n";
-
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
@@ -271,6 +321,9 @@ int main()
         if (!paused)
             physics.update(scene, sceneCount, dt);
 
+        // When i make my scene 
+        //      physics.update(scene.getBodies(), scene.getCount(), dt);
+        // scene.render(renderer);
         background.render(renderer);
         renderer.endFrame();
 
