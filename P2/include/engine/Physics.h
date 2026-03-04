@@ -45,7 +45,14 @@ class PhysicsEngine {
                         Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
                         if ((col.valid && col.penetration > 0))
                         {
-                            resolveCollision<n>(bodies[i]->getPhysicsBody(),bodies[j]->getPhysicsBody(), col);
+    //printf("Collision: body[%d] (hasPhysics=%d, type=%d) vs body[%d] (hasPhysics=%d, type=%d) | penetration=%.4f\n",
+     //   i, bodies[i]->physicsBodyActive(), bodies[i]->getPhysicsType(),
+      //  j, bodies[j]->physicsBodyActive(), bodies[j]->getPhysicsType(),
+       // col.penetration);
+    if (bodies[i]->physicsBodyActive())
+        resolveCollision<n>(bodies[i]->getPhysicsBody(), bodies[j]->getPhysicsBody(), col);
+    else
+        resolveCollision<n>(bodies[j]->getPhysicsBody(), bodies[i]->getPhysicsBody(), col);
                         }
                     }
                 }

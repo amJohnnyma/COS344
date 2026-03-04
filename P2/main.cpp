@@ -359,8 +359,8 @@ struct ShapeParams
     params.col = Colors::Amber;
     // rebound obstacle
     sceneC.createShape(params);
-    params.pos = {0.f,0.f,1.f};
-    params.radius = 1.f;
+    params.pos = {4.f,0.f,1.f};
+    params.radius = 0.25f;
     params.type = 4;
     params.col = Colors::White;
     // ball

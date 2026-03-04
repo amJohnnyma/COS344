@@ -73,7 +73,7 @@ void Scene<n>::selectObstacle()
 template <int n>
 void Scene<n>::update(double dt, Renderer<n>& renderer)
 {
-    //printf("Shape count: %d\n", m_shapeCount);
+   // printf("Shape count: %d\n", m_shapeCount);
     //for (int i = 0; i < m_shapeCount; i++)
      //   printf("  shape[%d] hasPhysics=%d type=%d\n", i, m_shapes[i]->physicsBodyActive(), m_shapes[i]->getPhysicsType());
     if(!paused)
