@@ -13,9 +13,7 @@ struct Collision {
     float penetration; // positive = overlap depth
     Vector<n> contactPoint; // useful for better response
     bool valid = false;
-    bool rebound = true;
-    bool applyWaterFriction = false;
-    float waterFriction = 0.5f;
+    PhysicsType otherPType;
 };
 
 template <int n>
@@ -43,7 +41,7 @@ public:
             if (!bodies[i]->physicsBodyActive()) continue;
             for (int j = i + 1; j < count; j++) {
                 Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
-                if ((col.valid && col.penetration > 0) || col.applyWaterFriction)
+                if ((col.valid && col.penetration > 0))
                     resolveCollision<n>(bodies[i]->getPhysicsBody(), col);
             }
         }
@@ -117,6 +115,8 @@ private:
             delete[] raw;
             return deepest;
         }
+        // check type of other
+        
 
         // Z-layer check (only meaningful for n >= 3)
         if constexpr (n >= 3) {
@@ -129,13 +129,9 @@ private:
             }
             float circleZ = circle.pos[2];
             // If the circle's z is completely outside [shapeZMin, shapeZMax], skip
-            if(shapeZMin == -1.f || shapeZMax == -1.f)
-            {
-                deepest.applyWaterFriction = true;
-                
-            }
             if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
                 delete[] raw;
+                deepest.otherPType = shape->getPhysicsType();
                 return deepest;   // no collision — different layers
             }
 
@@ -153,10 +149,8 @@ private:
             if (c.valid && c.penetration > deepest.penetration) {
 
                 deepest = c;
-                if(deepest.applyWaterFriction)
-                {
-                    deepest.applyWaterFriction = true;
-                }
+
+                deepest.otherPType = shape->getPhysicsType();
             }
         }
 
@@ -208,13 +202,10 @@ private:
         Vector<2> vel2  = ball.vel2D();
         Vector<2> norm2 = {col.normal[0], col.normal[1]};
 
-        if(col.applyWaterFriction)
+        // if it is water then just slow the ball down
+        if(col.otherPType == PhysicsType::WATER)
         {
-            std::cout << "Water friction" << std::endl;
-
-            vel2 = vel2 * col.waterFriction;
-            // Write x,y back; z velocity is unchanged
-            ball.setVel2D(vel2);
+            ball.setVel2D(vel2 * 0.7f);
             return;
         }
 

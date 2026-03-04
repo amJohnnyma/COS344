@@ -262,8 +262,9 @@ int main()
     wallBottom.setColor(colAmber.r,colAmber.g,colAmber.b);
     wallTop.setColor(colAmber.r,colAmber.g,colAmber.b);
 
-    Square<3> river(Vector<3>{0.f,0.f,-1.f}, 13.f, 2.f);
+    Square<3> river(Vector<3>{0.f,0.f,1.f}, 13.f, 2.f);
     river.setColor(colBlue.r, colBlue.g, colBlue.b);
+    river.setPhysicsType(PhysicsType::WATER);
 
     background.add(&reboundObstacle1);
     background.add(&reboundObstacle2);

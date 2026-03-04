@@ -8,6 +8,12 @@
 
 template <int n> class Renderer;
 
+enum PhysicsType
+{
+    NONE = 0,
+    WATER,
+    WALL
+};
 
 //component
 template <int n>
@@ -17,6 +23,7 @@ class Shape {
         Vector<n> position; // the center position
         PhysicsBody<n> physicsBody;
         bool hasPhysics = false;
+        PhysicsType type = NONE;
 
     public:
         virtual ~Shape() = default;
@@ -27,6 +34,9 @@ class Shape {
         virtual void render(Renderer<n>& r) const = 0;
 
 
+        void setPhysicsType(const PhysicsType t) {type = t;}
+        PhysicsType getPhysicsType() {return type;}
+        const PhysicsType getPhysicsType() const {return type;}
         PhysicsBody<n>& getPhysicsBody() { return physicsBody; }
         const PhysicsBody<n>& getPhysicsBody() const { return physicsBody; }
         bool physicsBodyActive() {return hasPhysics;}
@@ -36,6 +46,7 @@ class Shape {
             physicsBody = PhysicsBody(position, initial_vel);
             hasPhysics = true;
         }
+
         virtual void updatePhysics(float dt)
         {
             if(hasPhysics)
