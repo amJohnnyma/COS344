@@ -232,25 +232,34 @@ int main()
     Color4 colAmber       ( 1.00f, 0.75f, 0.00f, 1.0f );
     Color4 colWhite       ( 1.00f, 1.00f, 1.00f, 1.0f );
     Color4 colMagenta( 1.00f, 0.00f, 1.00f, 1.0f );
+    Color4 colDarkGray(0.25f,0.25f,0.25f,1.f);
 
-    Square<3> background(Vector<3>{0.0f, 0.0f, 0.f}, 13, 18);
+    Square<3> background(Vector<3>{0.0f, 0.0f, 0.f}, 16, 21);
     background.setColor(colGrid.r, colGrid.g, colGrid.b);
 
-    Square<3> reboundObstacle1(Vector<3>{-7, -4, 1.f}, 1, 2);
-    reboundObstacle1.setColor(colAmber.r, colAmber.g, colAmber.b);
+    Square<3> courseGrass(Vector<3>{0.f,0.f,0.f}, 13, 18);
+    courseGrass.setColor(colGreen.r, colGreen.g, colGreen.b);
+
+    Square<3> reboundObstacle1(Vector<3>{-8, -5, 1.f}, 0.5, 2.5);
+    reboundObstacle1.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
     reboundObstacle1.rotate(-45.f);
-    Square<3> reboundObstacle2(Vector<3>{-7, 4, 1.f}, 1, 2);
-    reboundObstacle2.setColor(colAmber.r, colAmber.g, colAmber.b);
+
+    Square<3> reboundObstacle2(Vector<3>{-8, 5, 1.f}, 0.5, 2.5);
+    reboundObstacle2.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
     reboundObstacle2.rotate(45.f);
+
+    Square<3> reboundObstacle3(Vector<3>{3.f,0.f,1.f}, 1, 12);
+    reboundObstacle3.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
+
+    Square<3> startPos(Vector<3>{8.f,-4.f, 0.f}, 3, 1);
+    startPos.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
+
     Circle<3> ball(Vector<3>{7.0f, -3.0f, 1.f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
     ball.setPhysicsType(PhysicsType::BALL);
 
-    Circle<3> ball1(Vector<3>{-6.0f, -3.0f, 1.f}, 0.3f, 32);
-    ball1.setColor(colGrid.r, colGreen.g, colGreen.b);
-    ball1.setPhysicsType(PhysicsType::BALL);
 
-    const float wallThick = 1.0f;
+    const float wallThick = 0.5f;
     const float halfW = 9.0f;   // half of width  18
     const float halfH = 6.5f;   // half of height 13
 
@@ -259,40 +268,47 @@ int main()
     Square<3> wallBottom(Vector<3>{0.0f, -(halfH + wallThick * 0.5f), 1.f}, wallThick, 18.0f);
     Square<3> wallTop   (Vector<3>{0.0f, +(halfH + wallThick * 0.5f), 1.f}, wallThick, 18.0f);
 
-    wallLeft.setColor(colAmber.r, colAmber.g, colAmber.b);
-    wallRight.setColor(colAmber.r,colAmber.g,colAmber.b);
-    wallBottom.setColor(colAmber.r,colAmber.g,colAmber.b);
-    wallTop.setColor(colAmber.r,colAmber.g,colAmber.b);
+    wallLeft.setColor(colDarkGray.r, colDarkGray.g, colDarkGray.b);
+    wallRight.setColor(colDarkGray.r,colDarkGray.g,colDarkGray.b);
+    wallBottom.setColor(colDarkGray.r,colDarkGray.g,colDarkGray.b);
+    wallTop.setColor(colDarkGray.r,colDarkGray.g,colDarkGray.b);
 
     Square<3> river(Vector<3>{0.f,0.f,1.f}, 13.f, 2.f);
     river.setColor(colBlue.r, colBlue.g, colBlue.b);
     river.setPhysicsType(PhysicsType::WATER);
 
+    background.add(&courseGrass);
+    background.add(&river);
     background.add(&reboundObstacle1);
     background.add(&reboundObstacle2);
+    background.add(&reboundObstacle3);
     background.add(&wallLeft);
     background.add(&wallRight);
     background.add(&wallBottom);
     background.add(&wallTop);
-    background.add(&river);
+    background.add(&startPos);
     background.add(&ball);
-    background.add(&ball1);
 
-    //background.enablePhysics(Vector<2>{-10.f, 0.f});
-    ball.enablePhysics(Vector<3>{30.f, 0.f, 0.f});
-    ball1.enablePhysics(Vector<3>{-30.f, 0.f, 0.f});
 
     Shape<3>* scene[] = {
-    &background
-    ,&ball
-    ,&ball1
+    &ball
     ,&reboundObstacle1
     ,&reboundObstacle2
+    ,&reboundObstacle3
     ,&wallLeft         
     ,&wallRight        
     ,&wallBottom       
     ,&wallTop
-    ,&river};
+    ,&river
+    };
+
+    //create objects
+    //Create composites
+    //add to scene
+    //
+    //Update loop
+    //Physics update entire scene
+    //render all composites
 
     int sceneCount = sizeof(scene) / sizeof(scene[0]);
 
@@ -300,8 +316,6 @@ int main()
     auto initScene = [&]() {
         ball.setPosition(Vector<3>{7.0f, -3.0f, 1.f});
         ball.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
-        ball1.setPosition(Vector<3>{-6.0f, -3.0f, 1.f});
-        ball1.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
     };
 
     PhysicsEngine physics;
