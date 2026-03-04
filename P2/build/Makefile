@@ -251,6 +251,54 @@ src/Renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.s
 .PHONY : src/Renderer.cpp.s
 
+src/Scene.o: src/Scene.cpp.o
+.PHONY : src/Scene.o
+
+# target to build an object file
+src/Scene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o
+.PHONY : src/Scene.cpp.o
+
+src/Scene.i: src/Scene.cpp.i
+.PHONY : src/Scene.i
+
+# target to preprocess a source file
+src/Scene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.i
+.PHONY : src/Scene.cpp.i
+
+src/Scene.s: src/Scene.cpp.s
+.PHONY : src/Scene.s
+
+# target to generate assembly for a file
+src/Scene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.s
+.PHONY : src/Scene.cpp.s
+
+src/SceneCreator.o: src/SceneCreator.cpp.o
+.PHONY : src/SceneCreator.o
+
+# target to build an object file
+src/SceneCreator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
+.PHONY : src/SceneCreator.cpp.o
+
+src/SceneCreator.i: src/SceneCreator.cpp.i
+.PHONY : src/SceneCreator.i
+
+# target to preprocess a source file
+src/SceneCreator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.i
+.PHONY : src/SceneCreator.cpp.i
+
+src/SceneCreator.s: src/SceneCreator.cpp.s
+.PHONY : src/SceneCreator.s
+
+# target to generate assembly for a file
+src/SceneCreator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.s
+.PHONY : src/SceneCreator.cpp.s
+
 src/Square.o: src/Square.cpp.o
 .PHONY : src/Square.o
 
@@ -370,6 +418,12 @@ help:
 	@echo "... src/Renderer.o"
 	@echo "... src/Renderer.i"
 	@echo "... src/Renderer.s"
+	@echo "... src/Scene.o"
+	@echo "... src/Scene.i"
+	@echo "... src/Scene.s"
+	@echo "... src/SceneCreator.o"
+	@echo "... src/SceneCreator.i"
+	@echo "... src/SceneCreator.s"
 	@echo "... src/Square.o"
 	@echo "... src/Square.i"
 	@echo "... src/Square.s"

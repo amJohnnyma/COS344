@@ -11,14 +11,12 @@
 #include "include/engine/Renderer.h"    // uses Color4, Matrix<4,4>
 
 #include "include/math/Shape.h"
-#include "include/math/Circle.h"
-#include "include/math/Square.h"
-#include "include/math/Triangle.h"
 
 #include "include/DebugOptions.h"
 #include "include/math/Vector.h"
-#include "include/engine/Physics.h"
 #include "include/engine/Input.h"
+#include "include/engine/SceneCreator.h"
+#include "include/engine/Color.h"
 
 #include <cmath>   // for random placement helpers
 
@@ -223,7 +221,7 @@ int main()
     Matrix<4,4> viewMat = buildIdentity4();
     Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
     renderer.setViewProj(viewMat, projMat);
-
+/*
     Color4 colGrid        ( 0.25f, 0.28f, 0.32f, 1.0f );
     Color4 colBrown       ( 0.50f, 0.28f, 0.10f, 1.0f );
     Color4 colGreen       ( 0.10f, 0.80f, 0.20f, 1.0f );
@@ -319,7 +317,60 @@ int main()
     };
 
     PhysicsEngine physics;
+    */
+
     bool shouldRestart = false;
+
+    /*
+
+struct ShapeParams
+{
+    int type;
+    // square = 1
+    // circle = 2
+    // triangle = 3
+    // ball = 4
+    Vector<n> pos;
+    float width, height; 
+    float radius; 
+    Color4 col;
+
+    bool isHole = false;
+};
+    */
+    SceneCreator<3> sceneC;
+    sceneC.createScene();
+    sceneC.setActive(0);
+    ShapeParams<3> params 
+{
+        1, // type
+        Vector<3>{0.f,0.f,0.f}, // pos
+        10, // width
+        5, // height
+        0,            // radius
+        Colors::Grid, // col
+        false               // isHole
+
+};
+//background
+    sceneC.createShape(params);
+    params.pos = {-5.5f, 0.f, 1.f};
+    params.width = 1.f;
+    params.col = Colors::Amber;
+    // rebound obstacle
+    sceneC.createShape(params);
+    params.pos = {0.f,0.f,1.f};
+    params.radius = 1.f;
+    params.type = 4;
+    params.col = Colors::White;
+    // ball
+    sceneC.createShape(params);
+
+    Scene<3> * currentScene = sceneC.getScene(0);
+    currentScene->selectObstacle();
+    currentScene->rotateSelected(45.f);
+    currentScene->setBallVel(Vector<3>{-10.f, 0.f,0.f});
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -327,21 +378,16 @@ int main()
 
         processInput(window, limiter, targetFps, shouldRestart);
 
+        /*
         if (shouldRestart) {
-            initScene();
-            physics = PhysicsEngine{};
+            scene.initScene();
             shouldRestart = false;
         }
+        */
 
         renderer.beginFrame();
+        sceneC.update(dt, renderer);
 
-        if (!paused)
-            physics.update(scene, sceneCount, dt);
-
-        // When i make my scene 
-        //      physics.update(scene.getBodies(), scene.getCount(), dt);
-        // scene.render(renderer);
-        background.render(renderer);
         renderer.endFrame();
 
         InputManager::get_instance().update();

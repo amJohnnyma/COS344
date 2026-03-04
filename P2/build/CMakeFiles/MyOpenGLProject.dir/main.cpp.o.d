@@ -320,17 +320,17 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/../math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/../math/../engine/PhysicsBody.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/../math/../engine/../math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Color.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Shape.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Circle.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Shape.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Vector.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Triangle.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Square.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Matrix.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Triangle.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/DebugOptions.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Input.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/SceneCreator.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Scene.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Physics.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/../math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/PhysicsBody.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Input.h
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Camera.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Renderer.h \
+ /usr/include/c++/13/cinttypes /usr/include/inttypes.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/Color.h

@@ -319,5 +319,6 @@ CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/../engine/PhysicsBody.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/../engine/../math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Color.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/shader.hpp \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/DebugOptions.h

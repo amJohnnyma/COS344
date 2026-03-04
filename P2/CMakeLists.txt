@@ -37,6 +37,8 @@ add_executable(${PROJECT_NAME}
     src/Circle.cpp
     src/Renderer.cpp
     src/shader.cpp
+    src/Scene.cpp
+    src/SceneCreator.cpp
 )
 
 

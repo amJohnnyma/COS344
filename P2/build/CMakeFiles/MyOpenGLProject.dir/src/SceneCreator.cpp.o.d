@@ -1,10 +1,11 @@
-CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/Triangle.cpp \
+CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/SceneCreator.cpp \
  /usr/include/stdc-predef.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Triangle.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Shape.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Matrix.h \
- /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/SceneCreator.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Scene.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Physics.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Vector.h \
+ /usr/include/c++/13/initializer_list \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -15,9 +16,11 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
- /usr/include/c++/13/pstl/pstl_config.h /usr/include/c++/13/ostream \
- /usr/include/c++/13/ios /usr/include/c++/13/iosfwd \
- /usr/include/c++/13/bits/stringfwd.h \
+ /usr/include/c++/13/pstl/pstl_config.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
+ /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \
+ /usr/include/c++/13/ostream /usr/include/c++/13/ios \
+ /usr/include/c++/13/iosfwd /usr/include/c++/13/bits/stringfwd.h \
  /usr/include/c++/13/bits/memoryfwd.h /usr/include/c++/13/bits/postypes.h \
  /usr/include/c++/13/cwchar /usr/include/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -104,7 +107,6 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
  /usr/include/c++/13/bits/predefined_ops.h /usr/include/c++/13/bit \
  /usr/include/c++/13/bits/refwrap.h /usr/include/c++/13/bits/invoke.h \
  /usr/include/c++/13/bits/range_access.h \
- /usr/include/c++/13/initializer_list \
  /usr/include/c++/13/bits/basic_string.h \
  /usr/include/c++/13/ext/alloc_traits.h \
  /usr/include/c++/13/bits/alloc_traits.h \
@@ -184,9 +186,13 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
  /usr/include/c++/13/bits/locale_conv.h \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/Vector.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/../engine/PhysicsBody.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/math/../engine/../math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/../engine/PhysicsBody.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/../engine/../math/Vector.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/PhysicsBody.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Camera.h \
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Renderer.h \
  /usr/include/GL/glew.h /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
@@ -316,6 +322,5 @@ CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Matrix.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/../math/Shape.h \
- /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Color.h
+ /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Color.h \
+ /usr/include/c++/13/cinttypes /usr/include/inttypes.h

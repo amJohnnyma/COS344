@@ -10,12 +10,8 @@
 #include "../math/Matrix.h"
 #include "../math/Shape.h"
 
-// Lightweight RGBA colour (replaces glm::vec4 for colours)
-struct Color4 {
-    float r, g, b, a;
-    Color4(float r = 1, float g = 1, float b = 1, float a = 1)
-        : r(r), g(g), b(b), a(a) {}
-};
+#include "Color.h"
+
 
 // Helper: build a column-major float[16] from our row-major Matrix<4,4>
 // so we can hand it straight to glUniformMatrix4fv.
