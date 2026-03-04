@@ -244,9 +244,11 @@ int main()
     reboundObstacle2.rotate(45.f);
     Circle<3> ball(Vector<3>{7.0f, -3.0f, 1.f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
+    ball.setPhysicsType(PhysicsType::BALL);
 
     Circle<3> ball1(Vector<3>{-6.0f, -3.0f, 1.f}, 0.3f, 32);
     ball1.setColor(colGrid.r, colGreen.g, colGreen.b);
+    ball1.setPhysicsType(PhysicsType::BALL);
 
     const float wallThick = 1.0f;
     const float halfW = 9.0f;   // half of width  18
@@ -297,9 +299,9 @@ int main()
     // Lambda to (re)initialize scene state
     auto initScene = [&]() {
         ball.setPosition(Vector<3>{7.0f, -3.0f, 1.f});
-        ball.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
+        ball.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
         ball1.setPosition(Vector<3>{-6.0f, -3.0f, 1.f});
-        ball1.enablePhysics(Vector<3>{20.f, 0.f, 0.f});
+        ball1.enablePhysics(Vector<3>{-20.f, 0.f, 0.f});
     };
 
     PhysicsEngine physics;

@@ -14,6 +14,7 @@ struct Collision {
     Vector<n> contactPoint; // useful for better response
     bool valid = false;
     PhysicsType otherPType;
+    Shape<n> * otherShape = nullptr;
 };
 
 template <int n>
@@ -42,7 +43,7 @@ public:
             for (int j = i + 1; j < count; j++) {
                 Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
                 if ((col.valid && col.penetration > 0))
-                    resolveCollision<n>(bodies[i]->getPhysicsBody(), col);
+                    resolveCollision<n>(bodies[i]->getPhysicsBody(),bodies[j]->getPhysicsBody(), col);
             }
         }
     }
@@ -50,11 +51,14 @@ public:
 private:
     template<int n>
     Collision<n> detectCollision(const Shape<n>& a, const Shape<n>& b) const {
-        if (true) {
-            return circleVsShape<n>(a.getPhysicsBody(), &b);
-        }
-        // Symmetric: swap if needed
-        return circleVsShape<n>(b.getPhysicsBody(), &a);
+        bool aIsCircle = (a.getPhysicsType() == PhysicsType::BALL);
+        bool bIsCircle = (b.getPhysicsType() == PhysicsType::BALL);
+
+        if(aIsCircle && bIsCircle) return circleVsCircle(a.getPhysicsBody(), b.getPhysicsBody());
+        if(aIsCircle) return circleVsShape(a.getPhysicsBody(), &b);
+        if(bIsCircle) return circleVsShape(b.getPhysicsBody(), &a);
+
+        return Collision<n>{};
     }
 
 
@@ -131,7 +135,6 @@ private:
             // If the circle's z is completely outside [shapeZMin, shapeZMax], skip
             if (circleZ < shapeZMin - circle.radius || circleZ > shapeZMax + circle.radius) {
                 delete[] raw;
-                deepest.otherPType = shape->getPhysicsType();
                 return deepest;   // no collision — different layers
             }
 
@@ -157,6 +160,26 @@ private:
         delete[] raw;
         return deepest;
     }
+
+    template <int n>
+    Collision<n> circleVsCircle(const PhysicsBody<n>& a, const PhysicsBody<n>& b) const
+    {
+        Collision<n> col;
+        Vector<n> delta = a.pos - b.pos;
+        float distSq = delta * delta;
+        float radSum = a.radius + b.radius;
+
+        if(distSq >= radSum * radSum) return col; // no col
+        
+
+        float dist = std::sqrt(distSq);
+        col.penetration = radSum - dist;
+        col.normal = (dist > 1e-6f) ? delta * (1.f / dist) : Vector<n>{0,1};
+        col.contactPoint = b.pos + col.normal * b.radius;
+        col.valid = true;
+        return col;
+    }
+
 /*
 
     // Circle vs AABB (faster for axis-aligned squares)
@@ -195,42 +218,65 @@ private:
     // Resolve collision against a static wall.
     // All impulse math is 2D (x-y plane); z velocity is left untouched.
     template <int n>
-    void resolveCollision(PhysicsBody<n>& ball, const Collision<n>& col) {
+    void resolveCollision(PhysicsBody<n>& a, PhysicsBody<n>& b, const Collision<n>& col) {
         if ((!col.valid || col.penetration <= 0)) return;
 
-        // Reflect velocity in 2D
-        Vector<2> vel2  = ball.vel2D();
         Vector<2> norm2 = {col.normal[0], col.normal[1]};
 
         // if it is water then just slow the ball down
         if(col.otherPType == PhysicsType::WATER)
         {
-            ball.setVel2D(vel2 * 0.7f);
+            a.setVel2D(a.vel2D() * 0.7f);
             return;
         }
 
-        // Push ball out of the wall along the collision normal (x,y only)
-        ball.pos[0] += col.normal[0] * (col.penetration + 0.001f);
-        ball.pos[1] += col.normal[1] * (col.penetration + 0.001f);
+        bool bIsDynamic = (col.otherPType == PhysicsType::BALL);
 
-        vel2  = ball.vel2D();
+        if (bIsDynamic)
+        {
+            float totalMass = a.mass + b.mass;
+            float aShare = b.mass / totalMass;
+            float bShare = a.mass / totalMass;
 
-        float vDotN = vel2 * norm2;
-        if (vDotN >= 0) return;   // already separating
+            a.pos[0] += col.normal[0] * (col.penetration + 0.001f) * aShare;
+            a.pos[1] += col.normal[1] * (col.penetration + 0.001f) * aShare;
+            b.pos[0] -= col.normal[0] * (col.penetration + 0.001f) * bShare;
+            b.pos[1] -= col.normal[1] * (col.penetration + 0.001f) * bShare;
+        }
+        else{
 
-        // Reflection impulse
-        Vector<2> impulse2 = norm2 * (-(1.0f + ball.restitution) * vDotN);
-        vel2 = vel2 + impulse2;
+            a.pos[0] += col.normal[0] * (col.penetration + 0.001f);
+            a.pos[1] += col.normal[1] * (col.penetration + 0.001f);
+        }
 
-        // Tangential friction
+
+        Vector<2> velA = a.vel2D();
+        Vector<2> velB = b.vel2D();
+        Vector<2> relVel = velA - velB;
+        float vDotN = relVel * norm2;
+
+        if(vDotN >= 0) return; // already moving apart
+
+        float e = bIsDynamic ? std::min(a.restitution, b.restitution) : a.restitution;
+        float invMassSum = bIsDynamic ? (1.f / a.mass + 1.f / b.mass) : (1.f / a.mass);
+        float j = -(1.f + e) * vDotN / invMassSum;
+
+        Vector<2> impulse2 = norm2 * j;
+        a.setVel2D(velA + impulse2 * (1.f / a.mass));
+        if(bIsDynamic)
+            b.setVel2D(velB + impulse2 * (1.f / b.mass));
+
+        velA = a.vel2D();
+        velB = bIsDynamic ? b.vel2D() : Vector<2>{0,0};
         Vector<2> tangent2 = {-norm2[1], norm2[0]};
-        float vTan = vel2 * tangent2;
-        vel2 = vel2 - tangent2 * (vTan * 0.15f);
+        float vTan = (velA - velB) * tangent2;
+        Vector<2> frictionImpulse = tangent2 * (vTan * 0.15f * 0.5f);
+        a.setVel2D(velA - frictionImpulse);
+        if(bIsDynamic)
+            b.setVel2D(velB + frictionImpulse);
 
-
-        // Write x,y back; z velocity is unchanged
-        ball.setVel2D(vel2);
     }
+
 };
 
 

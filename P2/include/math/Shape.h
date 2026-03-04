@@ -12,7 +12,8 @@ enum PhysicsType
 {
     NONE = 0,
     WATER,
-    WALL
+    WALL,
+    BALL
 };
 
 //component
