@@ -251,10 +251,10 @@ int main()
     Square<3> reboundObstacle3(Vector<3>{3.f,0.f,1.f}, 1, 12);
     reboundObstacle3.setColor(colChocolate.r, colChocolate.g, colChocolate.b);
 
-    Square<3> startPos(Vector<3>{8.f,-4.f, 0.f}, 3, 1);
+    Square<3> startPos(Vector<3>{8.5f,-3.5f, 0.f}, 6, 1);
     startPos.setColor(colMagenta.r, colMagenta.g, colMagenta.b);
 
-    Circle<3> ball(Vector<3>{7.0f, -3.0f, 1.f}, 0.3f, 32);
+    Circle<3> ball(Vector<3>{8.5f, -3.5f, 1.f}, 0.3f, 32);
     ball.setColor(colWhite.r, colWhite.g, colWhite.b);
     ball.setPhysicsType(PhysicsType::BALL);
 
