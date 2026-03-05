@@ -93,10 +93,10 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         {
             ShapeParams<3> p;
             float x,y,z;
-            sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %d %f",
+            sscanf(line, "shape %d %f %f %f %f %f %f %d %f %f %f %f %d %f",
                     &p.type,
                     &x, &y, &z,
-                    &p.width, &p.height, &p.radius,
+                    &p.width, &p.height, &p.radius,&p.cSegments,
                     &p.col.r, &p.col.g, &p.col.b, &p.col.a,
                     (int*)&p.isHole,
                     &p.rotation);
@@ -158,10 +158,10 @@ printf("Saving to: %s\n", path.c_str());
         for (int j = 0; j < scene->getCount(); j ++)
         {
             ShapeParams<n> p = scene->getShapeParam(j);
-            fprintf(f, "shape %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %d %.4f\n",
+            fprintf(f, "shape %d %.4f %.4f %.4f %.4f %.4f %.4f %d %.4f %.4f %.4f %.4f %d %.4f\n",
                     p.type,
                     p.pos[0], p.pos[1], p.pos[2],
-                    p.width, p.height, p.radius,
+                    p.width, p.height, p.radius, p.cSegments,
                     p.col.r, p.col.g, p.col.b, p.col.a,
                     (int)p.isHole,
                     p.rotation);

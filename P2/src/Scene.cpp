@@ -20,7 +20,7 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
 void Scene<n>::addCircle(const ShapeParams<n>& params)
 {
 
-    Circle<3> * circle = new Circle(params.pos, params.radius);
+    Circle<3> * circle = new Circle(params.pos, params.radius, params.cSegments);
     circle->setColor(params.col.r, params.col.g, params.col.b);
 
     if(params.isHole)
@@ -55,7 +55,7 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
 void Scene<n>::addBall(const ShapeParams<n>& params)
 {
 
-    Circle<3>* ball = new Circle<3>(params.pos, params.radius);
+    Circle<3>* ball = new Circle<3>(params.pos, params.radius, params.cSegments);
     ball->setColor(params.col.r, params.col.g, params.col.b);
     ball->enablePhysics();
     ball->setPhysicsType(PhysicsType::BALL);

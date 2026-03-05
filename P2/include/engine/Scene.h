@@ -19,6 +19,7 @@ struct ShapeParams
     Vector<n> pos;
     float width, height; 
     float radius; 
+    int cSegments = 50;
     Color4 col;
 
     bool isHole = false;
