@@ -7,7 +7,7 @@ struct DebugOptions
     bool showCollisionNormals = false;
     bool showAimLine = false;
     float timeScale = 1.0f;
-    // add more flags as needed
+    bool showGrid = false;
 
     static DebugOptions& get()
     {

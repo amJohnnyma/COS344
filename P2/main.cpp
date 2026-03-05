@@ -164,11 +164,18 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         // rotate CCW
     }
 
-    // Wireframe (W)
+    // Wireframe (ENTER)
     if (input.is_key_pressed(GLFW_KEY_ENTER))
     {
         DebugOptions::get().wireframe = !DebugOptions::get().wireframe;
         std::cout << "Wireframe: " << (DebugOptions::get().wireframe ? "ON" : "OFF") << "\n";
+    }
+
+    // Grid (G)
+    if (input.is_key_pressed(GLFW_KEY_G))
+    {
+        DebugOptions::get().showGrid = !DebugOptions::get().showGrid;
+        std::cout << "Grid: " << (DebugOptions::get().showGrid ? "ON" : "OFF") << "\n";
     }
 
     // Pause (P)
@@ -339,38 +346,7 @@ struct ShapeParams
 };
     */
     SceneCreator<3> sceneC;
-    //sceneC.loadScenes("test");
-    sceneC.createScene();
-    sceneC.setActive(0);
-    ShapeParams<3> params 
-{
-        1, // type
-        Vector<3>{0.f,0.f,0.f}, // pos
-        10, // width
-        5, // height
-        0,            // radius
-        Colors::Grid, // col
-        false               // isHole
-
-};
-//background
-    sceneC.createShape(params);
-    params.pos = {-5.5f, 0.f, 1.f};
-    params.width = 1.f;
-    params.col = Colors::Amber;
-    // rebound obstacle
-    sceneC.createShape(params);
-    params.pos = {4.f,0.f,1.f};
-    params.radius = 0.25f;
-    params.type = 4;
-    params.col = Colors::White;
-    // ball
-    sceneC.createShape(params);
-
-    Scene<3> * currentScene = sceneC.getScene(0);
-    currentScene->selectObstacle(1);
-    currentScene->rotateSelected(45.f);
-    currentScene->setBallVel(Vector<3>{-10.f, 0.f,0.f});
+    sceneC.loadScenes("Demo");
     
     while (!glfwWindowShouldClose(window))
     {
@@ -378,15 +354,18 @@ struct ShapeParams
 
         processInput(window, limiter, targetFps, shouldRestart, sceneC);
 
-        /*
         if (shouldRestart) {
-            scene.initScene();
+           // scene.initScene();
             shouldRestart = false;
+            sceneC = SceneCreator<3>();
+            sceneC.loadScenes("Demo");
         }
-        */
 
         renderer.beginFrame();
         sceneC.update(dt, renderer);
+
+        if (DebugOptions::get().showGrid)
+            renderer.drawDebugGrid(10);
 
         renderer.endFrame();
 
@@ -399,7 +378,7 @@ struct ShapeParams
 
         limiter.limit();
     }
-sceneC.saveScenes("test");
+sceneC.saveScenes("DemoSave");
 
     glfwTerminate();
     return 0;

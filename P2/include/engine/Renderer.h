@@ -50,6 +50,8 @@ public:
     void drawShape(const Shape<n>* shape, const Color4& color);
     void endFrame();
 
+    void drawDebugGrid(int extent);
+
 private:
     void loadShaders();
 

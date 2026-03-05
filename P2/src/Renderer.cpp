@@ -112,6 +112,53 @@ void Renderer<n>::beginFrame()
     glUniformMatrix4fv(locView, 1, GL_FALSE, colMajorView);
     glUniformMatrix4fv(locProj, 1, GL_FALSE, colMajorProj);
 }
+template <int n>
+void Renderer<n>::drawDebugGrid(int extent)
+{
+    GLint locColor = glGetUniformLocation(programID, "uColor");
+
+    // grid lines
+    glUniform4f(locColor, 0.4f, 0.4f, 0.4f, 1.0f);
+
+    for (int i = -extent; i <= extent; i++)
+    {
+        m_vertexCount = 0;
+        // vertical line as thin quad
+        float x = (float)i - 0.5f;
+        pushFloat(x - 0.02f); pushFloat(-(float)extent);
+        pushFloat(x + 0.02f); pushFloat(-(float)extent);
+        pushFloat(x + 0.02f); pushFloat( (float)extent);
+        pushFloat(x - 0.02f); pushFloat(-(float)extent);
+        pushFloat(x + 0.02f); pushFloat( (float)extent);
+        pushFloat(x - 0.02f); pushFloat( (float)extent);
+        glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        m_vertexCount = 0;
+        // horizontal line as thin quad
+        float y = (float)i + 0.5f;
+        pushFloat(-(float)extent); pushFloat(y - 0.02f);
+        pushFloat( (float)extent); pushFloat(y - 0.02f);
+        pushFloat( (float)extent); pushFloat(y + 0.02f);
+        pushFloat(-(float)extent); pushFloat(y - 0.02f);
+        pushFloat( (float)extent); pushFloat(y + 0.02f);
+        pushFloat(-(float)extent); pushFloat(y + 0.02f);
+        glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
+
+    // mark 0,0 with a red square
+    glUniform4f(locColor, 1.0f, 0.0f, 0.0f, 1.0f);
+    m_vertexCount = 0;
+    pushFloat(-0.15f); pushFloat(-0.15f);
+    pushFloat( 0.15f); pushFloat(-0.15f);
+    pushFloat( 0.15f); pushFloat( 0.15f);
+    pushFloat(-0.15f); pushFloat(-0.15f);
+    pushFloat( 0.15f); pushFloat( 0.15f);
+    pushFloat(-0.15f); pushFloat( 0.15f);
+    glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+}
 
 // drawShape — uploads and draws a single shape immediately.
 template <int n>

@@ -79,7 +79,8 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
     {
         char cmd[32];
         sscanf(line, "%s", cmd);
-
+        
+        if(cmd[0] == '#') continue;
         if (strcmp(cmd, "scene") == 0)
         {
             createScene();
