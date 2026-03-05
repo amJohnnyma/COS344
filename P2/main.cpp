@@ -139,18 +139,22 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_W))
     {
         // move up
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,0.5f,0.f});
     }
     if(input.is_key_pressed(GLFW_KEY_S))
     {
         // move down
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,-0.5f,0.f});
     }
     if(input.is_key_pressed(GLFW_KEY_A))
     {
         // move left
+        sceneC.getActive()->moveSelected(Vector<3>{-0.5f,0.f,0.f});
     }
     if(input.is_key_pressed(GLFW_KEY_D))
     {
         // move right
+        sceneC.getActive()->moveSelected(Vector<3>{0.5f,0.f,0.f});
     }
     if(input.is_key_pressed(GLFW_KEY_EQUAL))
     {
@@ -163,10 +167,12 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_E))
     {
         // rotate CW
+        sceneC.getActive()->rotateSelected(-10);
     }
     if(input.is_key_pressed(GLFW_KEY_Q))
     {
         // rotate CCW
+        sceneC.getActive()->rotateSelected(10);
     }
 
     // Wireframe (ENTER)
