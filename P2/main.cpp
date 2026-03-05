@@ -159,20 +159,22 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_EQUAL))
     {
         //scale up
+        sceneC.getActive()->scaleSelected(1.1);
     }
     if(input.is_key_pressed(GLFW_KEY_MINUS))
     {
         //scale down
+        sceneC.getActive()->scaleSelected(0.9);
     }
     if(input.is_key_pressed(GLFW_KEY_E))
     {
         // rotate CW
-        sceneC.getActive()->rotateSelected(-10);
+        sceneC.getActive()->rotateSelected(-15);
     }
     if(input.is_key_pressed(GLFW_KEY_Q))
     {
         // rotate CCW
-        sceneC.getActive()->rotateSelected(10);
+        sceneC.getActive()->rotateSelected(15);
     }
 
     // Wireframe (ENTER)

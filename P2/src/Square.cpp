@@ -150,8 +150,10 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
     // only 2D
     if constexpr (n >= 2)
     {
-        const float c = std::cos(theta);
-        const float s = std::sin(theta);
+
+        float radians = theta * (3.14159265f / 180.f);
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
         const float Cx = pivot[0];
         const float Cy = pivot[1];
 
@@ -168,8 +170,7 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
         rotate_vertex(bl);
         rotate_vertex(br);
 
-        for(int i = 0; i < childCount; i ++)
-            children[i]->rotate(theta, pivot, true);
+        rebuild();
     }
 }
 

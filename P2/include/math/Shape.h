@@ -93,6 +93,7 @@ class Shape {
         }
 
         virtual void rotate(float theta, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) = 0;
+        virtual void scale(float s) = 0;
 };
 
 #endif /*SHAPE_H*/
