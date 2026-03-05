@@ -43,6 +43,7 @@ should have the value of 5 for the third component.
         br[i] = center[i];
         bl[i] = center[i];
     }
+this->position = (tl + tr + br + bl) * 0.25f;
     add(new Triangle<n>(tl, tr, br));
     add(new Triangle<n>(tl, br, bl));
 }
@@ -52,7 +53,7 @@ Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br,
     this->tl = Vector<n>(tl);
     this->tr = Vector<n>(tr);
     this->bl = Vector<n>(bl);
-    this->br = Vector<n>(br);
+    this->br = Vector<n>(br);this->position = (tl + tr + br + bl) * 0.25f;
     add(new Triangle<n>(tl, tr, br));
     add(new Triangle<n>(tl, br, bl));
 
@@ -63,7 +64,7 @@ Square<n>::Square(const Square<n>& other)
     tl = Vector<n>(other.tl);
     tr = Vector<n>(other.tr);
     bl = Vector<n>(other.bl);
-    br = Vector<n>(other.br);
+    br = Vector<n>(other.br);this->position = (tl + tr + br + bl) * 0.25f;
     add(new Triangle<n>(tl, tr, br));
     add(new Triangle<n>(tl, br, bl));
 

@@ -186,6 +186,7 @@ void Scene<n>::moveSelected(const Vector<n>& force)
     {
         // not actually applying force because my physics sucks
         m_shapes[selectedObstacle]->applyTranslation(force);
+        m_shape_params[selectedObstacle].pos = m_shapes[selectedObstacle]->getPosition();
     }
 }
     template <int n>

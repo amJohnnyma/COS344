@@ -33,6 +33,8 @@ public:
         p1 = p1 + disp;
         p2 = p2 + disp;
         p3 = p3 + disp;
+
+        this->position = this->position + disp;
     }
 
     virtual void scale(float s) override

@@ -359,7 +359,7 @@ struct ShapeParams
 };
     */
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("Demo");
+    sceneC.loadScenes("DemoSave");
     
     while (!glfwWindowShouldClose(window))
     {

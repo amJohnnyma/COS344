@@ -69,6 +69,7 @@ public:
     virtual void applyTranslation(const Vector<n>& disp) override
     {
         tl = tl + disp; tr = tr + disp; br = br + disp; bl = bl + disp;
+        this->position = this->position + disp;
 
         for(int i = 0; i < childCount; i ++) children[i]->applyTranslation(disp);
 

@@ -71,6 +71,10 @@ public:
     virtual void applyTranslation(const Vector<n>& disp) override
     {
         center = center +  disp;
+        if(!this->physicsBodyActive())
+        {
+            this->position = this->position + disp;
+        }
 
         for(int i = 0; i < childCount; i++) children[i]->applyTranslation(disp);
 

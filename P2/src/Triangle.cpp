@@ -2,23 +2,31 @@
 #include "../include/engine/Renderer.h"
 #include <cmath>
 
-template<int n>
+    template<int n>
 Triangle<n>::Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>& p3)
 {
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
+    this->position[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
+    this->position[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
+    for (int i = 2; i < n; ++i)
+        this->position[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
 
 }
-template<int n>
+    template<int n>
 Triangle<n>::Triangle(const Triangle<n>& other) 
 {
     p1 = Vector<n>(other.p1);
     p2 = Vector<n>(other.p2);
     p3 = Vector<n>(other.p3);
+    this->position[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
+    this->position[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
+    for (int i = 2; i < n; ++i)
+        this->position[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
 
 }
-template<int n>
+    template<int n>
 Triangle<n>& Triangle<n>::operator*=(const Matrix<n,n>& mat) 
 {
 
@@ -82,7 +90,7 @@ void Triangle<n>::render(Renderer<n>& r) const
     r.drawShape(this, c);
 }
 
-template <int n>
+    template <int n>
 void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 {
     if constexpr (n < 2) {
