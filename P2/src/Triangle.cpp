@@ -88,11 +88,17 @@ void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
     if constexpr (n < 2) {
         return;
     }
+    float radians = theta * (3.14159265f / 180.f);
+    if (!hasCentroid)
+    {
+        rotate_point[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
+        rotate_point[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
+    }
 
     const float Cx = rotate_point[0];
     const float Cy = rotate_point[1];
-    const float c  = std::cos(theta);
-    const float s  = std::sin(theta);
+    const float c  = std::cos(radians);
+    const float s  = std::sin(radians);
 
     // Rotate one point
     auto do_rotate = [&](Vector<n>& p) {
