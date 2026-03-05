@@ -76,6 +76,12 @@ public:
 
     }
 
+    virtual void enablePhysics(const Vector<n>& initial_vel = Vector<n>()) override
+    {
+        Shape<n>::enablePhysics(initial_vel);
+        Shape<n>::setPhysicsBodyRadius(radius);
+    }
+
 };
 
 #endif /*CIRCLE_H*/

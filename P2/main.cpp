@@ -339,6 +339,7 @@ struct ShapeParams
 };
     */
     SceneCreator<3> sceneC;
+    //sceneC.loadScenes("test");
     sceneC.createScene();
     sceneC.setActive(0);
     ShapeParams<3> params 
@@ -367,11 +368,10 @@ struct ShapeParams
     sceneC.createShape(params);
 
     Scene<3> * currentScene = sceneC.getScene(0);
-    currentScene->selectObstacle();
+    currentScene->selectObstacle(1);
     currentScene->rotateSelected(45.f);
     currentScene->setBallVel(Vector<3>{-10.f, 0.f,0.f});
-
-
+    
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
@@ -399,6 +399,7 @@ struct ShapeParams
 
         limiter.limit();
     }
+sceneC.saveScenes("test");
 
     glfwTerminate();
     return 0;

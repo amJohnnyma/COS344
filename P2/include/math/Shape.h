@@ -44,7 +44,8 @@ class Shape {
         const PhysicsBody<n>& getPhysicsBody() const { return physicsBody; }
         bool physicsBodyActive() {return hasPhysics;}
         void setVelocity(const Vector<n>& v) {physicsBody.setVelocity(v);}
-        void enablePhysics(const Vector<n>& initial_vel = Vector<n>())
+        Vector<n> getVelocity() {return physicsBody.vel;}
+        virtual void enablePhysics(const Vector<n>& initial_vel = Vector<n>())
         {
             physicsBody = PhysicsBody(position, initial_vel);
             hasPhysics = true;
@@ -62,12 +63,13 @@ class Shape {
                 Vector<n> displacement = position - old_pos;
                 applyTranslation(displacement);
 
-                // update children
 
             }
 
 
         }
+
+        void setPhysicsBodyRadius(float r) {physicsBody.radius = r;}
 
         virtual void applyTranslation(const Vector<n>& disp) = 0;
         
@@ -77,6 +79,11 @@ class Shape {
             Vector<n> delta = pos - position;
             applyTranslation(delta);
             position = pos;
+        }
+
+        Vector<n> getPosition()
+        {
+            return position;
         }
 
 

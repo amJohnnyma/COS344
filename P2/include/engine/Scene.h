@@ -22,6 +22,7 @@ struct ShapeParams
     Color4 col;
 
     bool isHole = false;
+    float rotation =0.f;
 };
 
 #define MAX_SHAPES 128
@@ -31,6 +32,7 @@ class Scene {
     private:
 
         Shape<n>* m_shapes[MAX_SHAPES];
+        ShapeParams<n> m_shape_params[MAX_SHAPES];
         int m_shapeCount;
         int m_activeIndex;
 
@@ -43,8 +45,8 @@ class Scene {
 
         PhysicsEngine physics;
         bool paused = false;
-    
-    
+
+
     public:
         Scene<n>() : m_shapeCount(0), m_activeIndex(0), ballIndex(-1), holeIndex(-1) {}
         ~Scene<n>()
@@ -58,10 +60,11 @@ class Scene {
         bool isPaused() {return paused;}
 
 
-        void addShape(Shape<n> * shape)
+        bool addShape(Shape<n> * shape)
         {
-            if (m_shapeCount >= MAX_SHAPES){delete shape; return;}
+            if (m_shapeCount >= MAX_SHAPES){delete shape; return false;}
             m_shapes[m_shapeCount++] = shape;
+            return true;
         }
 
         Shape<n>** getBodies()
@@ -73,6 +76,8 @@ class Scene {
         void setActive(int index) {if(index < m_shapeCount) m_activeIndex = index; }
         int getCount() const {return m_shapeCount;}
         Shape<n>* getShape(int index) {return (index < m_shapeCount) ? m_shapes[index] : nullptr;}
+        ShapeParams<n> getShapeParam(int index) {return index < m_shapeCount ? m_shape_params[index] : ShapeParams<n>();}
+        ShapeParams<n>& getShapeParamRef(int index) { return m_shape_params[index]; }
 
         void addSquare(const ShapeParams<n>& params);
         void addCircle(const ShapeParams<n>& params);
@@ -83,15 +88,22 @@ class Scene {
         void selectObstacle(); // select an obstacle (if already selected then select another different one)
         void selectHole();
         void deselectObject();
+        void selectObstacle(int index);
 
         void moveSelected(const Vector<n>& force);
         void scaleSelected(const float& scale);
         void rotateSelected(const float& theta);
 
         void setBallVel(const Vector<n> & force) {m_shapes[ballIndex]->setVelocity(force);}
+        Vector<n> getBallVel() {
+            if (ballIndex >= 0 && ballIndex < m_shapeCount) {
+                return m_shapes[ballIndex]->getVelocity();
+            }
+            return Vector<n>{}; // zero vector as default
+        }
 
 
 
 
-        
+
 };

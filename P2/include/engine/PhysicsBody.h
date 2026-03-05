@@ -29,6 +29,7 @@ public:
     // layer-aware collision, not for geometry.
     Vector<2> pos2D() const { return Vector<2>{pos[0], pos[1]}; }
     Vector<2> vel2D() const { return Vector<2>{vel[0], vel[1]}; }
+    Vector<n> getVelocity() {return vel;}
 
     // void applyGravity() { vel.y -= 9.81f * dt; }
 };

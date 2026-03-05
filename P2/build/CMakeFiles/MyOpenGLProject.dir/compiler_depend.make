@@ -1939,6 +1939,8 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: /home/johnny/Documents/Sc
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
@@ -3116,8 +3118,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
 
-/usr/include/string.h:
-
 /usr/include/c++/13/vector:
 
 /usr/include/c++/13/pstl/glue_algorithm_defs.h:
@@ -3143,6 +3143,8 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Triangle.cpp:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Square.cpp:
+
+/usr/include/string.h:
 
 /usr/include/c++/13/bits/vector.tcc:
 
