@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -102,10 +103,9 @@ static Matrix<4,4> buildIdentity4()
     return m;
 }
 
-static bool paused = false;
 auto& input = InputManager::get_instance();
 
-void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart)
+void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC)
 {
 
     // slected must have colour changed to a pastel version
@@ -174,15 +174,15 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     // Pause (P)
     if (input.is_key_pressed(GLFW_KEY_P))
     {
-        paused = !paused;
-        std::cout << (paused ? "PAUSED" : "RESUMED") << "\n";
+        sceneC.togglePause();
+        std::cout << (sceneC.isPaused() ? "PAUSED" : "RESUMED") << "\n";
     }
 
     // Restart (R)
     if (input.is_key_pressed(GLFW_KEY_R))
     {
         shouldRestart = true;
-        paused        = false;
+        sceneC.setPause(false);
         std::cout << "RESTARTING...\n";
     }
 
@@ -376,7 +376,7 @@ struct ShapeParams
     {
         double dt = limiter.tick();
 
-        processInput(window, limiter, targetFps, shouldRestart);
+        processInput(window, limiter, targetFps, shouldRestart, sceneC);
 
         /*
         if (shouldRestart) {
@@ -395,7 +395,7 @@ struct ShapeParams
         glfwPollEvents();
 
         printf("dt: %.4f s  |  fps: %.1f  |  target: %.0f  |  %s\n",
-               dt, 1.0 / dt, targetFps, paused ? "PAUSED" : "");
+               dt, 1.0 / dt, targetFps, sceneC.isPaused() ? "PAUSED" : "");
 
         limiter.limit();
     }

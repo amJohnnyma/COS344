@@ -25,9 +25,8 @@ class SceneCreator
 
         bool createScene()
         {
-            Scene<n> scene;
             if (m_sceneCount >= MAX_SCENES) return false;
-            m_scenes[m_sceneCount++] = scene;
+            m_scenes[m_sceneCount++] = Scene<n>();
             return true;
         }
         Scene<n>* getActive() {return &m_scenes[m_activeIndex];}
@@ -42,8 +41,24 @@ class SceneCreator
         void loadScenes(const std::string courseName);
         void saveScenes(const std::string courseName);
 
-        void togglePause() {m_scenes[m_activeIndex].togglePause();}
+        void togglePause() {
+            if (m_activeIndex >= 0 && m_activeIndex < m_sceneCount) {
+                m_scenes[m_activeIndex].togglePause();
+            }
+        }
 
+        void setPause(bool p) {
+            if (m_activeIndex >= 0 && m_activeIndex < m_sceneCount) {
+                m_scenes[m_activeIndex].setPause(p);
+            }
+        }
+
+        bool isPaused() {
+            if (m_activeIndex >= 0 && m_activeIndex < m_sceneCount) {
+                return m_scenes[m_activeIndex].isPaused();
+            }
+            return false;
+        }
 
     private:
         void createSquare(const ShapeParams<n>& params);

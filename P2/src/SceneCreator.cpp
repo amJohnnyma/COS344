@@ -63,4 +63,15 @@ void SceneCreator<n>::createBall(const ShapeParams<n>& params)
     scene->addBall(params);
 } // a circle with enabled physics
 
+template <int n>
+void SceneCreator<n>::loadScenes(const std::string courseName)
+{
+}
+
+template <int n>
+void SceneCreator<n>::saveScenes(const std::string courseName)
+{
+}
+
+
 template class SceneCreator<3>;

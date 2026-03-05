@@ -52,8 +52,10 @@ class Scene {
             for (int i = 0; i < m_shapeCount; i++)
                 delete m_shapes[i];
         }
-        void update(double dt, Renderer<n> & r); // this updates the scene like main.cpp currently does it
+        void update(double dt, Renderer<n> & r); 
         void togglePause() {paused = !paused;}
+        void setPause(bool p) {paused = p;}
+        bool isPaused() {return paused;}
 
 
         void addShape(Shape<n> * shape)
@@ -87,6 +89,8 @@ class Scene {
         void rotateSelected(const float& theta);
 
         void setBallVel(const Vector<n> & force) {m_shapes[ballIndex]->setVelocity(force);}
+
+
 
 
         
