@@ -39,12 +39,14 @@ class Scene {
         std::string name;
         Camera<n> camera;
 
-        int ballIndex; // there can only be one ball
+        int ballIndex = -1; // there can only be one ball
         int selectedObstacle = -1;
-        int holeIndex; // also only one hole
+        int holeIndex = -1; // also only one hole
 
         PhysicsEngine physics;
         bool paused = false;
+        Color4 selectedObjectCol;
+        Color4 originalSelectedObjectCol;
 
 
     public:

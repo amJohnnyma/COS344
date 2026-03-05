@@ -112,22 +112,27 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_1))
     {
         //select golf ball
+        sceneC.getActive()->selectGolfBall();
     }
     if(input.is_key_pressed(GLFW_KEY_2))
     {
         //select obstacle
+        sceneC.getActive()->selectObstacle();
     }
     if(input.is_key_pressed(GLFW_KEY_3))
     {
         //select other type of obstacle
+        sceneC.getActive()->selectObstacle();
     }
     if(input.is_key_pressed(GLFW_KEY_4))
     {
         //select golf hole
+        sceneC.getActive()->selectHole();
     }
     if(input.is_key_pressed(GLFW_KEY_0))
     {
         //deselect current selection
+        sceneC.getActive()->deselectObject();
     }
 
     //transformations, apply a force to the object

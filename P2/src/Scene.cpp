@@ -4,7 +4,7 @@
 #include "../include/math/Triangle.h"
 #include <cstdlib>
 
-template <int n>
+    template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
 {
     Square<3>* square = new Square<n>(params.pos, params.height, params.width);
@@ -16,7 +16,7 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
         m_shape_params[idx] = params;
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::addCircle(const ShapeParams<n>& params)
 {
 
@@ -34,7 +34,7 @@ void Scene<n>::addCircle(const ShapeParams<n>& params)
         m_shape_params[idx] = params;
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
 {
 
@@ -51,7 +51,7 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
         m_shape_params[idx] = params;
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::addBall(const ShapeParams<n>& params)
 {
 
@@ -69,14 +69,31 @@ void Scene<n>::addBall(const ShapeParams<n>& params)
     }
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::selectGolfBall()
 {
+    // reset colour from selected
+    if (ballIndex < 0 || ballIndex >= m_shapeCount) return;
+
+    if (selectedObstacle >= 0 && selectedObstacle < m_shapeCount)
+        m_shapes[selectedObstacle]->setColor(originalSelectedObjectCol.r, originalSelectedObjectCol.g, originalSelectedObjectCol.b);
+    // Now set the colour of the selected one
     selectedObstacle = ballIndex;
+    selectedObjectCol = m_shape_params[selectedObstacle].col;
+    selectedObjectCol.r = selectedObjectCol.r * 0.5f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
+    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
 }
-template <int n>
+    template <int n>
 void Scene<n>::selectObstacle()
 {
+
+    // reset colour from selected
+    if (selectedObstacle >= 0 && selectedObstacle < m_shapeCount)
+        m_shapes[selectedObstacle]->setColor(originalSelectedObjectCol.r, originalSelectedObjectCol.g, originalSelectedObjectCol.b);
+
     int attempts = 0;
     int index;
     do
@@ -89,21 +106,37 @@ void Scene<n>::selectObstacle()
 
     selectedObstacle = index;
 
+    selectedObjectCol = m_shape_params[selectedObstacle].col;
+    selectedObjectCol.r *= selectedObjectCol.r * 0.5f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
+    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
+
 } 
-template <int n>
+    template <int n>
 void Scene<n>::selectObstacle(int index)
 {
-    if (index < m_shapeCount)
-    {
-        selectedObstacle = index;
-    }
+    // reset colour from selected
+    if (index < 0 || index >= m_shapeCount) return;
+
+    if (selectedObstacle >= 0 && selectedObstacle < m_shapeCount)
+        m_shapes[selectedObstacle]->setColor(originalSelectedObjectCol.r, originalSelectedObjectCol.g, originalSelectedObjectCol.b);
+    selectedObstacle = index;
+
+    selectedObjectCol = m_shape_params[selectedObstacle].col;
+    selectedObjectCol.r *= selectedObjectCol.r * 0.5f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
+    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
 }
-template <int n>
+    template <int n>
 void Scene<n>::update(double dt, Renderer<n>& renderer)
 {
-   // printf("Shape count: %d\n", m_shapeCount);
+    // printf("Shape count: %d\n", m_shapeCount);
     //for (int i = 0; i < m_shapeCount; i++)
-     //   printf("  shape[%d] hasPhysics=%d type=%d\n", i, m_shapes[i]->physicsBodyActive(), m_shapes[i]->getPhysicsType());
+    //   printf("  shape[%d] hasPhysics=%d type=%d\n", i, m_shapes[i]->physicsBodyActive(), m_shapes[i]->getPhysicsType());
     if(!paused)
     {
         physics.update(getBodies(), m_shapeCount, dt);
@@ -118,18 +151,35 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
         }
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::selectHole()
 {
+
+    // reset colour from selected
+    if (holeIndex< 0 || holeIndex>= m_shapeCount) return;
+
+    if (selectedObstacle >= 0 && selectedObstacle < m_shapeCount)
+        m_shapes[selectedObstacle]->setColor(originalSelectedObjectCol.r, originalSelectedObjectCol.g, originalSelectedObjectCol.b);
     selectedObstacle = holeIndex;
+
+    selectedObjectCol = m_shape_params[selectedObstacle].col;
+    selectedObjectCol.r *= selectedObjectCol.r * 0.5f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
+    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
 }
-template <int n>
+    template <int n>
 void Scene<n>::deselectObject()
 {
+
+
+    if (selectedObstacle >= 0 && selectedObstacle < m_shapeCount)
+        m_shapes[selectedObstacle]->setColor(originalSelectedObjectCol.r, originalSelectedObjectCol.g, originalSelectedObjectCol.b);
     selectedObstacle = -1;
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::moveSelected(const Vector<n>& force)
 {
     if(selectedObstacle != -1)
@@ -138,15 +188,15 @@ void Scene<n>::moveSelected(const Vector<n>& force)
         m_shapes[selectedObstacle]->applyTranslation(force);
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::scaleSelected(const float& scale)
 {
     if(selectedObstacle != -1)
     {
-    //    m_shapes[selectedObstacle].scale(scale);
+        //    m_shapes[selectedObstacle].scale(scale);
     }
 }
-template <int n>
+    template <int n>
 void Scene<n>::rotateSelected(const float& theta)
 {
     if(selectedObstacle != -1)
