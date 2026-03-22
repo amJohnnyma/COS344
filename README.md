@@ -8,15 +8,17 @@
 
 ## Table of Contents
 
-- [P2 – 2D Scene Editor](#p2--2D Course)
+- [P2](#p2)
 - [P3](#p3)
 - [P4](#p4)
 
 ---
 
-## P2 – 2D Course
+## P2
 
 A 2D OpenGL scene editor supporting shape placement, transformation, selection, wireframe rendering, and scene persistence.
+
+![Images](DemoScene.png)
 
 ### Dependencies
 
