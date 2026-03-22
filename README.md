@@ -8,13 +8,13 @@
 
 ## Table of Contents
 
-- [P2 – 2D Scene Editor](#p2--2d-scene-editor)
+- [P2 – 2D Scene Editor](#p2--2D Course)
 - [P3](#p3)
 - [P4](#p4)
 
 ---
 
-## P2 – 2D Scene Editor
+## P2 – 2D Course
 
 A 2D OpenGL scene editor supporting shape placement, transformation, selection, wireframe rendering, and scene persistence.
 
@@ -76,14 +76,13 @@ make run
 
 ### submission.sh Reference
 
-The `submission.sh` script supports the following commands, all run from **inside** the submission folder except `delete`:
+The `submission.sh` script supports the following commands, all run from **inside** the submission folder:
 
 | Command | Run from | Description |
 |---|---|---|
 | `./submission.sh create` | Project root | Flatten all files into `./submission/` |
 | `./submission.sh makerun` | `submission/` | Restore structure → build → run |
 | `./submission.sh clean` | `submission/` | Remove build artifacts (keeps save files) |
-| `./submission.sh delete` | Project root | Delete the entire `submission/` folder |
 
 ### Controls
 
