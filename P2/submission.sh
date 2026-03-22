@@ -37,6 +37,10 @@ if [[ "$ACTION" == "create" ]]; then
     cp src/shader.cpp            "$SUBMIT/"
     cp src/Scene.cpp             "$SUBMIT/"
     cp src/SceneCreator.cpp      "$SUBMIT/"
+    cp src/Camera.cpp      "$SUBMIT/"
+    cp src/PhysicsBody.cpp      "$SUBMIT/"
+    cp src/FpsLimiter.cpp      "$SUBMIT/"
+    cp src/Shape.cpp      "$SUBMIT/"
     cp src/glad.c                "$SUBMIT/"
 
     #Shaders (prefixed to avoid name clashes)
@@ -112,7 +116,8 @@ if [[ "$ACTION" == "makerun" ]]; then
 
     #Move source files into src/
     for f in Vector.cpp Square.cpp Matrix.cpp Triangle.cpp Circle.cpp \
-              Renderer.cpp shader.cpp Scene.cpp SceneCreator.cpp glad.c; do
+              Renderer.cpp shader.cpp Scene.cpp SceneCreator.cpp glad.c \
+              Camera.cpp FpsLimiter.cpp Shape.cpp PhysicsBody.cpp; do
         [[ -f "$f" ]] && mv "$f" src/
     done
 
