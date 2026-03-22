@@ -18,7 +18,7 @@
 
 A 2D OpenGL scene editor supporting shape placement, transformation, selection, wireframe rendering, and scene persistence.
 
-![Images](DemoScene.png)
+![DemoScene](Images/DemoScene.png)
 
 ### Dependencies
 
@@ -93,7 +93,7 @@ The `submission.sh` script supports the following commands, all run from **insid
 | `1` | Select golf ball |
 | `2` / `3` | Select obstacle |
 | `4` | Select golf hole |
-| `0` | Deselect |
+| `0` | Deselect obstacle |
 | `W A S D` | Move selected object |
 | `+` / `-` | Scale up / down |
 | `Q` / `E` | Rotate CCW / CW |
@@ -103,31 +103,6 @@ The `submission.sh` script supports the following commands, all run from **insid
 | `R` | Restart scene |
 | `↑` / `↓` | Increase / decrease FPS target |
 
-### Project Structure
-
-```
-P2/
-├── main.cpp
-├── CMakeLists.txt
-├── submission.sh
-├── src/
-│   ├── *.cpp
-│   ├── glad.c
-│   └── shaders/
-│       ├── fragment/fragment.glsl
-│       ├── vertex/vertex.glsl
-│       └── wireframe.glsl
-├── include/
-│   ├── engine/
-│   ├── math/
-│   ├── glad/
-│   └── KHR/
-└── build/
-    └── bin/
-        ├── MyOpenGLProject
-        ├── Demo.txt
-        └── DemoSave.txt
-```
 
 ### Troubleshooting
 
@@ -163,4 +138,4 @@ Ensure you are running in a graphical environment (not a headless SSH session wi
 
 ---
 
-*Last updated: 2026*
+*Last updated: 2026/03/22*
