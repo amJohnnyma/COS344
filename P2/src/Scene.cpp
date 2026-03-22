@@ -203,6 +203,9 @@ void Scene<n>::scaleSelected(const float& scale)
     if(selectedObstacle != -1)
     {
        m_shapes[selectedObstacle]->scale(scale);
+       m_shape_params[selectedObstacle].width *= scale;
+       m_shape_params[selectedObstacle].height *= scale;
+       m_shape_params[selectedObstacle].radius *= scale;
     }
 }
     template <int n>
