@@ -115,6 +115,29 @@ void Circle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
     }
 }
 
+template<int n>
+void Circle<n>::scale(float s)
+{
+    radius *= s;
+
+    for (int i = 0; i < childCount; i++) delete children[i];
+    childCount = 0;
+
+    float step = 2.0f * M_PI / segments;
+    for (int i = 0; i < segments; i++) {
+        float theta0 = step * i;
+        float theta1 = step * (i + 1);
+        Vector<n> p1, p2;
+        p1[0] = center[0] + radius * std::cos(theta0);
+        p1[1] = center[1] + radius * std::sin(theta0);
+        p2[0] = center[0] + radius * std::cos(theta1);
+        p2[1] = center[1] + radius * std::sin(theta1);
+        add(new Triangle<n>(center, p1, p2));
+    }
+    this->setColor(this->color[0], this->color[1], this->color[2]);
+    Shape<n>::getPhysicsBody().radius = radius;
+}
+
 
 template class Circle<2>;
 template class Circle<3>;

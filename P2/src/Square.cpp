@@ -174,6 +174,31 @@ void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
         rebuild();
     }
 }
+template<int n>
+void Square<n>::scale(float s)
+{
+    Vector<n> center = (tl + tr + br + bl) * 0.25f;
+    tl = center + (tl - center) * s;
+    tr = center + (tr - center) * s;
+    br = center + (br - center) * s;
+    bl = center + (bl - center) * s;
+
+    for (int i = 0; i < childCount; i++) delete children[i];
+    childCount = 0;
+
+    rebuild();
+    this->setColor(this->color[0], this->color[1], this->color[2]);
+}
+
+template<int n>
+void Square<n>::rebuild()
+{
+    for (int i = 0; i < childCount; i++) delete children[i];
+    childCount = 0;
+    add(new Triangle<n>(tl, tr, br));
+    add(new Triangle<n>(tl, br, bl));
+    this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+}
 
 template class Square<2>;
 template class Square<3>;

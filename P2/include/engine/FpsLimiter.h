@@ -1,6 +1,5 @@
 #ifndef FPS_LIMITER_H
-#define FPS_LIMITER_h
-
+#define FPS_LIMITER_H
 
 #include <GLFW/glfw3.h>
 
@@ -11,18 +10,8 @@ public:
 
     void setFPS(double fps) { m_target = 1.0 / fps; }
 
-    double tick() {
-        double now = glfwGetTime();
-        double dt  = now - m_prev;
-        m_prev = now;
-        return dt;
-    }
-
-    void limit() {
-        double elapsed = glfwGetTime() - m_prev;
-        // Busy-wait -> not nice :(
-        while ((glfwGetTime() - m_prev) < m_target) {}
-    }
+    double tick();
+    void limit();
 
 private:
     double m_target;

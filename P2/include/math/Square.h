@@ -80,32 +80,9 @@ public:
         Shape<n>::updatePhysics(dt);
         for(int i = 0; i < childCount; i ++) children[i]->updatePhysics(dt);
     }
+    virtual void scale(float s) override;
+    void rebuild();
 
-    virtual void scale(float s) override
-    {
-        Vector<n> center = (tl + tr + br + bl) * 0.25f;
-
-        tl = center + (tl - center) * s;
-        tr = center + (tr - center) * s;
-        br = center + (br - center) * s;
-        bl = center + (bl - center) * s;
-
-        // Clear old children and rebuild like the constructor
-        for (int i = 0; i < childCount; i++)
-            delete children[i];
-        childCount = 0;
-
-        rebuild();
-        this->setColor(this->color[0],this->color[1],this->color[2]);
-    }
-    void rebuild()
-    {
-        for (int i = 0; i < childCount; i++) delete children[i];
-        childCount = 0;
-        add(new Triangle<n>(tl, tr, br));
-        add(new Triangle<n>(tl, br, bl));
-        this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
-    }
 
 
 };

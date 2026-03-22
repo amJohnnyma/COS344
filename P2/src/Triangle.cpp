@@ -123,5 +123,16 @@ void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
 
 }
 
+template<int n>
+void Triangle<n>::scale(float s)
+{
+    Vector<n> centroid;
+    for (int i = 0; i < n; ++i)
+        centroid[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
+
+    p1 = centroid + (p1 - centroid) * s;
+    p2 = centroid + (p2 - centroid) * s;
+    p3 = centroid + (p3 - centroid) * s;
+}
 template class Triangle<2>;
 template class Triangle<3>;
