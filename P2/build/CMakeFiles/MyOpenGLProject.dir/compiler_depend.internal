@@ -95,7 +95,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o
  /usr/include/c++/13/cctype
  /usr/include/c++/13/cerrno
  /usr/include/c++/13/cfloat
- /usr/include/c++/13/cinttypes
  /usr/include/c++/13/climits
  /usr/include/c++/13/clocale
  /usr/include/c++/13/cmath
@@ -285,7 +284,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o
  /usr/include/glm/vec3.hpp
  /usr/include/glm/vec4.hpp
  /usr/include/glm/vector_relational.hpp
- /usr/include/inttypes.h
  /usr/include/libintl.h
  /usr/include/limits.h
  /usr/include/linux/errno.h
@@ -1743,7 +1741,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
  /usr/include/c++/13/cctype
  /usr/include/c++/13/cerrno
  /usr/include/c++/13/cfloat
- /usr/include/c++/13/cinttypes
  /usr/include/c++/13/climits
  /usr/include/c++/13/clocale
  /usr/include/c++/13/cmath
@@ -1775,6 +1772,7 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
  /usr/include/c++/13/pstl/pstl_config.h
  /usr/include/c++/13/sstream
  /usr/include/c++/13/stdexcept
+ /usr/include/c++/13/stdlib.h
  /usr/include/c++/13/streambuf
  /usr/include/c++/13/string
  /usr/include/c++/13/string_view
@@ -1932,7 +1930,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
  /usr/include/glm/vec3.hpp
  /usr/include/glm/vec4.hpp
  /usr/include/glm/vector_relational.hpp
- /usr/include/inttypes.h
  /usr/include/libintl.h
  /usr/include/limits.h
  /usr/include/linux/errno.h
@@ -1945,8 +1942,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
  /usr/include/stdint.h
  /usr/include/stdio.h
  /usr/include/stdlib.h
- /usr/include/string.h
- /usr/include/strings.h
  /usr/include/time.h
  /usr/include/wchar.h
  /usr/include/wctype.h

@@ -323,5 +323,5 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
  /home/johnny/Documents/School/COS344/Practicals/P2/src/../include/engine/Color.h \
- /usr/include/c++/13/cinttypes /usr/include/inttypes.h \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/c++/13/stdlib.h /usr/include/string.h \
+ /usr/include/strings.h

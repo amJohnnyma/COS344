@@ -3,7 +3,6 @@
 
 #include "Scene.h"
 #include "Color.h"
-#include <cinttypes>
 
 #define MAX_SCENES 18
 

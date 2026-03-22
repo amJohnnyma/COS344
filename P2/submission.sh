@@ -17,7 +17,6 @@ if [[ -z "$ACTION" ]]; then
     echo "  create   – Copy all necessary files flat into ./submission/"
     echo "  makerun  – Restore folder structure, build with CMake, and run"
     echo "  clean    – Delete build/ directory inside submission"
-    echo "  delete   – Delete the entire submission folder"
     exit 0
 fi
 
@@ -163,7 +162,7 @@ if [[ "$ACTION" == "makerun" ]]; then
 
     echo ""
     echo " Building..."
-    make -j$(nproc)
+    make -j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu 2>/dev/null || echo 4)
     if [[ $? -ne 0 ]]; then
         echo " Build failed."
         exit 1

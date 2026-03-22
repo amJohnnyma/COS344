@@ -1,4 +1,3 @@
-#include <cinttypes>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -17,7 +16,6 @@
 #include "include/math/Vector.h"
 #include "include/engine/Input.h"
 #include "include/engine/SceneCreator.h"
-#include "include/engine/Color.h"
 
 #include <cmath>   // for random placement helpers
 

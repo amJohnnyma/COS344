@@ -2,7 +2,6 @@
 #include "../include/math/Square.h"
 #include "../include/math/Circle.h"
 #include "../include/math/Triangle.h"
-#include <cstdlib>
 
     template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 

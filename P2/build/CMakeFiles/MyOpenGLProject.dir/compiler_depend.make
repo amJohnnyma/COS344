@@ -94,7 +94,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/cfloat \
-  /usr/include/c++/13/cinttypes \
   /usr/include/c++/13/climits \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
@@ -284,7 +283,6 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: /home/johnny/Documents/School/COS344/
   /usr/include/glm/vec3.hpp \
   /usr/include/glm/vec4.hpp \
   /usr/include/glm/vector_relational.hpp \
-  /usr/include/inttypes.h \
   /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
@@ -1737,7 +1735,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: /home/johnny/Documents/Sc
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/cfloat \
-  /usr/include/c++/13/cinttypes \
   /usr/include/c++/13/climits \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
@@ -1769,6 +1766,7 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: /home/johnny/Documents/Sc
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
+  /usr/include/c++/13/stdlib.h \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
@@ -1926,7 +1924,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: /home/johnny/Documents/Sc
   /usr/include/glm/vec3.hpp \
   /usr/include/glm/vec4.hpp \
   /usr/include/glm/vector_relational.hpp \
-  /usr/include/inttypes.h \
   /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
@@ -1939,8 +1936,6 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o: /home/johnny/Documents/Sc
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
-  /usr/include/string.h \
-  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
@@ -3118,6 +3113,8 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
 
+/usr/include/string.h:
+
 /usr/include/c++/13/vector:
 
 /usr/include/c++/13/pstl/glue_algorithm_defs.h:
@@ -3143,8 +3140,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Triangle.cpp:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Square.cpp:
-
-/usr/include/string.h:
 
 /usr/include/c++/13/bits/vector.tcc:
 
@@ -3314,6 +3309,16 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/fwd.hpp:
 
+/home/johnny/Documents/School/COS344/Practicals/P2/include/shader.hpp:
+
+/usr/include/c++/13/tr1/beta_function.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/c++/13/bits/utility.h:
+
+/usr/include/c++/13/bits/stl_function.h:
+
 /usr/include/c++/13/pstl/pstl_config.h:
 
 /usr/include/c++/13/new:
@@ -3386,10 +3391,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/exponential.hpp:
 
-/usr/include/c++/13/bits/quoted_string.h:
-
-/usr/include/glm/ext/vector_uint4.hpp:
-
 /usr/include/c++/13/cstdint:
 
 /usr/include/c++/13/tr1/poly_hermite.tcc:
@@ -3397,16 +3398,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /usr/include/glm/ext/matrix_float3x3.hpp:
 
 /usr/include/c++/13/stdlib.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/c++/13/bits/utility.h:
-
-/usr/include/c++/13/bits/stl_function.h:
-
-/home/johnny/Documents/School/COS344/Practicals/P2/include/shader.hpp:
-
-/usr/include/c++/13/tr1/beta_function.tcc:
 
 /usr/include/c++/13/bits/stl_uninitialized.h:
 
@@ -3462,6 +3453,10 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 
 /usr/include/glm/ext/matrix_double4x2_precision.hpp:
 
+/usr/include/c++/13/bits/quoted_string.h:
+
+/usr/include/glm/ext/vector_uint4.hpp:
+
 /usr/include/c++/13/bits/ptr_traits.h:
 
 /usr/include/c++/13/bits/predefined_ops.h:
@@ -3477,8 +3472,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /usr/include/c++/13/cstdlib:
 
 /usr/include/glm/ext/vector_bool3_precision.hpp:
-
-/usr/include/c++/13/cinttypes:
 
 /usr/include/c++/13/bits/ostream_insert.h:
 
@@ -3621,8 +3614,6 @@ CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o: /home/johnny/Documents/School/C
 /home/johnny/Documents/School/COS344/Practicals/P2/src/Matrix.cpp:
 
 /usr/include/glm/detail/type_vec3.hpp:
-
-/usr/include/inttypes.h:
 
 /home/johnny/Documents/School/COS344/Practicals/P2/include/engine/FpsLimiter.h:
 

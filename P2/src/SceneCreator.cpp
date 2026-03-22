@@ -1,5 +1,6 @@
 #include "../include/engine/SceneCreator.h"
-#include <cstdio>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 
