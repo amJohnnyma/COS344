@@ -1,2 +1,8 @@
 *.swp
 *.swo
+
+
+P1/build/*
+!P1/build/.gitkeep
+P2/build/*
+!P2/build/.gitkeep
