@@ -73,9 +73,9 @@ if [[ "$ACTION" == "create" ]]; then
     cp CMakeLists.txt            "$SUBMIT/"
 
     #Bin text files
-    cp build/bin/Demo.txt        "$SUBMIT/"
-    cp build/bin/DemoSave.txt    "$SUBMIT/"
-    cp build/bin/test.txt        "$SUBMIT/"
+    cp Saves/Demo.txt        "$SUBMIT/"
+    cp Saves/DemoSave.txt    "$SUBMIT/"
+    cp Saves/test.txt        "$SUBMIT/"
 
     #Docs
     cp BonusMarks.txt            "$SUBMIT/"
@@ -108,6 +108,7 @@ if [[ "$ACTION" == "makerun" ]]; then
     mkdir -p include/KHR
     mkdir -p include/game
     mkdir -p build/bin
+    mkdir -p Saves
 
     #Move source files into src/
     for f in Vector.cpp Square.cpp Matrix.cpp Triangle.cpp Circle.cpp \
@@ -147,7 +148,7 @@ if [[ "$ACTION" == "makerun" ]]; then
 
     #Move txt files to bin
     for f in Demo.txt DemoSave.txt test.txt; do
-        [[ -f "$f" ]] && mv "$f" build/bin/
+        [[ -f "$f" ]] && mv "$f" Saves/
     done
 
     echo "Structure restored."

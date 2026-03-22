@@ -78,7 +78,7 @@ void SceneCreator<n>::createBall(const ShapeParams<n>& params)
     template <int n>
 void SceneCreator<n>::loadScenes(const std::string courseName)
 {
-    std::string path = courseName + ".txt";
+    std::string path ="../../Saves/" + courseName + ".txt";
     FILE * f = fopen(path.c_str(), "r");
     if(!f) return;
 
@@ -152,7 +152,7 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
     template <int n>
 void SceneCreator<n>::saveScenes(const std::string courseName)
 {
-    std::string path = courseName + ".txt";
+    std::string path ="../../Saves/" + courseName + ".txt";
     FILE* f = fopen(path.c_str(), "w");
     printf("Saving to: %s\n", path.c_str());
     if(!f)
