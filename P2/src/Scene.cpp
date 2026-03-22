@@ -80,9 +80,9 @@ void Scene<n>::selectGolfBall()
     // Now set the colour of the selected one
     selectedObstacle = ballIndex;
     selectedObjectCol = m_shape_params[selectedObstacle].col;
-    selectedObjectCol.r = selectedObjectCol.r * 0.5f + 0.5f;
-    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
-    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    selectedObjectCol.r = selectedObjectCol.r * 0.25f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.25f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.25f + 0.5f;
     originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
     m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
 }
@@ -163,9 +163,9 @@ void Scene<n>::selectHole()
     selectedObstacle = holeIndex;
 
     selectedObjectCol = m_shape_params[selectedObstacle].col;
-    selectedObjectCol.r *= selectedObjectCol.r * 0.5f + 0.5f;
-    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
-    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    selectedObjectCol.r *= selectedObjectCol.r * 0.25f + 0.5f;
+    selectedObjectCol.g *= selectedObjectCol.g * 0.25f + 0.5f;
+    selectedObjectCol.b *= selectedObjectCol.b * 0.25f + 0.5f;
     originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
     m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
 }
@@ -185,6 +185,15 @@ void Scene<n>::moveSelected(const Vector<n>& force)
     if(selectedObstacle != -1)
     {
         // not actually applying force because my physics sucks
+        if (selectedObstacle == ballIndex)
+        {
+            // dont add to current val just overrride current
+            //Vector<n> vel = m_shapes[selectedObstacle]->getVelocity();
+            Vector<n> totalVel = force;
+            totalVel = totalVel *  9.f; // move it fast like a golf ball
+            m_shapes[selectedObstacle]->setVelocity(totalVel);
+            return;
+        }
         m_shapes[selectedObstacle]->applyTranslation(force);
         m_shape_params[selectedObstacle].pos = m_shapes[selectedObstacle]->getPosition();
     }
