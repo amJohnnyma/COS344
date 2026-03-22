@@ -1,8 +1,17 @@
 #include "../include/engine/SceneCreator.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
+static bool streq(const char * a, const char * b)
+{
+    while(*a && *b)
+    {
+         if (*a != *b) return false;
+        ++a; ++b;
+    }
+    return *a == *b;
+
+}
 
     template <int n>
 void SceneCreator<n>::createShape(const ShapeParams<n>& params)
@@ -80,9 +89,9 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
     {
         char cmd[32];
         sscanf(line, "%s", cmd);
-        
+
         if(cmd[0] == '#') continue;
-        if (strcmp(cmd, "scene") == 0)
+        if (streq(cmd, "scene"))
         {
             createScene();
             int idx;
@@ -90,7 +99,7 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             setActive(idx);
             current = getScene(idx);
         }
-        else if (strcmp(cmd, "shape") == 0)
+        else if (streq(cmd, "shape"))
         {
             ShapeParams<3> p;
             float x,y,z;
@@ -112,26 +121,26 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             }
 
         }
-        else if (strcmp(cmd, "selectObstacle") == 0 && current) {
+        else if (streq(cmd, "selectObstacle") && current) {
             current->selectObstacle();
         }
-        else if (strcmp(cmd, "selectBall") == 0 && current) {
+        else if (streq(cmd, "selectBall") && current) {
             current->selectGolfBall();
         }
-        else if (strcmp(cmd, "selectHole") == 0 && current) {
+        else if (streq(cmd, "selectHole") && current) {
             current->selectHole();
         }
-        else if (strcmp(cmd, "rotate") == 0 && current) {
+        else if (streq(cmd, "rotate") && current) {
             float theta;
             sscanf(line, "rotate %f", &theta);
             current->rotateSelected(theta);
         }
-        else if (strcmp(cmd, "scale") == 0 && current) {
+        else if (streq(cmd, "scale") && current) {
             float s;
             sscanf(line, "scale %f", &s);
             current->scaleSelected(s);
         }
-        else if (strcmp(cmd, "ballvel") == 0 && current) {
+        else if (streq(cmd, "ballvel") && current) {
             float x, y, z;
             sscanf(line, "ballvel %f %f %f", &x, &y, &z);
             current->setBallVel(Vector<3>{x, y, z});
@@ -145,7 +154,7 @@ void SceneCreator<n>::saveScenes(const std::string courseName)
 {
     std::string path = courseName + ".txt";
     FILE* f = fopen(path.c_str(), "w");
-printf("Saving to: %s\n", path.c_str());
+    printf("Saving to: %s\n", path.c_str());
     if(!f)
     {
         printf("Failed to open file: %s\n", path.c_str());
