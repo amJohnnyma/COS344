@@ -1,0 +1,6 @@
+
+Allowing bounds checking on obstacles such that the golf ball can’t move through them.
+Allowing the golf ball to bounce off the obstacles.
+Enabling the dynamic addition or removal of objects on the screen. (Adding an object in the txt and reloading it with [r])
+Being able to save the layout to a text file
+Being able to load the layout from a text file
