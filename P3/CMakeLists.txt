@@ -28,6 +28,8 @@ file(GLOB SOURCES
     "${CMAKE_SOURCE_DIR}/src/*.cc"
 )
 
+
+
 add_executable(${PROJECT_NAME} 
     main.cpp
     src/Vector.cpp
@@ -44,7 +46,32 @@ add_executable(${PROJECT_NAME}
     src/Shape.cpp
     src/PhysicsBody.cpp
 )
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "")
+    message(STATUS "Debug build enabled - adding debug symbols and sanitizers")
 
+    # Base debug flags
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        -g3                  # Full debug info
+        -fno-omit-frame-pointer
+        -O0                  # No optimization (makes bugs easier to catch)
+    )
+
+    # === AddressSanitizer (ASan) - catches heap corruption, use-after-free, buffer overflows, etc.
+    # This is usually MUCH better than Valgrind for finding intermittent crashes quickly.
+    option(ENABLE_ASAN "Enable AddressSanitizer" ON)
+    if(ENABLE_ASAN)
+        message(STATUS "AddressSanitizer enabled")
+        target_compile_options(${PROJECT_NAME} PRIVATE
+            -fsanitize=address
+            -fsanitize=undefined
+            -fsanitize-recover=address
+        )
+        target_link_options(${PROJECT_NAME} PRIVATE
+            -fsanitize=address
+            -fsanitize=undefined
+        )
+    endif()
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_SOURCE_DIR}/include"

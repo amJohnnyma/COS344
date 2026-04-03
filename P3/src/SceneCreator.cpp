@@ -6,7 +6,7 @@ static bool streq(const char * a, const char * b)
 {
     while(*a && *b)
     {
-         if (*a != *b) return false;
+        if (*a != *b) return false;
         ++a; ++b;
     }
     return *a == *b;
@@ -16,6 +16,7 @@ static bool streq(const char * a, const char * b)
     template <int n>
 void SceneCreator<n>::createShape(const ShapeParams<n>& params)
 {
+  //  std::cout << "Creating shape" << std::endl;
     // get the type and make that shape 
     int type = params.type;
     switch(type)
@@ -102,9 +103,9 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         }
         else if (streq(cmd, "shape"))
         {
-            ShapeParams<3> p;
-            float x,y,z;
-            sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f",
+            ShapeParams<3> p = {};
+            float x = 0,y=0,z=0;
+            int count = sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f",
                     &p.type,
                     &x, &y, &z,
                     &p.width, &p.height, &p.depth,
@@ -112,13 +113,17 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
                     &p.rot[0], &p.rot[1], &p.rot[2]
                     );
             p.pos = Vector<3>{x, y, z};
-           // float savedRotation = p.rotation;
-           // p.rotation = 0.f;          // zero it so addShape stores 0
-            createShape(p);
+            // float savedRotation = p.rotation;
+            // p.rotation = 0.f;          // zero it so addShape stores 0
+            if (count >= 11) {   // at least type + pos + size + color
+                createShape(p);
+            } else {
+                std::cout << "Warning: malformed shape line: " << line << std::endl;
+            }
             //if (savedRotation != 0.f) {
-             //   int idx = current->getCount() - 1;
-               // current->getShape(idx)->rotate(savedRotation);
-                //current->getShapeParamRef(idx).rotation = savedRotation; // store it back
+            //   int idx = current->getCount() - 1;
+            // current->getShape(idx)->rotate(savedRotation);
+            //current->getShapeParamRef(idx).rotation = savedRotation; // store it back
             //}
 
         }
@@ -154,35 +159,35 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
 void SceneCreator<n>::saveScenes(const std::string courseName)
 {
     /*
-    std::string path ="../../Saves/" + courseName + ".txt";
-    FILE* f = fopen(path.c_str(), "w");
-    printf("Saving to: %s\n", path.c_str());
-    if(!f)
-    {
-        printf("Failed to open file: %s\n", path.c_str());
-        return;
-    }
+       std::string path ="../../Saves/" + courseName + ".txt";
+       FILE* f = fopen(path.c_str(), "w");
+       printf("Saving to: %s\n", path.c_str());
+       if(!f)
+       {
+       printf("Failed to open file: %s\n", path.c_str());
+       return;
+       }
 
-    for (int i =0; i < m_sceneCount; i ++)
-    {
-        fprintf(f, "scene %d\n", i);
-        Scene<n>* scene = getScene(i);
-        for (int j = 0; j < scene->getCount(); j ++)
-        {
-            ShapeParams<n> p = scene->getShapeParam(j);
-            fprintf(f, "shape %d %.4f %.4f %.4f %.4f %.4f %.4f %d %.4f %.4f %.4f %.4f %d %.4f\n",
-                    p.type,
-                    p.pos[0], p.pos[1], p.pos[2],
-                    p.width, p.height, p.radius, p.cSegments,
-                    p.col.r, p.col.g, p.col.b, p.col.a,
-                    (int)p.isHole,
-                    p.rotation);
-        }
-        Vector<n> bv = scene->getBallVel();
-        fprintf(f, "ballvel %.4f %.4f %.4f\n", bv[0], bv[1], bv[2]);
-    }
-    fclose(f);
-    */
+       for (int i =0; i < m_sceneCount; i ++)
+       {
+       fprintf(f, "scene %d\n", i);
+       Scene<n>* scene = getScene(i);
+       for (int j = 0; j < scene->getCount(); j ++)
+       {
+       ShapeParams<n> p = scene->getShapeParam(j);
+       fprintf(f, "shape %d %.4f %.4f %.4f %.4f %.4f %.4f %d %.4f %.4f %.4f %.4f %d %.4f\n",
+       p.type,
+       p.pos[0], p.pos[1], p.pos[2],
+       p.width, p.height, p.radius, p.cSegments,
+       p.col.r, p.col.g, p.col.b, p.col.a,
+       (int)p.isHole,
+       p.rotation);
+       }
+       Vector<n> bv = scene->getBallVel();
+       fprintf(f, "ballvel %.4f %.4f %.4f\n", bv[0], bv[1], bv[2]);
+       }
+       fclose(f);
+       */
 }
 
 

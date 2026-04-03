@@ -81,7 +81,9 @@ class TriangularPrism : public Shape<n>
 
     void rebuild()
     {
-        for (int i = 0; i < childCount; ++i) delete children[i];
+        for (int i = 0; i < childCount; ++i)
+        { delete children[i];
+            children[i] = nullptr; }
         childCount = 0;
 
         add(new Triangle<n>(f1,f2,f3));
@@ -95,6 +97,8 @@ class TriangularPrism : public Shape<n>
 
         add(new Triangle<n>(f3,b1,f1));
         add(new Triangle<n>(f3,b3,b1));
+
+        setColor(this->color[0], this->color[1], this->color[2]);
     }
 
     public:
@@ -129,15 +133,25 @@ class TriangularPrism : public Shape<n>
         rebuild();
     }
 
-    ~TriangularPrism() override
-    {
-        for (int i = 0; i < childCount; ++i) delete children[i];
+~TriangularPrism() override
+{
+    for (int i = 0; i < childCount; ++i) {
+        delete children[i];
+        children[i] = nullptr;
     }
+    childCount = 0;
+}
 
-    void add(Shape<n>* child)
-    {
-        if (childCount < MAX_CHILDREN) children[childCount++] = child;
+void add(Shape<n>* child)
+{
+    if (childCount >= MAX_CHILDREN) {
+        std::cerr << "ERROR: Too many children in TriangularPrism!\n";
+        delete child;
+        return;
     }
+    if (child == nullptr) return;
+    children[childCount++] = child;
+}
 
     void remove(Shape<n>* child)
     {
@@ -230,7 +244,7 @@ class TriangularPrism : public Shape<n>
      */
     void rotate3D(const Vector<n>& angles,
                   Vector<n> pivot = Vector<n>(),
-                  bool hasPivot = false)
+                  bool hasPivot = false) override
     {
         if (!hasPivot) pivot = this->position;
 

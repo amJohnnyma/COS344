@@ -20,6 +20,33 @@ struct ShapeParams
     float width, height, depth; 
     Color4 col;
     Vector<n> rot;
+void print() const
+    {
+        std::cout << "ShapeParams:\n";
+        std::cout << "  Type     : ";
+        switch(type) {
+            case 1: std::cout << "Square"; break;
+            case 2: std::cout << "Circle"; break;
+            case 3: std::cout << "Triangle"; break;
+            case 4: std::cout << "Ball"; break;
+            default: std::cout << "Unknown(" << type << ")"; break;
+        }
+        std::cout << " (" << type << ")\n";
+
+        std::cout << "  Position : ";
+        pos.print();
+
+        std::cout << "  Size     : width=" << width 
+                  << " height=" << height 
+                  << " depth=" << depth << "\n";
+
+        std::cout << "  Color    : (" << col.r << ", " << col.g 
+                  << ", " << col.b << ", " << col.a << ")\n";
+
+        std::cout << "  Rotation : ";
+        rot.print();
+        std::cout << "\n";
+    }
 
 };
 

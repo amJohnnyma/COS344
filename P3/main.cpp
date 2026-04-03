@@ -242,7 +242,7 @@ int main()
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("test");
+    sceneC.loadScenes("pTest");
     
     while (!glfwWindowShouldClose(window))
     {
@@ -254,7 +254,7 @@ int main()
            // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("test");
+            sceneC.loadScenes("pTest");
         }
 
         renderer.beginFrame();

@@ -36,38 +36,36 @@ void Scene<n>::addCircle(const ShapeParams<n>& params)
     }
     */
 }
-    template <int n>
+template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
 {
-    
-    Vector<3> p1 = {params.pos[0], params.pos[1] + params.height * 0.667f, params.pos[2]};
-    Vector<3> p2 = {params.pos[0] - params.width * 0.5f, params.pos[1] - params.height * 0.333f, params.pos[2]};
-    Vector<3> p3 = {params.pos[0] + params.width * 0.5f, params.pos[1] - params.height * 0.333f, params.pos[2]};
+   // std::cout << "Adding triangle" << std::endl;
+    //params.print();
 
-    TriangularPrism<3>* tP = new TriangularPrism<n>(p1,p2,p3, params.depth);
-    tP->setColor(params.col.r, params.col.g, params.col.b);
+    // Create an equilateral-ish triangle centered on params.pos
+    float hw = params.width * 0.5f;
+    float hh = params.height * 0.5f;
 
-    int idx = m_shapeCount;
-    if(addShape(tP))
+    Vector<3> p1 = { params.pos[0],          params.pos[1] + hh * 0.8f, params.pos[2] };
+    Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+    Vector<3> p3 = { params.pos[0] + hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+
+    TriangularPrism<3>* prism = new TriangularPrism<3>(p1, p2, p3, params.depth);
+
+    prism->setColor(params.col.r, params.col.g, params.col.b);
+
+    // Apply initial rotation if any
+    if (params.rot[0] != 0.0f || params.rot[1] != 0.0f || params.rot[2] != 0.0f)
     {
-        m_shape_params[idx] = params;
+        prism->rotate3D(params.rot);
     }
 
-    // just ganna make a prism for now // uncomment when done
-    /*
-    Vector<3> p1 = {params.pos[0], params.pos[1] + params.height * 0.667f, params.pos[2]};
-    Vector<3> p2 = {params.pos[0] - params.width * 0.5f, params.pos[1] - params.height * 0.333f, params.pos[2]};
-    Vector<3> p3 = {params.pos[0] + params.width * 0.5f, params.pos[1] - params.height * 0.333f, params.pos[2]};
-
-    Triangle<3>* triangle = new Triangle<n>(p1,p2,p3);
-    triangle->setColor(params.col.r, params.col.g, params.col.b);
-
     int idx = m_shapeCount;
-    if(addShape(triangle))
+    if (addShape(prism))
     {
+        //std::cout << "Index: " << idx << std::endl;
         m_shape_params[idx] = params;
     }
-    */
 }
     template <int n>
 void Scene<n>::addBall(const ShapeParams<n>& params)
@@ -169,14 +167,15 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
         {
             m_shape_params[i].pos = m_shapes[i]->getPosition();
         }
-    }
 
-    // manually rotate the triangle
-    m_shapes[0]->print();
+    // manually rotate the triangle // temporary
+    //m_shapes[0]->print();
     Vector<3> angles{1.f * (float)dt,   //  around X (pitch)
                   1.0f * (float)dt,   // around Y (yaw)
                   1.0f * (float)dt };        //   around Z (roll)
-    m_shapes[0]->rotate3D(angles);
+    m_shapes[i]->rotate(angles);
+    }
+
 
 }
     template <int n>
