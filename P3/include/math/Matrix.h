@@ -35,6 +35,7 @@ public:
     Matrix<n,m> operator*(const float) const;
     Matrix<n,m> operator+(const Matrix<n,m>) const;
     Matrix<m,n> operator~() const;   // transpose
+    Vector<n> operator*(const Vector<n>& vec) const;
 
     void print() const
     {

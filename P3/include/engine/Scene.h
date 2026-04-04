@@ -20,6 +20,8 @@ struct ShapeParams
     float width, height, depth; 
     Color4 col;
     Vector<n> rot;
+    float radius;
+    int segment;
 void print() const
     {
         std::cout << "ShapeParams:\n";
@@ -109,6 +111,8 @@ class Scene {
         void addCircle(const ShapeParams<n>& params);
         void addTriangle(const ShapeParams<n>& params);
         void addBall(const ShapeParams<n>& params);
+        void addCylinder(const ShapeParams<n>& params); 
+        void addCone(const ShapeParams<n>& params); 
 
         void selectGolfBall();
         void selectObstacle(); // select an obstacle (if already selected then select another different one)

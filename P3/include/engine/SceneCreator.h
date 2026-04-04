@@ -64,6 +64,8 @@ class SceneCreator
         void createCircle(const ShapeParams<n>& params);
         void createTriangle(const ShapeParams<n>& params);
         void createBall(const ShapeParams<n>& params); // a circle with enabled physics
+        void createCone(const ShapeParams<n>& params);
+        void createCylinder(const ShapeParams<n>& params);
 };
 
 #endif

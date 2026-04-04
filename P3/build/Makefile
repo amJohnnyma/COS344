@@ -203,6 +203,30 @@ src/Circle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.s
 .PHONY : src/Circle.cpp.s
 
+src/Cone.o: src/Cone.cpp.o
+.PHONY : src/Cone.o
+
+# target to build an object file
+src/Cone.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o
+.PHONY : src/Cone.cpp.o
+
+src/Cone.i: src/Cone.cpp.i
+.PHONY : src/Cone.i
+
+# target to preprocess a source file
+src/Cone.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.i
+.PHONY : src/Cone.cpp.i
+
+src/Cone.s: src/Cone.cpp.s
+.PHONY : src/Cone.s
+
+# target to generate assembly for a file
+src/Cone.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.s
+.PHONY : src/Cone.cpp.s
+
 src/Cuboid.o: src/Cuboid.cpp.o
 .PHONY : src/Cuboid.o
 
@@ -226,6 +250,30 @@ src/Cuboid.s: src/Cuboid.cpp.s
 src/Cuboid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.s
 .PHONY : src/Cuboid.cpp.s
+
+src/Cylinder.o: src/Cylinder.cpp.o
+.PHONY : src/Cylinder.o
+
+# target to build an object file
+src/Cylinder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o
+.PHONY : src/Cylinder.cpp.o
+
+src/Cylinder.i: src/Cylinder.cpp.i
+.PHONY : src/Cylinder.i
+
+# target to preprocess a source file
+src/Cylinder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.i
+.PHONY : src/Cylinder.cpp.i
+
+src/Cylinder.s: src/Cylinder.cpp.s
+.PHONY : src/Cylinder.s
+
+# target to generate assembly for a file
+src/Cylinder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.s
+.PHONY : src/Cylinder.cpp.s
 
 src/FpsLimiter.o: src/FpsLimiter.cpp.o
 .PHONY : src/FpsLimiter.o
@@ -532,9 +580,15 @@ help:
 	@echo "... src/Circle.o"
 	@echo "... src/Circle.i"
 	@echo "... src/Circle.s"
+	@echo "... src/Cone.o"
+	@echo "... src/Cone.i"
+	@echo "... src/Cone.s"
 	@echo "... src/Cuboid.o"
 	@echo "... src/Cuboid.i"
 	@echo "... src/Cuboid.s"
+	@echo "... src/Cylinder.o"
+	@echo "... src/Cylinder.i"
+	@echo "... src/Cylinder.s"
 	@echo "... src/FpsLimiter.o"
 	@echo "... src/FpsLimiter.i"
 	@echo "... src/FpsLimiter.s"

@@ -46,6 +46,8 @@ add_executable(${PROJECT_NAME}
     src/PhysicsBody.cpp
     src/Triangular_Prism.cpp
     src/Cuboid.cpp
+    src/Cone.cpp
+    src/Cylinder.cpp
 )
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "")
     message(STATUS "Debug build enabled - adding debug symbols and sanitizers")

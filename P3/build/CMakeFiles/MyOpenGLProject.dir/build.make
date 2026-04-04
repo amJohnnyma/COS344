@@ -279,6 +279,34 @@ CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/Cuboid.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.s
 
+CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
+CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Cone.cpp
+CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Cone.cpp
+
+CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/P3/src/Cone.cpp > CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.i
+
+CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/Cone.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.s
+
+CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
+CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Cylinder.cpp
+CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Cylinder.cpp
+
+CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/P3/src/Cylinder.cpp > CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.i
+
+CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/Cylinder.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.s
+
 # Object files for target MyOpenGLProject
 MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/main.cpp.o" \
@@ -295,7 +323,9 @@ MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o" \
-"CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o"
+"CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o" \
+"CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o" \
+"CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o"
 
 # External object files for target MyOpenGLProject
 MyOpenGLProject_EXTERNAL_OBJECTS =
@@ -315,6 +345,8 @@ bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o
+bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o
+bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/build.make
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libGL.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
@@ -327,7 +359,7 @@ bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXfixes.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable bin/MyOpenGLProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable bin/MyOpenGLProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyOpenGLProject.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders folder..."
 	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/P3/src/shaders /home/johnny/Documents/School/COS344/Practicals/P3/build/bin/shaders

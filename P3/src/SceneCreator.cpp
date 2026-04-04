@@ -36,6 +36,12 @@ void SceneCreator<n>::createShape(const ShapeParams<n>& params)
         case 4:
             createBall(params);
             break;
+        case 5:
+            createCone(params);
+            break;
+        case 6:
+            createCylinder(params);
+            break;
         default:
             break;
     }
@@ -76,6 +82,21 @@ void SceneCreator<n>::createBall(const ShapeParams<n>& params)
     scene->addBall(params);
 } // a circle with enabled physics
 
+template<int n>
+void SceneCreator<n>::createCone(const ShapeParams<n>& params)
+{
+    Scene<n> * scene = getActive();
+    scene->addCone(params);
+
+}
+
+template<int n>
+void SceneCreator<n>::createCylinder(const ShapeParams<n>& params)
+{
+    Scene<n> * scene = getActive();
+    scene->addCylinder(params);
+
+}
     template <int n>
 void SceneCreator<n>::loadScenes(const std::string courseName)
 {
@@ -85,7 +106,7 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
 
     char line[256];
     Scene<3> * current = nullptr;
-    //#t1  type /x     /y     /z     /width /height/depth /col r /col g /col b /col a/ rotx  /roty  /rotz
+    //#t1  type /x     /y     /z     /width /height/depth /col r /col g /col b /col a/ rotx  /roty  /rotz /radius /segments
 
     while (fgets(line, sizeof(line), f))
     {
@@ -105,12 +126,13 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         {
             ShapeParams<3> p = {};
             float x = 0,y=0,z=0;
-            int count = sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f",
+            int count = sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d",
                     &p.type,
                     &x, &y, &z,
                     &p.width, &p.height, &p.depth,
                     &p.col.r, &p.col.g, &p.col.b, &p.col.a,
-                    &p.rot[0], &p.rot[1], &p.rot[2]
+                    &p.rot[0], &p.rot[1], &p.rot[2],
+                    &p.radius, &p.segment
                     );
             p.pos = Vector<3>{x, y, z};
             // float savedRotation = p.rotation;

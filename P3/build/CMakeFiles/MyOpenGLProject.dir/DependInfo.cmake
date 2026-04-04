@@ -10,7 +10,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/johnny/Documents/School/COS344/Practicals/P3/main.cpp" "CMakeFiles/MyOpenGLProject.dir/main.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/main.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Circle.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/P3/src/Cone.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Cone.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Cuboid.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/P3/src/Cylinder.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Cylinder.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/FpsLimiter.cpp" "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Matrix.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/PhysicsBody.cpp" "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o.d"

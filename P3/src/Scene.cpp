@@ -4,6 +4,8 @@
 #include "../include/math/Triangle.h"
 #include "../include/math/Triangular_Prism.h"
 #include "../include/math/Cuboid.h"
+#include "../include/math/Cone.h"
+#include "../include/math/Cylinder.h"
 
     template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
@@ -18,6 +20,51 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
 
     int idx = m_shapeCount;
     if(addShape(square))
+    {
+        m_shape_params[idx] = params;
+    }
+}
+
+    template <int n>
+void Scene<n>::addCone(const ShapeParams<n>& params) 
+{
+
+    /*const Vector<n>& apex_pt,
+         const Vector<n>& base_centre,
+         float r,
+         int segs = 32 */
+
+    Vector<n> base_centre = params.pos + Vector<n>{0.f, params.height/-2.f, 0.f};
+    Vector<n> apex= params.pos + Vector<n>{0.f, params.height/2.f, 0.f};
+
+    Cone<3>* cone = new Cone(apex, base_centre, params.radius, params.segment);
+    cone->setColor(params.col.r, params.col.g, params.col.b);
+
+    int idx = m_shapeCount;
+    if(addShape(cone))
+    {
+        m_shape_params[idx] = params;
+    }
+}
+
+    template <int n>
+void Scene<n>::addCylinder(const ShapeParams<n>& params) 
+{
+    /*
+
+    Cylinder(const Vector<n>& top_centre,
+             const Vector<n>& bot_centre,
+             float r,
+             int segs = 32);
+     */
+
+    Vector<n> top_centre = params.pos + Vector<n>{0.f,params.height / 2.f,0.f};
+    Vector<n> bottom_centre = params.pos + Vector<n>{0.f,-params.height / 2.f,0.f};
+    Cylinder<3>* cylinder= new Cylinder<3>(top_centre, bottom_centre, params.radius, params.segment);
+    cylinder->setColor(params.col.r, params.col.g, params.col.b);
+
+    int idx = m_shapeCount;
+    if(addShape(cylinder))
     {
         m_shape_params[idx] = params;
     }

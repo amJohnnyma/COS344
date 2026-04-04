@@ -107,6 +107,26 @@ Matrix<n,m> Matrix<n,m>::operator*(const float scalar) const
     return result;
 }
 
+// Matrix-Vector multiplication
+template<int n, int m>
+Vector<n> Matrix<n,m>::operator*(const Vector<n>& vec) const
+{
+    if (m != n)
+        throw "Matrix-Vector multiplication requires square matrix (n x n)";
+
+    Vector<n> result;
+    for (int i = 0; i < n; ++i)
+    {
+        float sum = 0.0f;
+        for (int j = 0; j < n; ++j)
+        {
+            sum += arr[i][j] * vec[j];   // assuming Vector has operator[] 
+        }
+        result[i] = sum;
+    }
+    return result;
+}
+
 // Matrix + Matrix
 template<int n, int m>
 Matrix<n,m> Matrix<n,m>::operator+(const Matrix<n,m> other) const
