@@ -221,12 +221,6 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
             m_shape_params[i].pos = m_shapes[i]->getPosition();
         }
 
-    // manually rotate the triangle // temporary
-    //m_shapes[0]->print();
-    Vector<3> angles{1.f * (float)dt,   //  around X (pitch)
-                  1.0f * (float)dt,   // around Y (yaw)
-                  1.0f * (float)dt };        //   around Z (roll)
-    m_shapes[i]->rotate(angles);
     }
 
 

@@ -109,7 +109,7 @@ Cylinder<n>::~Cylinder()
 void Cylinder<n>::add(Shape<n>* child)
 {
     if (childCount >= MAX_CHILDREN) {
-        std::cerr << "ERROR: Too many children in TriangularPrism!\n";
+        std::cerr << "ERROR: Too many children in Cylinder!\n";
         delete child;
         return;
     }

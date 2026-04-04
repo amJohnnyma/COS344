@@ -48,7 +48,7 @@ Cuboid<n>::~Cuboid()
 void Cuboid<n>::add(Shape<n>* child)
 {
     if (childCount >= MAX_CHILDREN) {
-        std::cerr << "ERROR: Too many children in TriangularPrism!\n";
+        std::cerr << "ERROR: Too many children in Cuboid!\n";
         delete child;
         return;
     }

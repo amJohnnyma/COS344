@@ -284,7 +284,8 @@ int main()
     cam.fovY   = M_PI / 2.0f;
     cam.aspect = (float)w / h;
     cam.nearZ  = 0.1f;
-    cam.farZ   = 100.0f;
+    cam.farZ   = 300.0f;
+    cam.position = Vector<3>{0.f,0.f,200.f};
     renderer.setViewProj(cam.getView(), cam.getProj());
 
     double targetFps = 60.0;
@@ -295,7 +296,7 @@ int main()
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("test");
+    sceneC.loadScenes("ptest");
 
 
 
@@ -309,7 +310,7 @@ int main()
             // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("test");
+            sceneC.loadScenes("ptest");
         }
         //cam.yaw += (float)dt * 0.5f;          // auto-spin — remove when done testing
         //cam.orbitAround(Vector<3>{0,0,0}, 20.0f);

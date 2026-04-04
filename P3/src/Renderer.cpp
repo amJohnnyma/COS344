@@ -347,12 +347,15 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
             GL_DYNAMIC_DRAW);
 
     if (DebugOptions::get().wireframe)
+    {
         glDrawArrays(GL_LINES, 0, (numPoints/3)*6);
+
+        if constexpr (n==3)
+            drawFaceNormals(shape, 1.5f, 0.4f);
+    }
     else
         glDrawArrays(GL_TRIANGLES,0,numPoints);
 
-    if constexpr (n==3)
-        drawFaceNormals(shape, 1.5f, 0.4f);
 
 }
 

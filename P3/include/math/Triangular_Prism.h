@@ -22,7 +22,7 @@ class TriangularPrism : public Shape<n>
     Vector<n> f1,f2,f3; // front cap
     Vector<n> b1,b2,b3; // back cap
 
-    static const int MAX_CHILDREN = 64;
+    static const int MAX_CHILDREN = 256;
     Shape<n>* children[MAX_CHILDREN] = {};
     int childCount = 0;
 
