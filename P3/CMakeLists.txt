@@ -45,6 +45,7 @@ add_executable(${PROJECT_NAME}
     src/FpsLimiter.cpp
     src/Shape.cpp
     src/PhysicsBody.cpp
+    src/Triangular_Prism.cpp
 )
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "")
     message(STATUS "Debug build enabled - adding debug symbols and sanitizers")

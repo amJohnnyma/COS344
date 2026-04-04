@@ -443,6 +443,30 @@ src/Triangle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.s
 .PHONY : src/Triangle.cpp.s
 
+src/Triangular_Prism.o: src/Triangular_Prism.cpp.o
+.PHONY : src/Triangular_Prism.o
+
+# target to build an object file
+src/Triangular_Prism.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o
+.PHONY : src/Triangular_Prism.cpp.o
+
+src/Triangular_Prism.i: src/Triangular_Prism.cpp.i
+.PHONY : src/Triangular_Prism.i
+
+# target to preprocess a source file
+src/Triangular_Prism.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.i
+.PHONY : src/Triangular_Prism.cpp.i
+
+src/Triangular_Prism.s: src/Triangular_Prism.cpp.s
+.PHONY : src/Triangular_Prism.s
+
+# target to generate assembly for a file
+src/Triangular_Prism.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.s
+.PHONY : src/Triangular_Prism.cpp.s
+
 src/Vector.o: src/Vector.cpp.o
 .PHONY : src/Vector.o
 
@@ -538,6 +562,9 @@ help:
 	@echo "... src/Triangle.o"
 	@echo "... src/Triangle.i"
 	@echo "... src/Triangle.s"
+	@echo "... src/Triangular_Prism.o"
+	@echo "... src/Triangular_Prism.i"
+	@echo "... src/Triangular_Prism.s"
 	@echo "... src/Vector.o"
 	@echo "... src/Vector.i"
 	@echo "... src/Vector.s"

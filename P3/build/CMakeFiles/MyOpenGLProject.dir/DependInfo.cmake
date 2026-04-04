@@ -20,6 +20,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Shape.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Square.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Triangle.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Vector.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Vector.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Vector.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/shader.cpp" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o.d"
   )

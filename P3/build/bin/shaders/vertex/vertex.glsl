@@ -1,9 +1,15 @@
 #version 330 core
-layout(location = 0) in vec2 aPos;
+layout(location = 0) in vec3 aPos;
 
-uniform mat4 uProj;
+out vec3 FragPos;
+
+uniform mat4 uModel;
 uniform mat4 uView;
+uniform mat4 uProj;
 
-void main() {
-    gl_Position = uProj * uView * vec4(aPos, 0.0, 1.0);
+void main()
+{
+    vec4 viewPos = uView * uModel * vec4(aPos, 1.0);
+    FragPos      = viewPos.xyz;
+    gl_Position  = uProj * viewPos;
 }

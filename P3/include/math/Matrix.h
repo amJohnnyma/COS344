@@ -53,6 +53,51 @@ public:
     float** get_arr()       { return arr; }
 
     float determinant() const;
+
+    // Rotation Helpers
+    static Matrix<n,n> makeRotation(float aX, float aY, float aZ)
+    {
+        const float cx = std::cos(aX), sx = std::sin(aX);
+        const float cy = std::cos(aY), sy = std::sin(aY);
+        const float cz = std::cos(aZ), sz = std::sin(aZ);
+
+        Matrix<n,n> Rx;
+        Rx[0][0]=1; Rx[0][1]=0; Rx[0][2]=0;
+        Rx[1][0]=0; Rx[1][1]=cx; Rx[1][2]=-sx;
+        Rx[2][0]=0; Rx[2][1]=sx; Rx[2][2]=cx;
+
+
+        Matrix<n,n> Ry;
+        Ry[0][0]=cy; Ry[0][1]=0; Ry[0][2]=sy;
+        Ry[1][0]=0; Ry[1][1]=1; Ry[1][2]=0;
+        Ry[2][0]=-sy; Ry[2][1]=0; Ry[2][2]=cy;
+
+
+        Matrix<n,n> Rz;
+        Rz[0][0]=cz; Rz[0][1]=-sz; Rz[0][2]=0;
+        Rz[1][0]=sz; Rz[1][1]=cz; Rz[1][2]=0;
+        Rz[2][0]=0; Rz[2][1]=0; Rz[2][2]=1;
+
+        return Rz * Ry * Rx;
+    }
+
+
+    static Vector<n> rotatePoint(
+            const Vector<n>& p,
+            const Vector<n>& pivot,
+            const Matrix<n,n>& R)
+    {
+        Vector<n> local = p - pivot;
+        Vector<n> rotated;
+        for(int i =0; i < n; ++i)
+        {
+            float sum = 0.0f;
+            for(int j =0; j < n; ++j) sum += R[i][j] * local[j];
+            rotated[i] = sum;
+
+        }
+        return rotated + pivot;
+    }
 };
 
 #endif /*MATRIX_H*/

@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o.d"
+  "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o"
+  "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Vector.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Vector.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o"

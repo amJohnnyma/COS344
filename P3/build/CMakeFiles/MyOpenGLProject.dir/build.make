@@ -265,6 +265,20 @@ CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/PhysicsBody.cpp -o CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.s
 
+CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
+CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp
+CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp
+
+CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp > CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.i
+
+CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.s
+
 # Object files for target MyOpenGLProject
 MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/main.cpp.o" \
@@ -280,7 +294,8 @@ MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o" \
-"CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o"
+"CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o" \
+"CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o"
 
 # External object files for target MyOpenGLProject
 MyOpenGLProject_EXTERNAL_OBJECTS =
@@ -299,6 +314,7 @@ bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o
+bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/build.make
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libGL.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
@@ -311,7 +327,7 @@ bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXfixes.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable bin/MyOpenGLProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable bin/MyOpenGLProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyOpenGLProject.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders folder..."
 	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/P3/src/shaders /home/johnny/Documents/School/COS344/Practicals/P3/build/bin/shaders

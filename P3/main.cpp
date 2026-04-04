@@ -236,13 +236,10 @@ int main()
     FrameLimiter limiter(targetFps);
 
 
-    Matrix<4,4> viewMat = buildIdentity4();
-    Matrix<4,4> projMat = buildOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-    renderer.setViewProj(viewMat, projMat);
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("pTest");
+    sceneC.loadScenes("test");
     
     while (!glfwWindowShouldClose(window))
     {
@@ -254,7 +251,7 @@ int main()
            // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("pTest");
+            sceneC.loadScenes("test");
         }
 
         renderer.beginFrame();
