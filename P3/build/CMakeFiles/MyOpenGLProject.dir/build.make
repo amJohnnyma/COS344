@@ -209,24 +209,10 @@ CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/SceneCreator.cpp -o CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.s
 
-CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
-CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Camera.cpp
-CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Camera.cpp
-
-CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johnny/Documents/School/COS344/Practicals/P3/src/Camera.cpp > CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.i
-
-CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johnny/Documents/School/COS344/Practicals/P3/src/Camera.cpp -o CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.s
-
 CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/FpsLimiter.cpp
 CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/FpsLimiter.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.i: cmake_force
@@ -240,7 +226,7 @@ CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.s: cmake_force
 CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Shape.cpp
 CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Shape.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.i: cmake_force
@@ -254,7 +240,7 @@ CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.s: cmake_force
 CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/PhysicsBody.cpp
 CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/PhysicsBody.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.i: cmake_force
@@ -268,7 +254,7 @@ CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.s: cmake_force
 CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: CMakeFiles/MyOpenGLProject.dir/flags.make
 CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp
 CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o: CMakeFiles/MyOpenGLProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o -MF CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o.d -o CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o -c /home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp
 
 CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.i: cmake_force
@@ -291,7 +277,6 @@ MyOpenGLProject_OBJECTS = \
 "CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o" \
-"CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o" \
 "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o" \
@@ -310,7 +295,6 @@ bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/shader.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o
-bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o
@@ -327,7 +311,7 @@ bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXfixes.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/MyOpenGLProject: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/MyOpenGLProject: CMakeFiles/MyOpenGLProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable bin/MyOpenGLProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/johnny/Documents/School/COS344/Practicals/P3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable bin/MyOpenGLProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyOpenGLProject.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders folder..."
 	/usr/bin/cmake -E copy_directory /home/johnny/Documents/School/COS344/Practicals/P3/src/shaders /home/johnny/Documents/School/COS344/Practicals/P3/build/bin/shaders

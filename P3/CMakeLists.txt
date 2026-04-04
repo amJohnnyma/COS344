@@ -41,7 +41,6 @@ add_executable(${PROJECT_NAME}
     src/shader.cpp
     src/Scene.cpp
     src/SceneCreator.cpp
-    src/Camera.cpp
     src/FpsLimiter.cpp
     src/Shape.cpp
     src/PhysicsBody.cpp

@@ -16,6 +16,7 @@
 #include "include/math/Vector.h"
 #include "include/engine/Input.h"
 #include "include/engine/SceneCreator.h"
+#include "include/engine/Camera.h"
 
 #include <cmath>   // for random placement helpers
 
@@ -103,7 +104,7 @@ static Matrix<4,4> buildIdentity4()
 
 auto& input = InputManager::get_instance();
 
-void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC)
+void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
 
     // slected must have colour changed to a pastel version
@@ -204,21 +205,69 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         std::cout << "RESTARTING...\n";
     }
 
+    /*
     // Increase FPS (UP)
     if (input.is_key_pressed(GLFW_KEY_UP))
     {
-        targetFps = std::min(targetFps + 10.0, 240.0);
-        limiter.setFPS(targetFps);
-        std::cout << "FPS target: " << targetFps << "\n";
+    targetFps = std::min(targetFps + 10.0, 240.0);
+    limiter.setFPS(targetFps);
+    std::cout << "FPS target: " << targetFps << "\n";
     }
 
     // Decrease FPS (DOWN)
     if (input.is_key_pressed(GLFW_KEY_DOWN))
     {
-        targetFps = std::max(targetFps - 10.0, 10.0);
-        limiter.setFPS(targetFps);
-        std::cout << "FPS target: " << targetFps << "\n";
+    targetFps = std::max(targetFps - 10.0, 10.0);
+    limiter.setFPS(targetFps);
+    std::cout << "FPS target: " << targetFps << "\n";
     }
+    */
+
+    //camera movement
+    float camSpeed = 0.3f;
+
+    Vector<3> forward = cam.getForward();
+    Vector<3> right   = cam.getRight();
+    Vector<3> up      = cam.getUp();
+
+    // Forward/back
+    if (input.is_key_down(GLFW_KEY_I)) {
+        cam.position[0] -= forward[0] * camSpeed;
+        cam.position[1] -= forward[1] * camSpeed;
+        cam.position[2] -= forward[2] * camSpeed;
+    }
+    if (input.is_key_down(GLFW_KEY_K)) {
+        cam.position[0] += forward[0] * camSpeed;
+        cam.position[1] += forward[1] * camSpeed;
+        cam.position[2] += forward[2] * camSpeed;
+    }
+
+    // Strafe left/right
+    if (input.is_key_down(GLFW_KEY_J)) {
+        cam.position[0] -= right[0] * camSpeed;
+        cam.position[1] -= right[1] * camSpeed;
+        cam.position[2] -= right[2] * camSpeed;
+    }
+    if (input.is_key_down(GLFW_KEY_L)) {
+        cam.position[0] += right[0] * camSpeed;
+        cam.position[1] += right[1] * camSpeed;
+        cam.position[2] += right[2] * camSpeed;
+    }
+
+    // Up/down (world up, not camera up — feels more natural)
+    if (input.is_key_down(GLFW_KEY_U)) cam.position[1] += camSpeed;
+    if (input.is_key_down(GLFW_KEY_O)) cam.position[1] -= camSpeed;
+    if (input.is_key_down(GLFW_KEY_U)) cam.position[1] += 0.5f;  // up
+    if (input.is_key_down(GLFW_KEY_O)) cam.position[1] -= 0.5f;  // down
+                                                                      // Camera rotation
+    if (input.is_key_down(GLFW_KEY_LEFT))  cam.yaw   += 0.02f;   // look left
+    if (input.is_key_down(GLFW_KEY_RIGHT)) cam.yaw   -= 0.02f;   // look right
+    if (input.is_key_down(GLFW_KEY_UP))    cam.pitch += 0.02f;   // look up
+    if (input.is_key_down(GLFW_KEY_DOWN))  cam.pitch -= 0.02f;   // look down
+
+    // Clamp pitch so camera doesn't flip upside down
+    if (cam.pitch >  1.5f) cam.pitch =  1.5f;
+    if (cam.pitch < -1.5f) cam.pitch = -1.5f;
 }
 int main()
 {
@@ -231,8 +280,12 @@ int main()
     glfwGetFramebufferSize(window, &w, &h);
 
     Renderer<3> renderer(w, h);
-    float camAngle = 0.0f;
-    const float camRadius = 20.0f;
+    Camera cam;
+    cam.fovY   = M_PI / 2.0f;
+    cam.aspect = (float)w / h;
+    cam.nearZ  = 0.1f;
+    cam.farZ   = 100.0f;
+    renderer.setViewProj(cam.getView(), cam.getProj());
 
     double targetFps = 60.0;
     FrameLimiter limiter(targetFps);
@@ -244,11 +297,13 @@ int main()
     SceneCreator<3> sceneC;
     sceneC.loadScenes("ptest");
 
+
+
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
 
-        processInput(window, limiter, targetFps, shouldRestart, sceneC);
+        processInput(window, limiter, targetFps, shouldRestart, sceneC, cam);
 
         if (shouldRestart) {
             // scene.initScene();
@@ -256,22 +311,9 @@ int main()
             sceneC = SceneCreator<3>();
             sceneC.loadScenes("ptest");
         }
-        // temp
-        camAngle += (float)dt * 0.5f;  // adjust 0.5f to change spin speed
-
-        // Camera position orbiting around Y axis
-        float camX = camRadius * std::sin(camAngle);
-        float camZ = camRadius * std::cos(camAngle);
-
-        // Build view matrix manually — just a rotation around Y + translation
-        Matrix<4,4> view;
-        view[0][0] =  std::cos(camAngle);  view[0][1] = 0; view[0][2] = std::sin(camAngle);  view[0][3] = 0;
-        view[1][0] =  0;                   view[1][1] = 1; view[1][2] = 0;                    view[1][3] = 0;
-        view[2][0] = -std::sin(camAngle);  view[2][1] = 0; view[2][2] = std::cos(camAngle);  view[2][3] = -camRadius;
-        view[3][0] =  0;                   view[3][1] = 0; view[3][2] = 0;                    view[3][3] = 1;
-
-        renderer.setViewProj(view, renderer.getProj());
-        // temp end
+        //cam.yaw += (float)dt * 0.5f;          // auto-spin — remove when done testing
+        //cam.orbitAround(Vector<3>{0,0,0}, 20.0f);
+        renderer.setViewProj(cam.getView(), cam.getProj());
 
         renderer.beginFrame();
         sceneC.update(dt, renderer);

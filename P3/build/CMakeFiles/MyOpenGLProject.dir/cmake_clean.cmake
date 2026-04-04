@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MyOpenGLProject.dir/main.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/main.cpp.o.d"
-  "CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o"
-  "CMakeFiles/MyOpenGLProject.dir/src/Camera.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o"

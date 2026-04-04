@@ -62,7 +62,6 @@ class Scene {
         int m_activeIndex;
 
         std::string name;
-        Camera<n> camera;
 
         int ballIndex = -1; // there can only be one ball
         int selectedObstacle = -1;

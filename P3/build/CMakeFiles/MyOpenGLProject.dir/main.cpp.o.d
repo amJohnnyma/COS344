@@ -331,4 +331,5 @@ CMakeFiles/MyOpenGLProject.dir/main.cpp.o: \
  /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/../math/Vector.h \
  /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/PhysicsBody.h \
  /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/Camera.h \
- /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/Renderer.h
+ /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/Renderer.h \
+ /home/johnny/Documents/School/COS344/Practicals/P3/include/engine/Camera.h

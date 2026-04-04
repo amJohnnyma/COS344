@@ -59,16 +59,6 @@ Renderer<n>::Renderer(int width, int height)
 
     glBindVertexArray(0);
 
-    if constexpr (n == 2) {
-        proj = ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-    } else {
-        proj = perspective(M_PI / 3.0f, (float)width / height, 0.1f, 100.0f);
-    }
-
-    view = identity4();
-    if constexpr (n == 3) {
-        view[2][3] = -50.0f;   // camera pulled back along +Z (standard OpenGL)
-    }
 
     // Enable depth testing once (harmless for n=2)
     glEnable(GL_DEPTH_TEST);

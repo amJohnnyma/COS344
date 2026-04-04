@@ -45,7 +45,6 @@ public:
 
     // Pass our Matrix<4,4> instead of glm::mat4
     void setViewProj(const Matrix<4,4>& v, const Matrix<4,4>& p);
-const Matrix<4,4>& getProj() const { return proj; }
 
     void beginFrame();
     void drawShape(const Shape<n>* shape, const Color4& color);
