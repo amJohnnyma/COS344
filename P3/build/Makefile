@@ -203,6 +203,30 @@ src/Circle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Circle.cpp.s
 .PHONY : src/Circle.cpp.s
 
+src/Cuboid.o: src/Cuboid.cpp.o
+.PHONY : src/Cuboid.o
+
+# target to build an object file
+src/Cuboid.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.o
+.PHONY : src/Cuboid.cpp.o
+
+src/Cuboid.i: src/Cuboid.cpp.i
+.PHONY : src/Cuboid.i
+
+# target to preprocess a source file
+src/Cuboid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.i
+.PHONY : src/Cuboid.cpp.i
+
+src/Cuboid.s: src/Cuboid.cpp.s
+.PHONY : src/Cuboid.s
+
+# target to generate assembly for a file
+src/Cuboid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/Cuboid.cpp.s
+.PHONY : src/Cuboid.cpp.s
+
 src/FpsLimiter.o: src/FpsLimiter.cpp.o
 .PHONY : src/FpsLimiter.o
 
@@ -508,6 +532,9 @@ help:
 	@echo "... src/Circle.o"
 	@echo "... src/Circle.i"
 	@echo "... src/Circle.s"
+	@echo "... src/Cuboid.o"
+	@echo "... src/Cuboid.i"
+	@echo "... src/Cuboid.s"
 	@echo "... src/FpsLimiter.o"
 	@echo "... src/FpsLimiter.i"
 	@echo "... src/FpsLimiter.s"

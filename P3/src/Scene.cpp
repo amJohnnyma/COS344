@@ -3,11 +3,17 @@
 #include "../include/math/Circle.h"
 #include "../include/math/Triangle.h"
 #include "../include/math/Triangular_Prism.h"
+#include "../include/math/Cuboid.h"
 
     template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
 {
-    Square<3>* square = new Square<n>(params.pos, params.height, params.width);
+
+    float hw = params.width * 0.5f;
+    float hh = params.height * 0.5f;
+    float hd = params.depth* 0.5f;
+
+    Cuboid<3>* square = new Cuboid<3>(params.pos, hw,hh,hd);
     square->setColor(params.col.r, params.col.g, params.col.b);
 
     int idx = m_shapeCount;

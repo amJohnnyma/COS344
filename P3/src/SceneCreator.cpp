@@ -117,16 +117,6 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             // p.rotation = 0.f;          // zero it so addShape stores 0
             if (count >= 11) {   // at least type + pos + size + color
                 createShape(p);
-auto* s = current->getShape(current->getCount() - 1);
-float* pts = s->getPoints();
-int np = s->getNumPoints();
-std::cerr << "Created shape type=" << p.type 
-          << " pos=(" << x << "," << y << "," << z << ")"
-          << " numPoints=" << np;
-if (np > 0)
-    std::cerr << " v0=(" << pts[0] << "," << pts[1] << "," << pts[2] << ")";
-std::cerr << "\n";
-delete[] pts;
             } else {
                 std::cout << "Warning: malformed shape line: " << line << std::endl;
             }
