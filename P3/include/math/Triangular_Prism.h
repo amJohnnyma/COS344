@@ -24,7 +24,7 @@ class TriangularPrism : public Shape<n>
 
     static const int MAX_CHILDREN = 64;
     Shape<n>* children[MAX_CHILDREN] = {};
-    int childCount;
+    int childCount = 0;
 
 
     void recalcPosition();

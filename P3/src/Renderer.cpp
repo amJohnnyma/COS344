@@ -45,14 +45,6 @@ Renderer<n>::Renderer(int width, int height)
     proj(identity4())
 {
     loadShaders();
-auto check = [&](const char* name) {
-    GLint loc = glGetUniformLocation(programID, name);
-    std::cerr << name << " loc = " << loc << "\n";
-};
-check("uModel");
-check("uView");
-check("uProj");
-check("uColor");
 
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
@@ -60,6 +52,7 @@ check("uColor");
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
+    // Attribute 0: position — 2 floats per vertex (x, y) for 2-D rendering
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
             3 * sizeof(float), (void*)0);
@@ -69,12 +62,12 @@ check("uColor");
     if constexpr (n == 2) {
         proj = ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
     } else {
-        proj = perspective(M_PI / 4.0f, (float)width / height, 0.1f, 100.0f);
+        proj = perspective(M_PI / 3.0f, (float)width / height, 0.1f, 100.0f);
     }
 
     view = identity4();
     if constexpr (n == 3) {
-        view[2][3] = -20.0f;   // camera pulled back along +Z (standard OpenGL)
+        view[2][3] = -50.0f;   // camera pulled back along +Z (standard OpenGL)
     }
 
     // Enable depth testing once (harmless for n=2)
@@ -128,25 +121,16 @@ void Renderer<n>::beginFrame()
     float colMajorProj[16];
     matToColMajor(view, colMajorView);
     matToColMajor(proj, colMajorProj);
-std::cerr << "View[2][3]=" << view[2][3] << "\n";
-std::cerr << "Proj[0][0]=" << proj[0][0] << " Proj[2][2]=" << proj[2][2] << " Proj[3][2]=" << proj[3][2] << "\n";
-std::cerr << "locView=" << glGetUniformLocation(programID,"uView")
-          << " locProj=" << glGetUniformLocation(programID,"uProj") << "\n";
 
-    GLint locView = glGetUniformLocation(programID, "u_View");
-    GLint locProj = glGetUniformLocation(programID, "u_Projection");
+    GLint locView = glGetUniformLocation(programID, "uView");
+    GLint locProj = glGetUniformLocation(programID, "uProj");
     glUniformMatrix4fv(locView, 1, GL_FALSE, colMajorView);
     glUniformMatrix4fv(locProj, 1, GL_FALSE, colMajorProj);
 
-    float identity[16] = 
-    {
-        1,0,0,0,
-        0,1,0,0,
-        0,0,1,0,
-        0,0,0,1
-    };
+    float identity[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
     GLint locModel = glGetUniformLocation(programID, "uModel");
-    glUniformMatrix4fv(locModel,1,GL_FALSE,identity);
+    glUniformMatrix4fv(locModel, 1, GL_FALSE, identity);
+
 }
     template <int n>
 void Renderer<n>::drawDebugGrid(int extent)
@@ -312,14 +296,12 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
     if (!shape) return;
 
     float* points    = shape->getPoints();
-
     int    numPoints = shape->getNumPoints();
 
     if (numPoints < 3) {
         delete[] points;
         return;
     }
-std::cerr << "drawShape: numPoints=" << numPoints << " vertCount after push=" ;
 
     m_vertexCount = 0;
     // Build a xy-only buffer
@@ -337,14 +319,17 @@ std::cerr << "drawShape: numPoints=" << numPoints << " vertCount after push=" ;
                 // vertex A (x, y, z)
                 pushFloat(points[a * n + 0]);
                 pushFloat(points[a * n + 1]);
-                if constexpr (n == 3) pushFloat(points[a * n + 2]);
-                else                  pushFloat(0.0f);
+                if constexpr (n == 3) 
+                {
+                    pushFloat(points[a * n + 2]);
+                }
+                else                  pushFloat(-10.0f);
 
                 // vertex B (x, y, z)
                 pushFloat(points[b * n + 0]);
                 pushFloat(points[b * n + 1]);
                 if constexpr (n == 3) pushFloat(points[b * n + 2]);
-                else                  pushFloat(0.0f);
+                else                  pushFloat(-10.0f);
             }
         }
     }
@@ -359,7 +344,6 @@ std::cerr << "drawShape: numPoints=" << numPoints << " vertCount after push=" ;
                 pushFloat(0.0f);
             }
         }
-std::cerr << m_vertexCount << "\n";
     }
 
     delete[] points;
@@ -379,10 +363,6 @@ std::cerr << m_vertexCount << "\n";
 
     if constexpr (n==3)
         drawFaceNormals(shape, 1.5f, 0.4f);
-
-GLenum err = glGetError();
-if (err != GL_NO_ERROR)
-    std::cerr << "GL error after draw: " << err << "\n";
 
 }
 

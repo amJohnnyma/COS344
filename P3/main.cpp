@@ -73,7 +73,7 @@ inline GLFWwindow* setUp()
 // Build a 4×4 orthographic projection matrix from first principles.
 // Maps x∈[l,r], y∈[b,t], z∈[nearZ,farZ] → NDC [-1,1]³.
 static Matrix<4,4> buildOrtho(float l, float r, float b, float t,
-                               float nearZ, float farZ)
+        float nearZ, float farZ)
 {
     Matrix<4,4> m;   // default-ctor: all zeros
 
@@ -231,16 +231,19 @@ int main()
     glfwGetFramebufferSize(window, &w, &h);
 
     Renderer<3> renderer(w, h);
+    float camAngle = 0.0f;
+    const float camRadius = 20.0f;
 
     double targetFps = 60.0;
     FrameLimiter limiter(targetFps);
+    double count = 0; // when count is 1 then display fps (Each second)
 
 
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("test");
-    
+    sceneC.loadScenes("ptest");
+
     while (!glfwWindowShouldClose(window))
     {
         double dt = limiter.tick();
@@ -248,11 +251,27 @@ int main()
         processInput(window, limiter, targetFps, shouldRestart, sceneC);
 
         if (shouldRestart) {
-           // scene.initScene();
+            // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("test");
+            sceneC.loadScenes("ptest");
         }
+        // temp
+        camAngle += (float)dt * 0.5f;  // adjust 0.5f to change spin speed
+
+        // Camera position orbiting around Y axis
+        float camX = camRadius * std::sin(camAngle);
+        float camZ = camRadius * std::cos(camAngle);
+
+        // Build view matrix manually — just a rotation around Y + translation
+        Matrix<4,4> view;
+        view[0][0] =  std::cos(camAngle);  view[0][1] = 0; view[0][2] = std::sin(camAngle);  view[0][3] = 0;
+        view[1][0] =  0;                   view[1][1] = 1; view[1][2] = 0;                    view[1][3] = 0;
+        view[2][0] = -std::sin(camAngle);  view[2][1] = 0; view[2][2] = std::cos(camAngle);  view[2][3] = -camRadius;
+        view[3][0] =  0;                   view[3][1] = 0; view[3][2] = 0;                    view[3][3] = 1;
+
+        renderer.setViewProj(view, renderer.getProj());
+        // temp end
 
         renderer.beginFrame();
         sceneC.update(dt, renderer);
@@ -266,12 +285,18 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        printf("dt: %.4f s  |  fps: %.1f  |  target: %.0f  |  %s\n",
-               dt, 1.0 / dt, targetFps, sceneC.isPaused() ? "PAUSED" : "");
+        count += dt;
+        if(count > 1)
+        {
+            printf("dt: %.4f s  |  fps: %.1f  |  target: %.0f  |  %s\n",
+                    dt, 1.0 / dt, targetFps, sceneC.isPaused() ? "PAUSED" : "");
+            count = 0;
+        }
+
 
         limiter.limit();
     }
-sceneC.saveScenes("DemoSave");
+    sceneC.saveScenes("DemoSave");
 
     glfwTerminate();
     return 0;

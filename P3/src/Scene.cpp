@@ -173,7 +173,7 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
     Vector<3> angles{1.f * (float)dt,   //  around X (pitch)
                   1.0f * (float)dt,   // around Y (yaw)
                   1.0f * (float)dt };        //   around Z (roll)
-   // m_shapes[i]->rotate(angles);
+    m_shapes[i]->rotate(angles);
     }
 
 
