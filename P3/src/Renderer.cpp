@@ -121,6 +121,10 @@ void Renderer<n>::beginFrame()
     GLint locModel = glGetUniformLocation(programID, "uModel");
     glUniformMatrix4fv(locModel, 1, GL_FALSE, identity);
 
+
+glEnable(GL_BLEND);
+glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 }
 template <int n>
 void Renderer<n>::drawDebugGrid(int extent)
@@ -399,6 +403,9 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
             m_vertexCount * sizeof(float),
             m_vertexData,
             GL_DYNAMIC_DRAW);
+glEnable(GL_CULL_FACE);
+glCullFace(GL_BACK);
+glFrontFace(GL_CCW);
 
     if (DebugOptions::get().wireframe)
     {
@@ -409,6 +416,7 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
     }
     else
         glDrawArrays(GL_TRIANGLES,0,numPoints);
+glDisable(GL_CULL_FACE);
 
 
 }

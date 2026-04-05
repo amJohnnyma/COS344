@@ -273,7 +273,7 @@ void Cone<n>::scale(float s)
     radius    *= s;
 
     rebuild();
-    this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+    setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
 }
 
 template class Cone<3>;

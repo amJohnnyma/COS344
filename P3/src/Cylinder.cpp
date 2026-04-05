@@ -64,7 +64,7 @@ void Cylinder<n>::rebuild()
         add(new Triangle<n>(botCentre, b1, b0));
     }
 
-    setColor(this->color[0], this->color[1], this->color[2]);
+    setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
 }
 
 

@@ -74,7 +74,7 @@ void Scene<n>::addCylinder(const ShapeParams<n>& params)
     Vector<n> top_centre = params.pos + Vector<n>{0.f,params.height / 2.f,0.f};
     Vector<n> bottom_centre = params.pos + Vector<n>{0.f,-params.height / 2.f,0.f};
     Cylinder<3>* cylinder= new Cylinder<3>(top_centre, bottom_centre, params.radius, params.segment);
-    cylinder->setColor(params.col.r, params.col.g, params.col.b);
+    cylinder->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
     int idx = m_shapeCount;
     if(addShape(cylinder))

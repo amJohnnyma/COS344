@@ -136,7 +136,8 @@ void Circle<n>::scale(float s)
         p2[1] = center[1] + radius * std::sin(theta1);
         add(new Triangle<n>(center, p1, p2));
     }
-    this->setColor(this->color[0], this->color[1], this->color[2]);
+    setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+
     Shape<n>::getPhysicsBody().radius = radius;
 }
 

@@ -264,7 +264,7 @@ template <int n>
         add(new Triangle<n>(bl,  blb, brb));  // bottom
         add(new Triangle<n>(bl,  brb, br));
 
-        setColor(this->color[0], this->color[1], this->color[2]);
+    setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
     }
 
 

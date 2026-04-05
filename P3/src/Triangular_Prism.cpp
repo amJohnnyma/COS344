@@ -233,7 +233,7 @@ void TriangularPrism<n>::rebuild()
     add(new Triangle<n>(f3,b1,f1));
     add(new Triangle<n>(f3,b3,b1));
 
-    setColor(this->color[0], this->color[1], this->color[2]);
+    setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
 }
 
 

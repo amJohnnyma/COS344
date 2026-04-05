@@ -162,11 +162,9 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             } else {
                 std::cout << "Warning: malformed shape line: " << line << std::endl;
             }
-            //if (savedRotation != 0.f) {
-            //   int idx = current->getCount() - 1;
-            // current->getShape(idx)->rotate(savedRotation);
-            //current->getShapeParamRef(idx).rotation = savedRotation; // store it back
-            //}
+            int idx = current->getCount() - 1;
+            current->getShape(idx)->rotate(p.rot);
+            current->getShapeParamRef(idx).rot = p.rot; // store it back
 
         }
         else if (streq(cmd, "selectObstacle") && current) {
