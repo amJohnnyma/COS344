@@ -89,6 +89,9 @@ public:
     void rebuild();
 
     void recalcPosition();
+    virtual void rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot) override;
+
+    Vector<n> getNormal() const override;
 
 
 

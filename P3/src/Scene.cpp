@@ -86,15 +86,15 @@ void Scene<n>::addCylinder(const ShapeParams<n>& params)
 void Scene<n>::addCircle(const ShapeParams<n>& params)
 {
 
-       Circle<3> * circle = new Circle(params.pos, params.radius, params.segment);
-       circle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    Circle<3> * circle = new Circle(params.pos, params.radius, params.segment);
+    circle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
 
-       int idx = m_shapeCount;
-       if(addShape(circle))
-       {
-       m_shape_params[idx] = params;
-       }
+    int idx = m_shapeCount;
+    if(addShape(circle))
+    {
+        m_shape_params[idx] = params;
+    }
 }
     template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
@@ -351,6 +351,19 @@ void Scene<n>::rotateScene(const Vector<n>& angles)
     }
 }
 
-// void rotateBlade
+    template <int n>
+void Scene<n>::rotateWindmillBlade(float speed)
+{
+
+    Vector<n> normal = m_shapes[3]->getNormal();
+    
+    Vector<n> pivot = m_shapes[7]->getPosition();
+
+    for (int i = 8; i <= 47; i++)
+    {
+        m_shapes[i]->rotateAroundAxis(normal, speed, pivot);
+    }
+
+}
 
 template class Scene<3>;

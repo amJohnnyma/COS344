@@ -76,6 +76,7 @@ class TriangularPrism : public Shape<n>
     virtual void updatePhysics(float dt) override;
 
     virtual void scale(float s) override;
+    virtual void rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot) override;
 };
 
 #endif

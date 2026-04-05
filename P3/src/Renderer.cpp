@@ -459,5 +459,4 @@ void Renderer<n>::pushFloat(float f)
     m_vertexData[m_vertexCount++] = f;
 }
 
-template class Renderer<2>;
 template class Renderer<3>;

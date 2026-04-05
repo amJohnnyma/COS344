@@ -63,10 +63,13 @@ class Shape {
         }
 
         virtual void rotate(Vector<n> angles, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) = 0;
-   virtual void rotate3D(const Vector<n>& angles,
-                  Vector<n> pivot = Vector<n>(),
-                  bool hasPivot = false) = 0;
+        virtual void rotate3D(const Vector<n>& angles,
+                Vector<n> pivot = Vector<n>(),
+                bool hasPivot = false) = 0;
+        virtual void rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot) = 0;
         virtual void scale(float s) = 0;
+
+    virtual Vector<n> getNormal() const {return Vector<n>();}
 };
 
 #endif /*SHAPE_H*/

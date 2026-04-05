@@ -103,6 +103,7 @@ static Matrix<4,4> buildIdentity4()
 }
 
 auto& input = InputManager::get_instance();
+float windmillSpeed = 0.f;
 
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
@@ -140,16 +141,6 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         // rotate -z
         sceneC.getActive()->rotateScene(Vector<3>{0.f,0.f,-0.1f});
     }
-    if(input.is_key_pressed(GLFW_KEY_EQUAL))
-    {
-        //scale up
-        sceneC.getActive()->scaleSelected(1.1);
-    }
-    if(input.is_key_pressed(GLFW_KEY_MINUS))
-    {
-        //scale down
-        sceneC.getActive()->scaleSelected(0.9);
-    }
 
     // Wireframe (ENTER)
     if (input.is_key_pressed(GLFW_KEY_ENTER))
@@ -178,6 +169,22 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         shouldRestart = true;
         sceneC.setPause(false);
         std::cout << "RESTARTING...\n";
+    }
+
+    //rotate windmill (EQUAL)
+
+    if (input.is_key_down(GLFW_KEY_EQUAL))
+    {
+        windmillSpeed += 0.005;
+
+    windmillSpeed = std::copysign(std::min(std::abs(windmillSpeed), 0.9f),windmillSpeed);
+    }
+    //rotate windmill (MINUS)
+    if (input.is_key_down(GLFW_KEY_MINUS))
+    {
+        windmillSpeed -= 0.005;
+
+    windmillSpeed = std::copysign(std::min(std::abs(windmillSpeed), 0.9f),windmillSpeed);
     }
 
     /*
@@ -291,6 +298,8 @@ int main()
 
         renderer.beginFrame();
         sceneC.update(dt, renderer);
+
+        sceneC.getActive()->rotateWindmillBlade(windmillSpeed);
 
         if (DebugOptions::get().showGrid)
             renderer.drawDebugGrid(10);

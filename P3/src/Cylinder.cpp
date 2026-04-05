@@ -235,6 +235,18 @@ void Cylinder<n>::rotate3D(const Vector<n>& angles,
     rebuild();
 }
 
+template<int n>
+void Cylinder<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+
+    topCentre = Matrix<n,n>::rotatePoint(topCentre, pivot, R);
+    botCentre = Matrix<n,n>::rotatePoint(botCentre, pivot, R);
+
+    recalcPosition();
+    rebuild();
+}
+
 template <int n>
 void Cylinder<n>::applyTranslation(const Vector<n>& disp)
 {

@@ -59,6 +59,7 @@ public:
     void applyTranslation(const Vector<n>& disp) override;
     void updatePhysics(float dt) override;
     void scale(float s) override;
+    virtual void rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot) override;
 
 private:
     // Helper for rotation using the new Matrix API

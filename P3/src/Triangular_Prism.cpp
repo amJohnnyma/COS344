@@ -173,6 +173,22 @@ void TriangularPrism<n>::rotate3D(const Vector<n>& angles,
     recalcPosition();
     rebuild();
 }
+
+template<int n>
+void TriangularPrism<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+    f1 = Matrix<n,n>::rotatePoint(f1, pivot, R);
+    f2 = Matrix<n,n>::rotatePoint(f2, pivot, R);
+    f3 = Matrix<n,n>::rotatePoint(f3, pivot, R);
+    b1 = Matrix<n,n>::rotatePoint(b1, pivot, R);
+    b2 = Matrix<n,n>::rotatePoint(b2, pivot, R);
+    b3 = Matrix<n,n>::rotatePoint(b3, pivot, R);
+
+
+    recalcPosition();
+    rebuild();
+}
     template <int n>
 void TriangularPrism<n>::applyTranslation(const Vector<n>& disp)
 {

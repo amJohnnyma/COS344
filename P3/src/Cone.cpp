@@ -243,6 +243,17 @@ void Cone<n>::rotate3D(const Vector<n>& angles,
     rebuild();
 }
 
+template<int n>
+void Cone<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+
+    apex      = rotatePoint(apex,      pivot, R);
+    baseCentre = rotatePoint(baseCentre, pivot, R);
+    recalcPosition();
+    rebuild();
+}
+
 template <int n>
 void Cone<n>::applyTranslation(const Vector<n>& disp)
 {

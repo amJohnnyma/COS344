@@ -135,6 +135,8 @@ class Scene {
             return Vector<n>{}; // zero vector as default
         }
 
+        void rotateWindmillBlade(float speed);
+
 
 
 

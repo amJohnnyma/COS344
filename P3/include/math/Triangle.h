@@ -44,6 +44,7 @@ void recalcPosition();
     }
 
     virtual void scale(float s) override;
+    virtual void rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot) override;
 
 
 };

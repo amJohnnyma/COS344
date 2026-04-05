@@ -222,6 +222,18 @@ void Square<n>::rotate3D(const Vector<n>& angles,
     recalcPosition();
     rebuild();
 }
+
+template<int n>
+void Square<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+    tl  = Matrix<n,n>::rotatePoint(tl,  pivot, R);
+    tr  = Matrix<n,n>::rotatePoint(tr,  pivot, R);
+    bl  = Matrix<n,n>::rotatePoint(bl,  pivot, R);
+    br  = Matrix<n,n>::rotatePoint(br,  pivot, R);
+    recalcPosition();
+    rebuild();
+}
     template<int n>
 void Square<n>::rotate(Vector<n> angles,
         Vector<n> rotate_point,
@@ -237,6 +249,29 @@ void Square<n>::recalcPosition()
     for (int k = 0; k < n; ++k)
         this->position[k] = (tl[k]+tr[k]+bl[k]+br[k]) * 0.25f;
 }
+template<int n>
+Vector<n> Square<n>::getNormal() const
+{
+    // Two edges from tl
+    Vector<n> edge1 = tr - tl;  // along top edge
+    Vector<n> edge2 = bl - tl;  // along left edge
 
-template class Square<2>;
+    Vector<n> normal;
+    // Cross product edge1 × edge2
+    normal[0] = edge1[1]*edge2[2] - edge1[2]*edge2[1];
+    normal[1] = edge1[2]*edge2[0] - edge1[0]*edge2[2];
+    normal[2] = edge1[0]*edge2[1] - edge1[1]*edge2[0];
+
+    // Normalize
+    float len = std::sqrt(normal[0]*normal[0] + normal[1]*normal[1] + normal[2]*normal[2]);
+    if (len > 0.0001f)
+    {
+        normal[0] /= len;
+        normal[1] /= len;
+        normal[2] /= len;
+    }
+
+    return normal;
+}
+
 template class Square<3>;

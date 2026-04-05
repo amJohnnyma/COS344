@@ -127,5 +127,14 @@ void Triangle<n>::rotate(Vector<n> angles,
 {
     rotate3D(angles, rotate_point, hasCentroid);
 }
-template class Triangle<2>;
+
+template<int n>
+void Triangle<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+    p1 = Matrix<n,n>::rotatePoint(p1, pivot, R);
+    p2 = Matrix<n,n>::rotatePoint(p2, pivot, R);
+    p3 = Matrix<n,n>::rotatePoint(p3, pivot, R);
+    recalcPosition();
+}
 template class Triangle<3>;

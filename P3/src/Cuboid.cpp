@@ -191,6 +191,25 @@ void Cuboid<n>::rotate3D(const Vector<n>& angles,
     rebuild();
 }
 
+template<int n>
+void Cuboid<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+
+    tl  = Matrix<n,n>::rotatePoint(tl,  pivot, R);
+    tr  = Matrix<n,n>::rotatePoint(tr,  pivot, R);
+    bl  = Matrix<n,n>::rotatePoint(bl,  pivot, R);
+    br  = Matrix<n,n>::rotatePoint(br,  pivot, R);
+    tlb = Matrix<n,n>::rotatePoint(tlb, pivot, R);
+    trb = Matrix<n,n>::rotatePoint(trb, pivot, R);
+    blb = Matrix<n,n>::rotatePoint(blb, pivot, R);
+    brb = Matrix<n,n>::rotatePoint(brb, pivot, R);
+
+
+    recalcPosition();
+    rebuild();
+}
+
     template <int n>
 void Cuboid<n>::applyTranslation(const Vector<n>& disp)
 {

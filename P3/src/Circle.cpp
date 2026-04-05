@@ -157,6 +157,19 @@ void Circle<n>::rotate3D(const Vector<n>& angles,
     rebuild();
 
 }
+template<int n>
+void Circle<n>::rotateAroundAxis(const Vector<n>& axis, float angle, Vector<n> pivot)
+{
+    Matrix<n,n> R = Matrix<n,n>::makeRotationAroundAxis(axis, angle);
+    center = Matrix<n,n>::rotatePoint(center, pivot, R);
+    for(int i = 0; i <= segments; i ++)
+    {
+        points[i] = Matrix<n,n>::rotatePoint(points[i], pivot, R);
+    }
+
+    recalcPosition();
+    rebuild();
+}
     template<int n>
 void Circle<n>::rotate(Vector<n> angles,
         Vector<n> rotate_point,
@@ -181,5 +194,4 @@ void Circle<n>::rebuild()
     }
     this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
 }
-template class Circle<2>;
 template class Circle<3>;

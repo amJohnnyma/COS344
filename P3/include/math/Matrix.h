@@ -99,6 +99,31 @@ public:
         }
         return rotated + pivot;
     }
+
+static Matrix<n,n> makeRotationAroundAxis(const Vector<n>& axis, float angle)
+{
+    Matrix<n,n> R;
+    float c = std::cos(angle);
+    float s = std::sin(angle);
+    float t = 1.0f - c;
+
+    float ax = axis[0], ay = axis[1], az = axis[2];
+
+    // Rodrigues' formula
+    R[0][0] = t*ax*ax + c;
+    R[0][1] = t*ax*ay - s*az;
+    R[0][2] = t*ax*az + s*ay;
+
+    R[1][0] = t*ax*ay + s*az;
+    R[1][1] = t*ay*ay + c;
+    R[1][2] = t*ay*az - s*ax;
+
+    R[2][0] = t*ax*az - s*ay;
+    R[2][1] = t*ay*az + s*ax;
+    R[2][2] = t*az*az + c;
+
+    return R;
+}
 };
 
 #endif /*MATRIX_H*/
