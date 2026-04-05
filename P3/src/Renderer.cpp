@@ -122,54 +122,108 @@ void Renderer<n>::beginFrame()
     glUniformMatrix4fv(locModel, 1, GL_FALSE, identity);
 
 }
-    template <int n>
+template <int n>
 void Renderer<n>::drawDebugGrid(int extent)
 {
     GLint locColor = glGetUniformLocation(programID, "uColor");
 
-    const float z = 0.f;
-    // grid lines
-    glUniform4f(locColor, 0.4f, 0.4f, 0.4f, 1.0f);
+    auto drawGridPlane = [&](int axis) {
+        // axis: 0 = XY plane (z=0), 1 = XZ plane (y=0), 2 = YZ plane (x=0)
+        for (int i = -extent; i <= extent; i++)
+        {
+            m_vertexCount = 0;
+            float a = (float)i - 0.5f;
+            float e = (float)extent;
 
-    for (int i = -extent; i <= extent; i++)
+            // Line A (varies along first axis, fixed on second)
+            // Line B (fixed on first axis, varies along second)
+            auto push3 = [&](float x, float y, float z) {
+                pushFloat(x); pushFloat(y); pushFloat(z);
+            };
+
+            auto pushLine = [&](bool horizontal) {
+                m_vertexCount = 0;
+                if (axis == 0) { // XY plane, z=0
+                    if (!horizontal) {
+                        float x = a;
+                        push3(x-0.02f, -e, 0); push3(x+0.02f, -e, 0); push3(x+0.02f, e, 0);
+                        push3(x-0.02f, -e, 0); push3(x+0.02f,  e, 0); push3(x-0.02f, e, 0);
+                    } else {
+                        float y = (float)i + 0.5f;
+                        push3(-e, y-0.02f, 0); push3(e, y-0.02f, 0); push3(e, y+0.02f, 0);
+                        push3(-e, y-0.02f, 0); push3(e, y+0.02f, 0); push3(-e, y+0.02f, 0);
+                    }
+                } else if (axis == 1) { // XZ plane, y=0
+                    if (!horizontal) {
+                        float x = a;
+                        push3(x-0.02f, 0, -e); push3(x+0.02f, 0, -e); push3(x+0.02f, 0, e);
+                        push3(x-0.02f, 0, -e); push3(x+0.02f, 0,  e); push3(x-0.02f, 0, e);
+                    } else {
+                        float z = (float)i + 0.5f;
+                        push3(-e, 0, z-0.02f); push3(e, 0, z-0.02f); push3(e, 0, z+0.02f);
+                        push3(-e, 0, z-0.02f); push3(e, 0, z+0.02f); push3(-e, 0, z+0.02f);
+                    }
+                } else { // YZ plane, x=0
+                    if (!horizontal) {
+                        float y = a;
+                        push3(0, y-0.02f, -e); push3(0, y+0.02f, -e); push3(0, y+0.02f, e);
+                        push3(0, y-0.02f, -e); push3(0, y+0.02f,  e); push3(0, y-0.02f, e);
+                    } else {
+                        float z = (float)i + 0.5f;
+                        push3(0, -e, z-0.02f); push3(0, e, z-0.02f); push3(0, e, z+0.02f);
+                        push3(0, -e, z-0.02f); push3(0, e, z+0.02f); push3(0, -e, z+0.02f);
+                    }
+                }
+                glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
+                glDrawArrays(GL_TRIANGLES, 0, 6);
+            };
+
+            pushLine(false);
+            pushLine(true);
+        }
+    };
+
+    // XY plane — grey
+    glUniform4f(locColor, 0.4f, 0.4f, 0.4f, 1.0f);
+    drawGridPlane(0);
+
+    // XZ plane — slightly blue-tinted grey
+    glUniform4f(locColor, 0.3f, 0.3f, 0.5f, 1.0f);
+    drawGridPlane(1);
+
+    // YZ plane — slightly green-tinted grey
+    glUniform4f(locColor, 0.3f, 0.5f, 0.3f, 1.0f);
+    drawGridPlane(2);
+
+    // Mark origin with a red cube (one quad per face)
+    glUniform4f(locColor, 1.0f, 0.0f, 0.0f, 1.0f);
+    const float h = 0.15f;
+    auto pushQuad = [&](
+        float x0,float y0,float z0,
+        float x1,float y1,float z1,
+        float x2,float y2,float z2,
+        float x3,float y3,float z3)
     {
         m_vertexCount = 0;
-        // vertical line as thin quad
-        float x = (float)i - 0.5f;
-        pushFloat(x - 0.02f); pushFloat(-(float)extent); pushFloat(z);
-        pushFloat(x + 0.02f); pushFloat(-(float)extent); pushFloat(z);
-        pushFloat(x + 0.02f); pushFloat( (float)extent); pushFloat(z);
-        pushFloat(x - 0.02f); pushFloat(-(float)extent); pushFloat(z);
-        pushFloat(x + 0.02f); pushFloat( (float)extent); pushFloat(z);
-        pushFloat(x - 0.02f); pushFloat( (float)extent); pushFloat(z);
+        pushFloat(x0);pushFloat(y0);pushFloat(z0);
+        pushFloat(x1);pushFloat(y1);pushFloat(z1);
+        pushFloat(x2);pushFloat(y2);pushFloat(z2);
+        pushFloat(x0);pushFloat(y0);pushFloat(z0);
+        pushFloat(x2);pushFloat(y2);pushFloat(z2);
+        pushFloat(x3);pushFloat(y3);pushFloat(z3);
         glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+    };
 
-        m_vertexCount = 0;
-        // horizontal line as thin quad
-        float y = (float)i + 0.5f;
-        pushFloat(-(float)extent); pushFloat(y - 0.02f); pushFloat(z);
-        pushFloat( (float)extent); pushFloat(y - 0.02f); pushFloat(z);
-        pushFloat( (float)extent); pushFloat(y + 0.02f); pushFloat(z);
-        pushFloat(-(float)extent); pushFloat(y - 0.02f); pushFloat(z);
-        pushFloat( (float)extent); pushFloat(y + 0.02f); pushFloat(z);
-        pushFloat(-(float)extent); pushFloat(y + 0.02f); pushFloat(z);
-        glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-    }
-
-    // mark 0,0 with a red square
-    glUniform4f(locColor, 1.0f, 0.0f, 0.0f, 1.0f);
-    m_vertexCount = 0;
-    pushFloat(-0.15f); pushFloat(-0.15f); pushFloat(z);
-    pushFloat( 0.15f); pushFloat(-0.15f); pushFloat(z);
-    pushFloat( 0.15f); pushFloat( 0.15f); pushFloat(z);
-    pushFloat(-0.15f); pushFloat(-0.15f); pushFloat(z);
-    pushFloat( 0.15f); pushFloat( 0.15f); pushFloat(z);
-    pushFloat(-0.15f); pushFloat( 0.15f); pushFloat(z);
-    glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(float), m_vertexData, GL_DYNAMIC_DRAW);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-
+    // +Z / -Z faces
+    pushQuad(-h,-h, h,  h,-h, h,  h, h, h,  -h, h, h);
+    pushQuad(-h,-h,-h,  h,-h,-h,  h, h,-h,  -h, h,-h);
+    // +Y / -Y faces
+    pushQuad(-h, h,-h,  h, h,-h,  h, h, h,  -h, h, h);
+    pushQuad(-h,-h,-h,  h,-h,-h,  h,-h, h,  -h,-h, h);
+    // +X / -X faces
+    pushQuad( h,-h,-h,  h, h,-h,  h, h, h,  h,-h, h);
+    pushQuad(-h,-h,-h, -h, h,-h, -h, h, h, -h,-h, h);
 }
 template <int n>
 void Renderer<n>::drawFaceNormals(const Shape<3>* shape, float arrowLength, float headSize)
