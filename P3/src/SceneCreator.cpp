@@ -31,16 +31,22 @@ void SceneCreator<n>::createShape(const ShapeParams<n>& params)
             createCircle(params);
             break;
         case 3:
-            createTriangle(params);
+            createTriangularPrism(params);
             break;
         case 4:
             createBall(params);
             break;
         case 5:
-            createCone(params);
+            createCuboid(params);
             break;
         case 6:
+            createCone(params);
+            break;
+        case 7:
             createCylinder(params);
+            break;
+        case 8:
+            createTriangle(params);
             break;
         default:
             break;
@@ -52,6 +58,14 @@ void SceneCreator<n>::createSquare(const ShapeParams<n>& params)
 {
     Scene<n> * scene = getActive();
     scene->addSquare(params);
+
+}
+
+    template <int n>
+void SceneCreator<n>::createCuboid(const ShapeParams<n>& params)
+{
+    Scene<n> * scene = getActive();
+    scene->addCuboid(params);
 
 }
 
@@ -68,6 +82,12 @@ void SceneCreator<n>::createCircle(const ShapeParams<n>& params)
     scene->addCircle(params);
 }
 
+    template <int n>
+void SceneCreator<n>::createTriangularPrism(const ShapeParams<n>& params)
+{
+    Scene<n> * scene = getActive();
+    scene->addTriangularPrism(params);
+}
     template <int n>
 void SceneCreator<n>::createTriangle(const ShapeParams<n>& params)
 {

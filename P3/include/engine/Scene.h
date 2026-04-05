@@ -110,9 +110,11 @@ class Scene {
         void addSquare(const ShapeParams<n>& params);
         void addCircle(const ShapeParams<n>& params);
         void addTriangle(const ShapeParams<n>& params);
+        void addTriangularPrism(const ShapeParams<n>& params);
         void addBall(const ShapeParams<n>& params);
         void addCylinder(const ShapeParams<n>& params); 
         void addCone(const ShapeParams<n>& params); 
+        void addCuboid(const ShapeParams<n>& params); 
 
         void selectGolfBall();
         void selectObstacle(); // select an obstacle (if already selected then select another different one)

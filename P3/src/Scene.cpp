@@ -11,6 +11,20 @@
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
 {
 
+    Square<3>* square = new Square<3>(params.pos, params.height, params.depth);
+    square->setColor(params.col.r, params.col.g, params.col.b);
+
+    int idx = m_shapeCount;
+    if(addShape(square))
+    {
+        m_shape_params[idx] = params;
+    }
+}
+
+    template <int n>
+void Scene<n>::addCuboid(const ShapeParams<n>& params) 
+{
+
     float hw = params.width * 0.5f;
     float hh = params.height * 0.5f;
     float hd = params.depth* 0.5f;
@@ -24,7 +38,6 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
         m_shape_params[idx] = params;
     }
 }
-
     template <int n>
 void Scene<n>::addCone(const ShapeParams<n>& params) 
 {
@@ -91,6 +104,38 @@ void Scene<n>::addCircle(const ShapeParams<n>& params)
 }
 template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
+{
+   // std::cout << "Adding triangle" << std::endl;
+    //params.print();
+
+    // Create an equilateral-ish triangle centered on params.pos
+    float hw = params.width * 0.5f;
+    float hh = params.height * 0.5f;
+
+    Vector<3> p1 = { params.pos[0],          params.pos[1] + hh * 0.8f, params.pos[2] };
+    Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+    Vector<3> p3 = { params.pos[0] + hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+
+    Triangle<3>* triangle= new Triangle<3>(p1, p2, p3);
+
+    triangle->setColor(params.col.r, params.col.g, params.col.b);
+
+    // Apply initial rotation if any
+    if (params.rot[0] != 0.0f || params.rot[1] != 0.0f || params.rot[2] != 0.0f)
+    {
+        triangle->rotate3D(params.rot);
+    }
+
+    int idx = m_shapeCount;
+    if (addShape(triangle))
+    {
+        //std::cout << "Index: " << idx << std::endl;
+        m_shape_params[idx] = params;
+    }
+}
+
+template <int n>
+void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
 {
    // std::cout << "Adding triangle" << std::endl;
     //params.print();
