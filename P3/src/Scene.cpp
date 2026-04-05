@@ -43,9 +43,9 @@ void Scene<n>::addCone(const ShapeParams<n>& params)
 {
 
     /*const Vector<n>& apex_pt,
-         const Vector<n>& base_centre,
-         float r,
-         int segs = 32 */
+      const Vector<n>& base_centre,
+      float r,
+      int segs = 32 */
 
     Vector<n> base_centre = params.pos + Vector<n>{0.f, params.height/-2.f, 0.f};
     Vector<n> apex= params.pos + Vector<n>{0.f, params.height/2.f, 0.f};
@@ -65,11 +65,11 @@ void Scene<n>::addCylinder(const ShapeParams<n>& params)
 {
     /*
 
-    Cylinder(const Vector<n>& top_centre,
-             const Vector<n>& bot_centre,
-             float r,
-             int segs = 32);
-     */
+       Cylinder(const Vector<n>& top_centre,
+       const Vector<n>& bot_centre,
+       float r,
+       int segs = 32);
+       */
 
     Vector<n> top_centre = params.pos + Vector<n>{0.f,params.height / 2.f,0.f};
     Vector<n> bottom_centre = params.pos + Vector<n>{0.f,-params.height / 2.f,0.f};
@@ -87,34 +87,37 @@ void Scene<n>::addCircle(const ShapeParams<n>& params)
 {
     /*
 
-    Circle<3> * circle = new Circle(params.pos, params.radius, params.cSegments);
-    circle->setColor(params.col.r, params.col.g, params.col.b);
+       Circle<3> * circle = new Circle(params.pos, params.radius, params.cSegments);
+       circle->setColor(params.col.r, params.col.g, params.col.b);
 
-    if(params.isHole)
-    {
-        holeIndex = getCount();
-    }
+       if(params.isHole)
+       {
+       holeIndex = getCount();
+       }
 
-    int idx = m_shapeCount;
-    if(addShape(circle))
-    {
-        m_shape_params[idx] = params;
-    }
-    */
+       int idx = m_shapeCount;
+       if(addShape(circle))
+       {
+       m_shape_params[idx] = params;
+       }
+       */
 }
-template <int n>
+    template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
 {
-   // std::cout << "Adding triangle" << std::endl;
+    // std::cout << "Adding triangle" << std::endl;
     //params.print();
 
     // Create an equilateral-ish triangle centered on params.pos
     float hw = params.width * 0.5f;
     float hh = params.height * 0.5f;
 
-    Vector<3> p1 = { params.pos[0],          params.pos[1] + hh * 0.8f, params.pos[2] };
-    Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
-    Vector<3> p3 = { params.pos[0] + hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+    float apex   =  params.height * (1.5f / 3.0f);
+    float base_y = -params.height * (1.5f / 3.0f);
+
+    Vector<3> p1 = { params.pos[0],          params.pos[1] + apex, params.pos[2] };
+    Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - base_y, params.pos[2] };
+    Vector<3> p3 = { params.pos[0] + hw,     params.pos[1] - base_y, params.pos[2] };
 
     Triangle<3>* triangle= new Triangle<3>(p1, p2, p3);
 
@@ -134,20 +137,25 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
     }
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
 {
-   // std::cout << "Adding triangle" << std::endl;
+    // std::cout << "Adding triangle" << std::endl;
     //params.print();
 
     // Create an equilateral-ish triangle centered on params.pos
-    float hw = params.width * 0.5f;
-    float hh = params.height * 0.5f;
+    float hw  = params.width * 0.5f;
+    float hh  = params.height * 0.5f;
+    float z   = params.pos[2] + params.depth / 2;
 
-    Vector<3> p1 = { params.pos[0],          params.pos[1] + hh * 0.8f, params.pos[2] };
-    Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
-    Vector<3> p3 = { params.pos[0] + hw,     params.pos[1] - hh * 0.4f, params.pos[2] };
+    // Centroid sits 1/3 up from base, 2/3 down from apex
+    // So apex is +2/3*height above centre, base is -1/3*height below
+    float apex   =  params.height * (1.5f / 3.0f);
+    float base_y = -params.height * (1.5f / 3.0f);
 
+    Vector<3> p1 = { params.pos[0],       params.pos[1] + apex,   z };  // top
+    Vector<3> p2 = { params.pos[0] - hw,  params.pos[1] + base_y, z };  // bottom-left
+    Vector<3> p3 = { params.pos[0] + hw,  params.pos[1] + base_y, z };  // bottom-right
     TriangularPrism<3>* prism = new TriangularPrism<3>(p1, p2, p3, params.depth);
 
     prism->setColor(params.col.r, params.col.g, params.col.b);
@@ -170,19 +178,19 @@ void Scene<n>::addBall(const ShapeParams<n>& params)
 {
     /*
 
-    Circle<3>* ball = new Circle<3>(params.pos, params.radius, params.cSegments);
-    ball->setColor(params.col.r, params.col.g, params.col.b);
-    ball->enablePhysics();
-    ball->setPhysicsType(PhysicsType::BALL);
+       Circle<3>* ball = new Circle<3>(params.pos, params.radius, params.cSegments);
+       ball->setColor(params.col.r, params.col.g, params.col.b);
+       ball->enablePhysics();
+       ball->setPhysicsType(PhysicsType::BALL);
 
-    ballIndex = getCount();
+       ballIndex = getCount();
 
-    int idx = m_shapeCount;
-    if(addShape(ball))
-    {
-        m_shape_params[idx] = params;
-    }
-    */
+       int idx = m_shapeCount;
+       if(addShape(ball))
+       {
+       m_shape_params[idx] = params;
+       }
+       */
 }
 
     template <int n>
@@ -321,25 +329,43 @@ void Scene<n>::moveSelected(const Vector<n>& force)
 void Scene<n>::scaleSelected(const float& scale)
 {
     /*
-    if(selectedObstacle != -1)
-    {
+       if(selectedObstacle != -1)
+       {
        m_shapes[selectedObstacle]->scale(scale);
        m_shape_params[selectedObstacle].width *= scale;
        m_shape_params[selectedObstacle].height *= scale;
        m_shape_params[selectedObstacle].radius *= scale;
-    }
-    */
+       }
+       */
 }
     template <int n>
 void Scene<n>::rotateSelected(const float& theta)
 {
     /*
-    if(selectedObstacle != -1)
+       if(selectedObstacle != -1)
+       {
+       m_shapes[selectedObstacle]->rotate(theta);
+       m_shape_params[selectedObstacle].rotation += theta;
+       }
+       */
+}
+
+    template <int n>
+void Scene<n>::rotateScene(const Vector<n>& angles)
+{
+    Vector<n> rotate_point;
+    for(int i = 0; i < m_shapeCount; i++)
     {
-        m_shapes[selectedObstacle]->rotate(theta);
-        m_shape_params[selectedObstacle].rotation += theta;
+        rotate_point = rotate_point + m_shapes[i]->getPosition();
     }
-    */
+
+    rotate_point = rotate_point * (1.f/(float)(m_shapeCount + 1));
+
+    for (int i = 0; i < m_shapeCount; i++)
+    {
+        m_shapes[i]->rotate(angles, rotate_point, true);
+
+    }
 }
 
 template class Scene<3>;

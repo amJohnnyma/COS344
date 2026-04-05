@@ -125,6 +125,7 @@ class Scene {
         void moveSelected(const Vector<n>& force);
         void scaleSelected(const float& scale);
         void rotateSelected(const float& theta);
+        void rotateScene(const Vector<n>& angles);
 
         void setBallVel(const Vector<n> & force) {m_shapes[ballIndex]->setVelocity(force);}
         Vector<n> getBallVel() {

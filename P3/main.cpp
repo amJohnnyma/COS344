@@ -107,53 +107,38 @@ auto& input = InputManager::get_instance();
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
 
-    // slected must have colour changed to a pastel version
-    if(input.is_key_pressed(GLFW_KEY_1))
-    {
-        //select golf ball
-        sceneC.getActive()->selectGolfBall();
-    }
-    if(input.is_key_pressed(GLFW_KEY_2))
-    {
-        //select obstacle
-        sceneC.getActive()->selectObstacle();
-    }
-    if(input.is_key_pressed(GLFW_KEY_3))
-    {
-        //select other type of obstacle
-        sceneC.getActive()->selectObstacle();
-    }
-    if(input.is_key_pressed(GLFW_KEY_4))
-    {
-        //select golf hole
-        sceneC.getActive()->selectHole();
-    }
-    if(input.is_key_pressed(GLFW_KEY_0))
-    {
-        //deselect current selection
-        sceneC.getActive()->deselectObject();
-    }
 
     //transformations, apply a force to the object
-    if(input.is_key_pressed(GLFW_KEY_W))
+    if(input.is_key_down(GLFW_KEY_W))
     {
-        // move up
-        sceneC.getActive()->moveSelected(Vector<3>{0.f,0.5f,0.f});
+        // rotate x
+        sceneC.getActive()->rotateScene(Vector<3>{0.1f,0.f,0.f});
     }
-    if(input.is_key_pressed(GLFW_KEY_S))
+    if(input.is_key_down(GLFW_KEY_S))
     {
-        // move down
-        sceneC.getActive()->moveSelected(Vector<3>{0.f,-0.5f,0.f});
+        // rotate -x
+        sceneC.getActive()->rotateScene(Vector<3>{-0.1f,0.f,0.f});
     }
-    if(input.is_key_pressed(GLFW_KEY_A))
+    if(input.is_key_down(GLFW_KEY_A))
     {
-        // move left
-        sceneC.getActive()->moveSelected(Vector<3>{-0.5f,0.f,0.f});
+        // rotate y
+        sceneC.getActive()->rotateScene(Vector<3>{0.f,0.1f,0.f});
     }
-    if(input.is_key_pressed(GLFW_KEY_D))
+    if(input.is_key_down(GLFW_KEY_D))
     {
-        // move right
-        sceneC.getActive()->moveSelected(Vector<3>{0.5f,0.f,0.f});
+        // rotate -y
+        sceneC.getActive()->rotateScene(Vector<3>{0.f,-0.1f,0.f});
+    }
+
+    if(input.is_key_down(GLFW_KEY_E))
+    {
+        // rotate z
+        sceneC.getActive()->rotateScene(Vector<3>{0.f,0.f,0.1f});
+    }
+    if(input.is_key_down(GLFW_KEY_Q))
+    {
+        // rotate -z
+        sceneC.getActive()->rotateScene(Vector<3>{0.f,0.f,-0.1f});
     }
     if(input.is_key_pressed(GLFW_KEY_EQUAL))
     {
@@ -164,16 +149,6 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     {
         //scale down
         sceneC.getActive()->scaleSelected(0.9);
-    }
-    if(input.is_key_pressed(GLFW_KEY_E))
-    {
-        // rotate CW
-        sceneC.getActive()->rotateSelected(-15);
-    }
-    if(input.is_key_pressed(GLFW_KEY_Q))
-    {
-        // rotate CCW
-        sceneC.getActive()->rotateSelected(15);
     }
 
     // Wireframe (ENTER)
@@ -224,7 +199,7 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     */
 
     //camera movement
-    float camSpeed = 0.3f;
+    float camSpeed = 0.2f;
 
     Vector<3> forward = cam.getForward();
     Vector<3> right   = cam.getRight();
@@ -257,8 +232,6 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     // Up/down (world up, not camera up — feels more natural)
     if (input.is_key_down(GLFW_KEY_U)) cam.position[1] += camSpeed;
     if (input.is_key_down(GLFW_KEY_O)) cam.position[1] -= camSpeed;
-    if (input.is_key_down(GLFW_KEY_U)) cam.position[1] += 0.5f;  // up
-    if (input.is_key_down(GLFW_KEY_O)) cam.position[1] -= 0.5f;  // down
                                                                       // Camera rotation
     if (input.is_key_down(GLFW_KEY_LEFT))  cam.yaw   += 0.02f;   // look left
     if (input.is_key_down(GLFW_KEY_RIGHT)) cam.yaw   -= 0.02f;   // look right
