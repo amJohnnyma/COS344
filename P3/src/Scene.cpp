@@ -104,10 +104,9 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
 
     // Create an equilateral-ish triangle centered on params.pos
     float hw = params.width * 0.5f;
-    float hh = params.height * 0.5f;
 
     float apex   =  params.height * (1.5f / 3.0f);
-    float base_y = -params.height * (1.5f / 3.0f);
+    float base_y = params.height * (1.5f / 3.0f);
 
     Vector<3> p1 = { params.pos[0],          params.pos[1] + apex, params.pos[2] };
     Vector<3> p2 = { params.pos[0] - hw,     params.pos[1] - base_y, params.pos[2] };

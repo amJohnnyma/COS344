@@ -18,10 +18,7 @@ Triangle<n>::Triangle(const Triangle<n>& other)
     p1 = Vector<n>(other.p1);
     p2 = Vector<n>(other.p2);
     p3 = Vector<n>(other.p3);
-    this->position[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
-    this->position[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
-    this->position[2] = (p1[2] + p2[2] + p3[2]) / 3.0f;
-    for (int i = 2; i < n; ++i)
+    for (int i = 0; i < n; ++i)
         this->position[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
 
 }
@@ -89,44 +86,6 @@ void Triangle<n>::render(Renderer<n>& r) const
     r.drawShape(this, c);
 }
 
-/*
-
-    template <int n>
-void Triangle<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
-{
-    if constexpr (n < 3) {
-        return;
-    }
-
-    Matrix<4,4> rotation_matrix;
-    float radians = theta * (3.14159265f / 180.f);
-    if (!hasCentroid)
-    {
-        rotate_point[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
-        rotate_point[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
-        rotate_point[2] = (p1[2] + p2[2] + p3[2]) / 3.0f;
-    }
-
-    const float Cx = rotate_point[0];
-    const float Cy = rotate_point[1];
-    const float c  = std::cos(radians);
-    const float s  = std::sin(radians);
-
-    // Rotate one point
-    auto do_rotate = [&](Vector<n>& p) {
-        const float dx = p[0] - Cx;
-        const float dy = p[1] - Cy;
-
-        p[0] = Cx + dx * c - dy * s;
-        p[1] = Cy + dx * s + dy * c;      };
-
-    do_rotate(p1);
-    do_rotate(p2);
-    do_rotate(p3);
-
-
-}
-*/
 
 template<int n>
 void Triangle<n>::scale(float s)
@@ -138,6 +97,35 @@ void Triangle<n>::scale(float s)
     p1 = centroid + (p1 - centroid) * s;
     p2 = centroid + (p2 - centroid) * s;
     p3 = centroid + (p3 - centroid) * s;
+}
+template<int n>
+void Triangle<n>::recalcPosition()
+{
+    for (int i = 0; i < n; ++i)
+        this->position[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
+}
+
+template<int n>
+void Triangle<n>::rotate3D(const Vector<n>& angles,
+        Vector<n> pivot,
+        bool hasPivot)
+{
+    if (!hasPivot) pivot = this->position;
+
+    Matrix<n,n> R = Matrix<n,n>::makeRotation(angles[0], angles[1], angles[2]);
+    p1 = Matrix<n,n>::rotatePoint(p1, pivot, R);
+    p2 = Matrix<n,n>::rotatePoint(p2, pivot, R);
+    p3 = Matrix<n,n>::rotatePoint(p3, pivot, R);
+
+    recalcPosition();
+}
+
+template<int n>
+void Triangle<n>::rotate(Vector<n> angles,
+        Vector<n> rotate_point,
+        bool hasCentroid)
+{
+    rotate3D(angles, rotate_point, hasCentroid);
 }
 template class Triangle<2>;
 template class Triangle<3>;

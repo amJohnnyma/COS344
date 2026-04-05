@@ -2,3 +2,4 @@ scene 0
 # type   x    y     z   width height depth r   g    b    a     rotx roty rotz radius segments
 shape 1 0 0 0 1 1 1 1 0 0 1 0 0 0 0 0
 shape 2 0 0 3 1 1 1 1 0 0 1 0 0 0 1 32
+shape 8 0 0 6 1 1 1 1 0 0 1 0 0 0 1 32
