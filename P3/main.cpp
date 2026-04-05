@@ -269,7 +269,7 @@ int main()
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("Demo");
+    sceneC.loadScenes("test");
 
 
 
@@ -283,7 +283,7 @@ int main()
             // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("Demo");
+            sceneC.loadScenes("test");
         }
         //cam.yaw += (float)dt * 0.5f;          // auto-spin — remove when done testing
         //cam.orbitAround(Vector<3>{0,0,0}, 20.0f);

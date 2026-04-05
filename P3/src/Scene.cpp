@@ -12,7 +12,7 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
 {
 
     Square<3>* square = new Square<3>(params.pos, params.height, params.depth);
-    square->setColor(params.col.r, params.col.g, params.col.b);
+    square->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
     int idx = m_shapeCount;
     if(addShape(square))
@@ -30,7 +30,7 @@ void Scene<n>::addCuboid(const ShapeParams<n>& params)
     float hd = params.depth* 0.5f;
 
     Cuboid<3>* square = new Cuboid<3>(params.pos, hw,hh,hd);
-    square->setColor(params.col.r, params.col.g, params.col.b);
+    square->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
     int idx = m_shapeCount;
     if(addShape(square))
@@ -51,7 +51,7 @@ void Scene<n>::addCone(const ShapeParams<n>& params)
     Vector<n> apex= params.pos + Vector<n>{0.f, params.height/2.f, 0.f};
 
     Cone<3>* cone = new Cone(apex, base_centre, params.radius, params.segment);
-    cone->setColor(params.col.r, params.col.g, params.col.b);
+    cone->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
     int idx = m_shapeCount;
     if(addShape(cone))
@@ -85,22 +85,16 @@ void Scene<n>::addCylinder(const ShapeParams<n>& params)
     template <int n>
 void Scene<n>::addCircle(const ShapeParams<n>& params)
 {
-    /*
 
-       Circle<3> * circle = new Circle(params.pos, params.radius, params.cSegments);
-       circle->setColor(params.col.r, params.col.g, params.col.b);
+       Circle<3> * circle = new Circle(params.pos, params.radius, params.segment);
+       circle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
-       if(params.isHole)
-       {
-       holeIndex = getCount();
-       }
 
        int idx = m_shapeCount;
        if(addShape(circle))
        {
        m_shape_params[idx] = params;
        }
-       */
 }
     template <int n>
 void Scene<n>::addTriangle(const ShapeParams<n>& params)
@@ -121,13 +115,8 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
 
     Triangle<3>* triangle= new Triangle<3>(p1, p2, p3);
 
-    triangle->setColor(params.col.r, params.col.g, params.col.b);
+    triangle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
-    // Apply initial rotation if any
-    if (params.rot[0] != 0.0f || params.rot[1] != 0.0f || params.rot[2] != 0.0f)
-    {
-        triangle->rotate3D(params.rot);
-    }
 
     int idx = m_shapeCount;
     if (addShape(triangle))
@@ -160,11 +149,6 @@ void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
 
     prism->setColor(params.col.r, params.col.g, params.col.b);
 
-    // Apply initial rotation if any
-    if (params.rot[0] != 0.0f || params.rot[1] != 0.0f || params.rot[2] != 0.0f)
-    {
-        prism->rotate3D(params.rot);
-    }
 
     int idx = m_shapeCount;
     if (addShape(prism))
@@ -367,5 +351,7 @@ void Scene<n>::rotateScene(const Vector<n>& angles)
 
     }
 }
+
+// void rotateBlade
 
 template class Scene<3>;

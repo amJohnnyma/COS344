@@ -14,6 +14,7 @@ private:
     int segments;   // e.g. 32 for a smooth circle
     static const int MAX_CHILDREN = 128;
     Shape<n>* children[MAX_CHILDREN] = {};
+    Vector<n> points[MAX_CHILDREN + 1];
     int childCount = 0;
 
 public:
@@ -59,9 +60,6 @@ public:
         for(int i = 0; i < childCount; i++) children[i]->setColor(r,g,b,a);
     }
 
-    virtual void rotate(Vector<n> angles,
-                        Vector<n> rotate_point = Vector<n>(),
-                        bool hasCentroid = false) override { rotate3D(angles, rotate_point, hasCentroid);}
 
     virtual void updatePhysics(float dt) override
     {
@@ -72,7 +70,11 @@ public:
 
     void rotate3D(const Vector<n>& angles,
                   Vector<n> pivot = Vector<n>(),
-                  bool hasPivot = false) override {}
+                  bool hasPivot = false) override;
+    virtual void rotate(Vector<n> angles,
+                        Vector<n> rotate_point = Vector<n>(),
+                        bool hasCentroid = false) override;
+
     virtual void applyTranslation(const Vector<n>& disp) override
     {
         center = center +  disp;
@@ -92,6 +94,9 @@ public:
     }
 
     virtual void scale(float s) override;
+    void rebuild();
+
+    void recalcPosition();
 
 };
 

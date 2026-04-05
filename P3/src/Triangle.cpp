@@ -8,10 +8,7 @@ Triangle<n>::Triangle(const Vector<n>& p1, const Vector<n>& p2, const Vector<n>&
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
-    this->position[0] = (p1[0] + p2[0] + p3[0]) / 3.0f;
-    this->position[1] = (p1[1] + p2[1] + p3[1]) / 3.0f;
-    this->position[2] = (p1[2] + p2[2] + p3[2]) / 3.0f;
-    for (int i = 2; i < n; ++i)
+    for (int i = 0; i < n; ++i)
         this->position[i] = (p1[i] + p2[i] + p3[i]) / 3.0f;
 
 }

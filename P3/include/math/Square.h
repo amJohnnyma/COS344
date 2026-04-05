@@ -66,10 +66,10 @@ public:
 
     void rotate3D(const Vector<n>& angles,
                   Vector<n> pivot = Vector<n>(),
-                  bool hasPivot = false) override {}
+                  bool hasPivot = false) override;
     virtual void rotate(Vector<n> angles,
                         Vector<n> rotate_point = Vector<n>(),
-                        bool hasCentroid = false) override {}
+                        bool hasCentroid = false) override;
 
     virtual void applyTranslation(const Vector<n>& disp) override
     {
@@ -87,6 +87,8 @@ public:
     }
     virtual void scale(float s) override;
     void rebuild();
+
+    void recalcPosition();
 
 
 

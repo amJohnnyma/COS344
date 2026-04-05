@@ -1,15 +1,15 @@
 #include "../include/math/Square.h"
 
-template<int n>
+    template<int n>
 Square<n>::Square(const Vector<n>& center, float height, float width)
 {
 
     /*
-Apart from the first and second components, all of the member variables should have the
-same values for the remaining component as the centre parameter. In other words, if the
-centre parameter has the value of 5 for the third component, all of the member variables
-should have the value of 5 for the third component.
-*/
+       Apart from the first and second components, all of the member variables should have the
+       same values for the remaining component as the centre parameter. In other words, if the
+       centre parameter has the value of 5 for the third component, all of the member variables
+       should have the value of 5 for the third component.
+       */
     float half_width  = width  / 2.0f;
     float half_height = height / 2.0f;
 
@@ -43,11 +43,11 @@ should have the value of 5 for the third component.
         br[i] = center[i];
         bl[i] = center[i];
     }
-this->position = (tl + tr + br + bl) * 0.25f;
+    this->position = (tl + tr + br + bl) * 0.25f;
     add(new Triangle<n>(tl, tr, br));
     add(new Triangle<n>(tl, br, bl));
 }
-template<int n>
+    template<int n>
 Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br, const Vector<n>& bl) 
 {
     this->tl = Vector<n>(tl);
@@ -58,7 +58,7 @@ Square<n>::Square(const Vector<n>& tl, const Vector<n>& tr, const Vector<n>& br,
     add(new Triangle<n>(tl, br, bl));
 
 }
-template<int n>
+    template<int n>
 Square<n>::Square(const Square<n>& other) 
 {
     tl = Vector<n>(other.tl);
@@ -69,7 +69,7 @@ Square<n>::Square(const Square<n>& other)
     add(new Triangle<n>(tl, br, bl));
 
 }
-template<int n>
+    template<int n>
 Square<n>& Square<n>::operator*=(const Matrix<n,n>& other)
 {
     // Create temporary copies so don't overwrite values too early
@@ -133,49 +133,49 @@ int Square<n>::getNumPoints() const
 
 }
 /*
-template <int n>
-void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
+   template <int n>
+   void Square<n>::rotate(float theta, Vector<n> rotate_point, bool hasCentroid)
+   {
+// center of a square is the same no matter rotation
+// Im a square. Set the origin for my kids (And triangles will use that origin to rotate)
+Vector<n> pivot;
+
+if(hasCentroid)
 {
-    // center of a square is the same no matter rotation
-    // Im a square. Set the origin for my kids (And triangles will use that origin to rotate)
-    Vector<n> pivot;
+pivot = rotate_point;
+}
+else {
+pivot = (tl + tr + bl + br) * 0.25f;
+}
 
-    if(hasCentroid)
-    {
-        pivot = rotate_point;
-    }
-    else {
-        pivot = (tl + tr + bl + br) * 0.25f;
-    }
+// only 2D
+if constexpr (n >= 2)
+{
 
-    // only 2D
-    if constexpr (n >= 2)
-    {
+float radians = theta * (3.14159265f / 180.f);
+const float c = std::cos(radians);
+const float s = std::sin(radians);
+const float Cx = pivot[0];
+const float Cy = pivot[1];
 
-        float radians = theta * (3.14159265f / 180.f);
-        const float c = std::cos(radians);
-        const float s = std::sin(radians);
-        const float Cx = pivot[0];
-        const float Cy = pivot[1];
+auto rotate_vertex = [&](Vector<n>& p)
+{
+const float dx = p[0] - Cx;
+const float dy = p[1] - Cy;
+p[0] = Cx + dx * c - dy * s;
+p[1] = Cy + dx * s + dy * c;
+};
 
-        auto rotate_vertex = [&](Vector<n>& p)
-        {
-            const float dx = p[0] - Cx;
-            const float dy = p[1] - Cy;
-            p[0] = Cx + dx * c - dy * s;
-            p[1] = Cy + dx * s + dy * c;
-        };
+rotate_vertex(tl);
+rotate_vertex(tr);
+rotate_vertex(bl);
+rotate_vertex(br);
 
-        rotate_vertex(tl);
-        rotate_vertex(tr);
-        rotate_vertex(bl);
-        rotate_vertex(br);
-
-        rebuild();
-    }
+rebuild();
+}
 }
 */
-template<int n>
+    template<int n>
 void Square<n>::scale(float s)
 {
     Vector<n> center = (tl + tr + br + bl) * 0.25f;
@@ -191,14 +191,51 @@ void Square<n>::scale(float s)
     this->setColor(this->color[0], this->color[1], this->color[2]);
 }
 
-template<int n>
+    template<int n>
 void Square<n>::rebuild()
 {
     for (int i = 0; i < childCount; i++) delete children[i];
     childCount = 0;
-    add(new Triangle<n>(tl, tr, br));
-    add(new Triangle<n>(tl, br, bl));
+    add(new Triangle<n>(tl, br, tr));
+    add(new Triangle<n>(tl, bl, br));
     this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+}
+
+    template<int n>
+void Square<n>::rotate3D(const Vector<n>& angles,
+        Vector<n> pivot,
+        bool hasPivot)
+{
+
+    if (!hasPivot) {
+        // Use centroid as pivot.
+        pivot = this->position;
+    }
+
+    Matrix<n,n> R = Matrix<n,n>::makeRotation(angles[0], angles[1], angles[2]);
+
+    tl  = Matrix<n,n>::rotatePoint(tl,  pivot, R);
+    tr  = Matrix<n,n>::rotatePoint(tr,  pivot, R);
+    bl  = Matrix<n,n>::rotatePoint(bl,  pivot, R);
+    br  = Matrix<n,n>::rotatePoint(br,  pivot, R);
+
+    recalcPosition();
+    rebuild();
+}
+    template<int n>
+void Square<n>::rotate(Vector<n> angles,
+        Vector<n> rotate_point,
+        bool hasCentroid) 
+{
+
+    rotate3D(angles, rotate_point, hasCentroid);
+}
+
+    template <int n>
+void Square<n>::recalcPosition()
+{
+    for (int k = 0; k < n; ++k)
+        this->position[k] = (tl[k]+tr[k]+bl[k]+br[k]) * 0.25f;
 }
 
 template class Square<2>;

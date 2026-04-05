@@ -6,18 +6,14 @@ Circle<n>::Circle(const Vector<n>& c, float r, int segs)
     : center(c), radius(r), segments(segs)
 {
     float step = 2.0f * M_PI / segs;
-    for (int i = 0; i < segs; i++) {
-        float theta0 = step * i;
-        float theta1 = step * (i + 1);
-
-        Vector<n> p1, p2;
-        p1[0] = center[0] + radius * std::cos(theta0);
-        p1[1] = center[1] + radius * std::sin(theta0);
-        p2[0] = center[0] + radius * std::cos(theta1);
-        p2[1] = center[1] + radius * std::sin(theta1);
-
-        add(new Triangle<n>(center, p1, p2));
+    for (int i = 0; i <= segs; i++) {
+        float theta = step * i;
+        points[i] = c;
+        points[i][0] = c[0] + radius * std::cos(theta);
+        points[i][1] = c[1] + radius * std::sin(theta);
     }
+
+    rebuild();
 
     this->position = c;
 }
@@ -141,6 +137,49 @@ void Circle<n>::scale(float s)
     Shape<n>::getPhysicsBody().radius = radius;
 }
 
+    template<int n>
+void Circle<n>::rotate3D(const Vector<n>& angles,
+        Vector<n> pivot,
+        bool hasPivot)
+{
 
+    if (!hasPivot) {
+        // Use centroid as pivot.
+        pivot = this->position;
+    }
+    Matrix<n,n> R = Matrix<n,n>::makeRotation(angles[0], angles[1], angles[2]);
+    center = Matrix<n,n>::rotatePoint(center, pivot, R);
+    for(int i = 0; i <= segments; i ++)
+    {
+        points[i] = Matrix<n,n>::rotatePoint(points[i], pivot, R);
+    }
+    recalcPosition();
+    rebuild();
+
+}
+    template<int n>
+void Circle<n>::rotate(Vector<n> angles,
+        Vector<n> rotate_point,
+        bool hasCentroid) 
+{
+
+    rotate3D(angles, rotate_point, hasCentroid);
+}
+template<int n>
+void Circle<n>::recalcPosition()
+{
+    this->position = center;
+}
+
+template<int n>
+void Circle<n>::rebuild()
+{
+    for (int i = 0; i < childCount; i++) delete children[i];
+    childCount = 0;
+    for (int i = 0; i < segments; i++) {
+        add(new Triangle<n>(center, points[i], points[i + 1]));
+    }
+    this->setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+}
 template class Circle<2>;
 template class Circle<3>;
