@@ -20,24 +20,24 @@ Matrix<4,4> Renderer<n>::identity4()
 // Standard orthographic projection built from first principles.
 // Maps x ∈ [l,r], y ∈ [b,t], z ∈ [nearZ,farZ] → NDC [-1,1]³.
 /*
-    template <int n>
-Matrix<4,4> Renderer<n>::ortho(float l, float r, float b, float t,
-        float nearZ, float farZ)
-{
-    Matrix<4,4> m;   // zeros
+   template <int n>
+   Matrix<4,4> Renderer<n>::ortho(float l, float r, float b, float t,
+   float nearZ, float farZ)
+   {
+   Matrix<4,4> m;   // zeros
 
-    m[0][0] =  2.0f / (r - l);
-    m[1][1] =  2.0f / (t - b);
-    m[2][2] = -2.0f / (farZ - nearZ);
-    m[3][3] =  1.0f;
+   m[0][0] =  2.0f / (r - l);
+   m[1][1] =  2.0f / (t - b);
+   m[2][2] = -2.0f / (farZ - nearZ);
+   m[3][3] =  1.0f;
 
-    m[0][3] = -(r + l) / (r - l);
-    m[1][3] = -(t + b) / (t - b);
-    m[2][3] = -(farZ + nearZ) / (farZ - nearZ);
+   m[0][3] = -(r + l) / (r - l);
+   m[1][3] = -(t + b) / (t - b);
+   m[2][3] = -(farZ + nearZ) / (farZ - nearZ);
 
-    return m;
-}
-*/
+   return m;
+   }
+   */
 
 // Constructor
     template <int n>
@@ -124,11 +124,11 @@ void Renderer<n>::beginFrame()
     glUniformMatrix4fv(locModel, 1, GL_FALSE, identity);
 
 
-glEnable(GL_BLEND);
-glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
-template <int n>
+    template <int n>
 void Renderer<n>::drawDebugGrid(int extent)
 {
     GLint locColor = glGetUniformLocation(programID, "uColor");
@@ -205,10 +205,10 @@ void Renderer<n>::drawDebugGrid(int extent)
     glUniform4f(locColor, 1.0f, 0.0f, 0.0f, 1.0f);
     const float h = 0.15f;
     auto pushQuad = [&](
-        float x0,float y0,float z0,
-        float x1,float y1,float z1,
-        float x2,float y2,float z2,
-        float x3,float y3,float z3)
+            float x0,float y0,float z0,
+            float x1,float y1,float z1,
+            float x2,float y2,float z2,
+            float x3,float y3,float z3)
     {
         m_vertexCount = 0;
         pushFloat(x0);pushFloat(y0);pushFloat(z0);
@@ -231,7 +231,7 @@ void Renderer<n>::drawDebugGrid(int extent)
     pushQuad( h,-h,-h,  h, h,-h,  h, h, h,  h,-h, h);
     pushQuad(-h,-h,-h, -h, h,-h, -h, h, h, -h,-h, h);
 }
-template <int n>
+    template <int n>
 void Renderer<n>::drawFaceNormals(const Shape<3>* shape, float arrowLength, float headSize)
 {
     if constexpr (n != 3) return;
@@ -405,20 +405,26 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
             m_vertexCount * sizeof(float),
             m_vertexData,
             GL_DYNAMIC_DRAW);
-glEnable(GL_CULL_FACE);
-glCullFace(GL_BACK);
-glFrontFace(GL_CCW);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 
     if (DebugOptions::get().wireframe)
     {
         glDrawArrays(GL_LINES, 0, (numPoints/3)*6);
 
-        if constexpr (n==3)
-            drawFaceNormals(shape, 1.5f, 0.4f);
+        /*
+           if constexpr (n==3)
+           drawFaceNormals(shape, 1.5f, 0.4f);
+           */
+
+        GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
+        if (wireframeLoc != -1)
+            glUniform1i(wireframeLoc, true);
     }
     else
         glDrawArrays(GL_TRIANGLES,0,numPoints);
-glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
 
 
 }
@@ -441,6 +447,10 @@ Matrix<4,4> Renderer<n>::perspective(float fovY, float aspect, float nearZ, floa
     template <int n>
 void Renderer<n>::endFrame()
 {
+
+        GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
+        if (wireframeLoc != -1)
+            glUniform1i(wireframeLoc,false);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glLineWidth(1.0f);

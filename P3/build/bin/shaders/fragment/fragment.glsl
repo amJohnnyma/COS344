@@ -3,10 +3,16 @@ in vec3 vWorldPos;
 out vec4 fragColor;
 
 uniform vec4 uColor;
+uniform bool wireframe;
 
 void main()
 
 {
+	if(wireframe)
+	{
+fragColor = uColor;
+	return;
+	}
     // Reconstruct flat face normal from screen-space derivatives
     vec3 norm = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
 
