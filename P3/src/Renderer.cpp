@@ -19,6 +19,7 @@ Matrix<4,4> Renderer<n>::identity4()
 
 // Standard orthographic projection built from first principles.
 // Maps x ∈ [l,r], y ∈ [b,t], z ∈ [nearZ,farZ] → NDC [-1,1]³.
+/*
     template <int n>
 Matrix<4,4> Renderer<n>::ortho(float l, float r, float b, float t,
         float nearZ, float farZ)
@@ -36,6 +37,7 @@ Matrix<4,4> Renderer<n>::ortho(float l, float r, float b, float t,
 
     return m;
 }
+*/
 
 // Constructor
     template <int n>
