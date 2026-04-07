@@ -74,6 +74,8 @@ class Scene {
         Color4 selectedObjectCol;
         Color4 originalSelectedObjectCol;
 
+        Vector<n> rotate_point = {};
+
 
     public:
         Scene<n>() : m_shapeCount(0), m_activeIndex(0), ballIndex(-1), holeIndex(-1) {}
@@ -136,6 +138,7 @@ class Scene {
         }
 
         void rotateWindmillBlade(float speed);
+        void updateRotationPoint();
 
 
 

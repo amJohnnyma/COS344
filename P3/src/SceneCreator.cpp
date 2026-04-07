@@ -193,6 +193,8 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         }
     }
     fclose(f);
+
+    current->updateRotationPoint();
 }
 
     template <int n>

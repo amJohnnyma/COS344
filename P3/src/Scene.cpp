@@ -336,13 +336,7 @@ void Scene<n>::rotateSelected(const float& theta)
     template <int n>
 void Scene<n>::rotateScene(const Vector<n>& angles)
 {
-    Vector<n> rotate_point;
-    for(int i = 0; i < m_shapeCount; i++)
-    {
-        rotate_point = rotate_point + m_shapes[i]->getPosition();
-    }
-
-    rotate_point = rotate_point * (1.f/(float)(m_shapeCount + 1));
+     // this is slow
 
     for (int i = 0; i < m_shapeCount; i++)
     {
@@ -355,15 +349,29 @@ void Scene<n>::rotateScene(const Vector<n>& angles)
 void Scene<n>::rotateWindmillBlade(float speed)
 {
 
-    Vector<n> normal = m_shapes[3]->getNormal();
+
+    // this is slow
+
+    Vector<n> normal = m_shapes[3]->getNormal(); // a reference shape
     
-    Vector<n> pivot = m_shapes[7]->getPosition();
+    Vector<n> pivot = m_shapes[7]->getPosition(); // the cylinder that the blades rotate around
 
     for (int i = 8; i <= 47; i++)
     {
         m_shapes[i]->rotateAroundAxis(normal, speed, pivot);
     }
 
+}
+
+template <int n>
+void Scene<n>::updateRotationPoint()
+{
+    for(int i = 0; i < m_shapeCount; i++)
+    {
+        rotate_point = rotate_point + m_shapes[i]->getPosition();
+    }
+
+    rotate_point = rotate_point * (1.f/(float)(m_shapeCount));
 }
 
 template class Scene<3>;
