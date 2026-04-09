@@ -345,9 +345,11 @@ void Scene<n>::rotateScene(const Vector<n>& angles)
     }
 }
 
+// this needs to be done in main
     template <int n>
 void Scene<n>::rotateWindmillBlade(float speed)
 {
+    if (m_shapeCount < 48) return;
 
 
     // this is slow

@@ -108,6 +108,19 @@ float windmillSpeed = 0.f;
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
 
+    // previous scene
+    if(input.is_key_pressed(GLFW_KEY_1))
+    {
+        sceneC.selectPreviousScene();
+        
+    }
+    // next scene
+    if(input.is_key_pressed(GLFW_KEY_2))
+    {
+
+        sceneC.selectNextScene();
+    }
+
 
     //transformations, apply a force to the object
     if(input.is_key_down(GLFW_KEY_W))
@@ -276,7 +289,7 @@ int main()
 
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
-    sceneC.loadScenes("Demo");
+    sceneC.loadScenes("test");
 
 
 
@@ -290,7 +303,7 @@ int main()
             // scene.initScene();
             shouldRestart = false;
             sceneC = SceneCreator<3>();
-            sceneC.loadScenes("Demo");
+            sceneC.loadScenes("test");
         }
         //cam.yaw += (float)dt * 0.5f;          // auto-spin — remove when done testing
         //cam.orbitAround(Vector<3>{0,0,0}, 20.0f);

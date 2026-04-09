@@ -16,7 +16,7 @@ static bool streq(const char * a, const char * b)
     template <int n>
 void SceneCreator<n>::createShape(const ShapeParams<n>& params)
 {
-  //  std::cout << "Creating shape" << std::endl;
+    //  std::cout << "Creating shape" << std::endl;
     // get the type and make that shape 
     int type = params.type;
     switch(type)
@@ -102,7 +102,7 @@ void SceneCreator<n>::createBall(const ShapeParams<n>& params)
     scene->addBall(params);
 } // a circle with enabled physics
 
-template<int n>
+    template<int n>
 void SceneCreator<n>::createCone(const ShapeParams<n>& params)
 {
     Scene<n> * scene = getActive();
@@ -110,7 +110,7 @@ void SceneCreator<n>::createCone(const ShapeParams<n>& params)
 
 }
 
-template<int n>
+    template<int n>
 void SceneCreator<n>::createCylinder(const ShapeParams<n>& params)
 {
     Scene<n> * scene = getActive();
@@ -232,5 +232,51 @@ void SceneCreator<n>::saveScenes(const std::string courseName)
        */
 }
 
+    template <int n>
+void SceneCreator<n>::selectNextScene()
+{
+    // go next
+    if(m_activeIndex + 1 < m_sceneCount)
+    {
+        m_activeIndex++;
+
+    }
+    // loop around
+    else if(m_activeIndex != 0)
+    {
+        m_activeIndex = 0;
+    }
+    // edge case i cant think of
+    else
+    {
+        // do nothing
+    }
+    std::cout << "Active scene: " << m_activeIndex << std::endl;
+
+}
+
+template <int n>
+void SceneCreator<n>::selectPreviousScene()
+{
+
+    // go prev
+    if(m_activeIndex - 1 >= 0)
+    {
+        m_activeIndex--;
+
+    }
+    // loop around
+    else if(m_activeIndex == 0)
+    {
+        m_activeIndex = m_sceneCount - 1;
+    }
+    // edge case i cant think of
+    else
+    {
+        // do nothing
+    }
+
+    std::cout << "Active scene: " << m_activeIndex << std::endl;
+}
 
 template class SceneCreator<3>;

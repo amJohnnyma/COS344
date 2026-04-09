@@ -32,6 +32,8 @@ class SceneCreator
         void setActive(int index) {if(index < m_sceneCount) m_activeIndex = index; }
         int getCount() const {return m_sceneCount;}
         Scene<n>* getScene(int index) {return (index < m_sceneCount) ? &m_scenes[index] : nullptr;}
+        void selectNextScene();
+        void selectPreviousScene();
 
 
         void createShape(const ShapeParams<n>& params);
