@@ -29,7 +29,15 @@ class SceneCreator
             return true;
         }
         Scene<n>* getActive() {return &m_scenes[m_activeIndex];}
-        void setActive(int index) {if(index < m_sceneCount) m_activeIndex = index; }
+        void setActive(int index) 
+        {
+            if(index < m_sceneCount)
+            {
+                m_activeIndex = index;
+                //m_scenes[m_activeIndex].updateRotationPoint();
+
+            }  
+        }
         int getCount() const {return m_sceneCount;}
         Scene<n>* getScene(int index) {return (index < m_sceneCount) ? &m_scenes[index] : nullptr;}
         void selectNextScene();

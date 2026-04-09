@@ -240,13 +240,13 @@ void SceneCreator<n>::selectNextScene()
     // go next
     if(m_activeIndex + 1 < m_sceneCount)
     {
-        m_activeIndex++;
+        setActive(m_activeIndex + 1);
 
     }
     // loop around
     else if(m_activeIndex != 0)
     {
-        m_activeIndex = 0;
+        setActive(0);
     }
     // edge case i cant think of
     else
@@ -264,13 +264,13 @@ void SceneCreator<n>::selectPreviousScene()
     // go prev
     if(m_activeIndex - 1 >= 0)
     {
-        m_activeIndex--;
+    setActive(m_activeIndex - 1);
 
     }
     // loop around
     else if(m_activeIndex == 0)
     {
-        m_activeIndex = m_sceneCount - 1;
+    setActive(m_sceneCount - 1);
     }
     // edge case i cant think of
     else
