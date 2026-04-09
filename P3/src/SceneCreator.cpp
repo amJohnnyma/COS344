@@ -193,6 +193,8 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         }
     }
     fclose(f);
+    m_activeIndex = 0;
+    setActive(m_activeIndex);
 
     current->updateRotationPoint();
 }
