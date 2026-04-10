@@ -12,6 +12,7 @@ public:
     float mass        = 1.0f;
     float friction    = 0.9885f;
     float restitution = 0.99f;
+    bool grounded = false;
 
     PhysicsBody() {}
     PhysicsBody(const Vector<n>& initial_pos, const Vector<n>& initial_vel)

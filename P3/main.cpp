@@ -120,7 +120,32 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
 
         sceneC.selectNextScene();
     }
+    
+    if(input.is_key_pressed(GLFW_KEY_3))
+    {
+        sceneC.getActive()->selectGolfBall();
+        sceneC.getActive()->moveSelected(Vector<3>{-0.5f, 0.f, 0.f});
+        sceneC.getActive()->deselectObject();
+    }
+    if(input.is_key_pressed(GLFW_KEY_4))
+    {
+        sceneC.getActive()->selectGolfBall();
+        sceneC.getActive()->moveSelected(Vector<3>{0.5f, 0.f, 0.f});
+        sceneC.getActive()->deselectObject();
+    }
 
+    if(input.is_key_pressed(GLFW_KEY_5))
+    {
+        sceneC.getActive()->selectGolfBall();
+        sceneC.getActive()->moveSelected(Vector<3>{0.f, 0.f, -0.5f});
+        sceneC.getActive()->deselectObject();
+    }
+    if(input.is_key_pressed(GLFW_KEY_6))
+    {
+        sceneC.getActive()->selectGolfBall();
+        sceneC.getActive()->moveSelected(Vector<3>{0.f, 0.f, 0.5f});
+        sceneC.getActive()->deselectObject();
+    }
 
     //transformations, apply a force to the object
     if(input.is_key_down(GLFW_KEY_W))

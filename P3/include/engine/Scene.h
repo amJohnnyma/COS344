@@ -70,7 +70,7 @@ class Scene {
         int holeIndex = -1; // also only one hole
 
         PhysicsEngine physics;
-        bool paused = false;
+        bool paused = true;
         Color4 selectedObjectCol;
         Color4 originalSelectedObjectCol;
 

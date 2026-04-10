@@ -178,21 +178,21 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
     template <int n>
 void Scene<n>::addBall(const ShapeParams<n>& params)
 {
-    /*
 
-       Circle<3>* ball = new Circle<3>(params.pos, params.radius, params.cSegments);
-       ball->setColor(params.col.r, params.col.g, params.col.b);
-       ball->enablePhysics();
-       ball->setPhysicsType(PhysicsType::BALL);
+    Sphere<3>* sphere = new Sphere<3>(params.pos, params.radius, params.segment);
 
-       ballIndex = getCount();
+    sphere->setColor(params.col.r, params.col.g, params.col.b);
+    sphere->enablePhysics(Vector<3>{0.f, 0.f, -20.f});
+    sphere->setPhysicsType(PhysicsType::BALL);
+    ballIndex = getCount();
 
-       int idx = m_shapeCount;
-       if(addShape(ball))
-       {
-       m_shape_params[idx] = params;
-       }
-       */
+
+    int idx = m_shapeCount;
+    if (addShape(sphere))
+    {
+        //std::cout << "Index: " << idx << std::endl;
+        m_shape_params[idx] = params;
+    }
 }
 
     template <int n>

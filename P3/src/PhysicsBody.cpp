@@ -9,8 +9,15 @@ void PhysicsBody<n>::applyForce(const Vector<n> force, float dt)
 template<int n>
 void PhysicsBody<n>::update(float dt)
 {
+    if constexpr (n == 3)
+    {
+        if(!grounded)
+            vel[1] -= 9.8f * dt; 
+    }
     pos = pos + vel * dt;
     vel = vel * friction;
+
+    grounded = false;
 }
 
 template class PhysicsBody<2>;
