@@ -52,6 +52,10 @@ public:
 
     void drawDebugGrid(int extent);
 
+void beginStencilMask();
+void beginStencilCutout();
+void endStencilMask();
+void endStencilCutout();
 private:
     void loadShaders();
 
@@ -66,6 +70,8 @@ private:
 
     void pushFloat(float f);
 void drawFaceNormals(const Shape<3>* shape, float arrowLength = 0.3f, float headSize = 0.08f);
+
 };
+
 
 #endif // RENDERER_H

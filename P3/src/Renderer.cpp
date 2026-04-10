@@ -98,7 +98,7 @@ void Renderer<n>::setViewProj(const Matrix<4,4>& v, const Matrix<4,4>& p)
 void Renderer<n>::beginFrame()
 {
     glClearColor(0.12f, 0.15f, 0.18f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     m_vertexCount = 0;
 
@@ -455,6 +455,48 @@ void Renderer<n>::endFrame()
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glLineWidth(1.0f);
     glBindVertexArray(0);
+}
+template <int n>
+void Renderer<n>::beginStencilMask()
+{
+    glEnable(GL_STENCIL_TEST);
+    glClear(GL_STENCIL_BUFFER_BIT);
+
+    // Write 1 to stencil wherever the mask shape is drawn
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilMask(0xFF);
+
+    // Don't write color or depth — just the stencil
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    glDepthMask(GL_FALSE);
+}
+
+template <int n>
+void Renderer<n>::beginStencilCutout()
+{
+    // Write 0 wherever the cutout shape is drawn (punches a hole)
+    glStencilFunc(GL_ALWAYS, 0, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+}
+
+template <int n>
+void Renderer<n>::endStencilMask()
+{
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    glStencilMask(0x00);  // stop writing to stencil
+
+    // Re-enable color and depth
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glDepthMask(GL_TRUE);
+}
+
+template <int n>
+void Renderer<n>::endStencilCutout()
+{
+    glDisable(GL_STENCIL_TEST);
+    glStencilMask(0xFF);
 }
 
     template <int n>

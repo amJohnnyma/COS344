@@ -156,14 +156,18 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
         {
             ShapeParams<3> p = {};
             float x = 0,y=0,z=0;
-            int count = sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d",
+            int isCutout = 0;
+            int count = sscanf(line, "shape %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d",
                     &p.type,
                     &x, &y, &z,
                     &p.width, &p.height, &p.depth,
                     &p.col.r, &p.col.g, &p.col.b, &p.col.a,
                     &p.rot[0], &p.rot[1], &p.rot[2],
-                    &p.radius, &p.segment
+                    &p.radius, &p.segment,
+                    &isCutout
                     );
+            p.isCutout = (bool)isCutout;
+            if(p.isCutout) {std::cout << "CUTOUT\n\n" << std::endl;}
             p.pos = Vector<3>{x, y, z};
             // float savedRotation = p.rotation;
             // p.rotation = 0.f;          // zero it so addShape stores 0

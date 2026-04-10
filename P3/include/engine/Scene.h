@@ -22,6 +22,7 @@ struct ShapeParams
     Vector<n> rot;
     float radius;
     int segment;
+    bool isCutout = false;
 void print() const
     {
         std::cout << "ShapeParams:\n";

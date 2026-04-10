@@ -158,7 +158,7 @@ void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
     }
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::addSphere(const ShapeParams<n>& params)
 {
 
@@ -270,6 +270,27 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
 
     for (int i = 0; i < m_shapeCount; i++)
     {
+        if(m_shape_params[i].isCutout)
+        {
+            if(i + 1 < m_shapeCount)
+            {
+                renderer.beginStencilMask();
+                m_shapes[i+1]->render(renderer);
+
+                renderer.beginStencilCutout();
+                m_shapes[i]->render(renderer);
+
+                renderer.endStencilMask();
+                m_shapes[i + 1]->render(renderer);
+
+                renderer.endStencilCutout();
+            }
+            continue;
+
+        }
+        bool prevIsCutout = (i - 1 >= 0) && m_shape_params[i-1].isCutout;
+        if(prevIsCutout) continue;
+
         m_shapes[i]->render(renderer);
         if (m_shapes[i]->physicsBodyActive())
         {
@@ -355,7 +376,7 @@ void Scene<n>::rotateSelected(const float& theta)
     template <int n>
 void Scene<n>::rotateScene(const Vector<n>& angles)
 {
-     // this is slow
+    // this is slow
 
     for (int i = 0; i < m_shapeCount; i++)
     {
@@ -374,7 +395,7 @@ void Scene<n>::rotateWindmillBlade(float speed)
     // this is slow
 
     Vector<n> normal = m_shapes[3]->getNormal(); // a reference shape
-    
+
     Vector<n> pivot = m_shapes[7]->getPosition(); // the cylinder that the blades rotate around
 
     for (int i = 8; i <= 47; i++)
@@ -384,7 +405,7 @@ void Scene<n>::rotateWindmillBlade(float speed)
 
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::updateRotationPoint()
 {
     for(int i = 0; i < m_shapeCount; i++)
