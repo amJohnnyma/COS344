@@ -48,6 +48,7 @@ add_executable(${PROJECT_NAME}
     src/Cuboid.cpp
     src/Cone.cpp
     src/Cylinder.cpp
+    src/Sphere.cpp
 )
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "")
     message(STATUS "Debug build enabled - adding debug symbols and sanitizers")

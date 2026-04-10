@@ -6,6 +6,7 @@
 #include "../include/math/Cuboid.h"
 #include "../include/math/Cone.h"
 #include "../include/math/Cylinder.h"
+#include "../include/math/Sphere.h"
 
     template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
@@ -155,6 +156,24 @@ void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
         //std::cout << "Index: " << idx << std::endl;
         m_shape_params[idx] = params;
     }
+}
+
+template <int n>
+void Scene<n>::addSphere(const ShapeParams<n>& params)
+{
+
+    Sphere<3>* sphere = new Sphere<3>(params.pos, params.radius, params.segment);
+
+    sphere->setColor(params.col.r, params.col.g, params.col.b);
+
+
+    int idx = m_shapeCount;
+    if (addShape(sphere))
+    {
+        //std::cout << "Index: " << idx << std::endl;
+        m_shape_params[idx] = params;
+    }
+
 }
     template <int n>
 void Scene<n>::addBall(const ShapeParams<n>& params)

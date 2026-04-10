@@ -100,6 +100,20 @@ public:
         return rotated + pivot;
     }
 
+    static Matrix<n,n> identity()
+    {
+        Matrix<n,n> I;
+        for(int i = 0; i < n; i ++)
+        {
+            for(int j = 0; j < n; j ++)
+            {
+                I[i][j] = (i == j) ? 1.f : 0.f;
+            }
+        }
+        return I;
+    }
+
+
 static Matrix<n,n> makeRotationAroundAxis(const Vector<n>& axis, float angle)
 {
     Matrix<n,n> R;

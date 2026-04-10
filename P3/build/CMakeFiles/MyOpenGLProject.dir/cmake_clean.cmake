@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o.d"
+  "CMakeFiles/MyOpenGLProject.dir/src/Sphere.cpp.o"
+  "CMakeFiles/MyOpenGLProject.dir/src/Sphere.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o"

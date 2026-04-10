@@ -20,6 +20,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Scene.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/SceneCreator.cpp" "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Shape.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Shape.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/P3/src/Sphere.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Sphere.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Sphere.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Square.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Square.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Triangle.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Triangle.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P3/src/Triangular_Prism.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Triangular_Prism.cpp.o.d"
