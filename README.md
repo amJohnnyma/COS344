@@ -248,6 +248,7 @@ Ensure you are running in a graphical environment (not a headless SSH session wi
   | grep -Ev '(stdio\.h|stdlib\.h|iostream|iomanip|initializer_list|cmath|sstream|GL/glew\.h|GLFW/glfw3\.h|glm/glm\.hpp|glm/gtc|glm/gtx|".*\.(h|hpp)")' \
   | grep -v "^Binary"```
 ---
+---
 
 ## P4
 
