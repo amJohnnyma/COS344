@@ -42,6 +42,7 @@ public:
             for (int j = i + 1; j < count; j++) {
                 if (!bodies[i]->physicsBodyActive() && !bodies[j]->physicsBodyActive()) continue;
 
+                if(bodies[j]->getIsCutout()) continue;
                 Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
                 if (col.valid && col.penetration > 0)
                 {

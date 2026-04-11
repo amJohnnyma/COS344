@@ -394,11 +394,11 @@ void Scene<n>::rotateWindmillBlade(float speed)
 
     // this is slow
 
-    Vector<n> normal = m_shapes[3]->getNormal(); // a reference shape
+    Vector<n> normal = m_shapes[4]->getNormal(); // a reference shape
 
-    Vector<n> pivot = m_shapes[7]->getPosition(); // the cylinder that the blades rotate around
+    Vector<n> pivot = m_shapes[8]->getPosition(); // the cylinder that the blades rotate around
 
-    for (int i = 8; i <= 47; i++)
+    for (int i = 9; i <= 48; i++)
     {
         m_shapes[i]->rotateAroundAxis(normal, speed, pivot);
     }

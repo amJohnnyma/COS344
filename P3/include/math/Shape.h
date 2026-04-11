@@ -27,6 +27,7 @@ class Shape {
         PhysicsBody<n> physicsBody;
         bool hasPhysics = false;
         PhysicsType type = NONE;
+        bool isCutout = false;
 
     public:
         virtual ~Shape() = default;
@@ -45,6 +46,8 @@ class Shape {
         void setVelocity(const Vector<n>& v)     { physicsBody.setVelocity(v); }
         Vector<n> getVelocity()                  { return physicsBody.vel; }
         void setPhysicsBodyRadius(float r)       { physicsBody.radius = r; }
+        bool getIsCutout() {return isCutout;}
+        void setIsCutout(bool f) {isCutout = f;}
 
         virtual void enablePhysics(const Vector<n>& initial_vel = Vector<n>())
         {

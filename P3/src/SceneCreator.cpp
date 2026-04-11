@@ -178,6 +178,7 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             }
             int idx = current->getCount() - 1;
             current->getShape(idx)->rotate(p.rot);
+            current->getShape(idx)->setIsCutout(p.isCutout);
             current->getShapeParamRef(idx).rot = p.rot; // store it back
 
         }
