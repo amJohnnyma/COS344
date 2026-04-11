@@ -265,7 +265,7 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
     //   printf("  shape[%d] hasPhysics=%d type=%d\n", i, m_shapes[i]->physicsBodyActive(), m_shapes[i]->getPhysicsType());
     if(!paused)
     {
-        physics.update(getBodies(), m_shapeCount, dt);
+        physics.update(getBodies(), m_shapeCount, m_shapes[ballIndex], dt);
     }
 
     for (int i = 0; i < m_shapeCount; i++)

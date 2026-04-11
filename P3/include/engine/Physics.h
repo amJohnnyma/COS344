@@ -32,51 +32,38 @@ static T clamp(T v, T lo, T hi) { return v < lo ? lo : (v > hi ? hi : v); }
 
 class PhysicsEngine {
     public:
-        template<int n>
-            void update(Shape<n>** bodies, int count, float dt) {
-                for (int i = 0; i < count; i++) {
-                    if (bodies[i]->physicsBodyActive())
-                        bodies[i]->updatePhysics(dt);
+template<int n>
+void update(Shape<n>** bodies, int count, Shape<n>* ball, float dt) {
+    if (!ball) return;
+    
+    ball->updatePhysics(dt);
+
+    for (int i = 0; i < count; i++) {
+        if (bodies[i] == ball) continue; // don't test ball against itself
+
+        Collision<n> col = detectCollision<n>(*ball, *bodies[i]);
+        if (col.valid && col.penetration > 0)
+        {
+            bool aCutout = bodies[i]->getIsCutout() || bodies[i]->getHasBeenCutout();
+
+            if (aCutout)
+            {
+                if (col.normal[1] > 0.7f)
+                {
+                    PhysicsBody<n>& active = ball->getPhysicsBody();
+                    for (int k = 0; k < n; ++k)
+                        active.pos[k] += col.normal[k] * (col.penetration + 0.001f);
+                    if (active.vel[1] < 0.f)
+                        active.vel[1] = 0.f;
+                    active.grounded = true;
                 }
-                for (int i = 0; i < count; i++) {
-                    for (int j = i + 1; j < count; j++) {
-                        if (!bodies[i]->physicsBodyActive() && !bodies[j]->physicsBodyActive()) continue;
-
-                        Collision<n> col = detectCollision<n>(*bodies[i], *bodies[j]);
-                        if (col.valid && col.penetration > 0)
-                        {
-                            bool aCutout = bodies[i]->getIsCutout() || bodies[i]->getHasBeenCutout();
-                            bool bCutout = bodies[j]->getIsCutout() || bodies[j]->getHasBeenCutout();
-
-                            if (aCutout || bCutout)
-                            {
-                                if (col.normal[1] > 0.7f) // it's a floor-like surface
-                                {
-                                    PhysicsBody<n>& active = bodies[i]->physicsBodyActive()
-                                        ? bodies[i]->getPhysicsBody()
-                                        : bodies[j]->getPhysicsBody();
-
-                                    // Push ball back out of the surface
-                                    for (int k = 0; k < n; ++k)
-                                        active.pos[k] += col.normal[k] * (col.penetration + 0.001f);
-
-                                    // Kill downward velocity
-                                    if (active.vel[1] < 0.f)
-                                        active.vel[1] = 0.f;
-
-                                    active.grounded = true;
-                                }
-                                continue;
-                            }
-
-                            if (bodies[i]->physicsBodyActive())
-                                resolveCollision<n>(bodies[i]->getPhysicsBody(), bodies[j]->getPhysicsBody(), col);
-                            else
-                                resolveCollision<n>(bodies[j]->getPhysicsBody(), bodies[i]->getPhysicsBody(), col);
-                        }
-                    }
-                }
+                continue;
             }
+
+            resolveCollision<n>(ball->getPhysicsBody(),col);
+        }
+    }
+}
 
     private:
         template<int n>
@@ -330,149 +317,85 @@ class PhysicsEngine {
                     if (col.valid && col.penetration > deepest.penetration) {
                         deepest = col;
                         deepest.otherPType = shape->getPhysicsType();
+                        if (deepest.penetration > sphere.radius * 0.5f) break;
                     }
                 }
 
                 delete[] raw;
                 return deepest;
             }
+template<int n>
+void resolveCollision(PhysicsBody<n>& a, const Collision<n>& col)
+{
+    if (!col.valid || col.penetration <= 0) return;
 
+    if (col.otherPType == PhysicsType::WATER)
+    {
+        a.vel = a.vel * 0.7f;
+        return;
+    }
 
-        template<int n>
-            void resolveCollision(PhysicsBody<n>& a, PhysicsBody<n>& b, const Collision<n>& col)
-            {
-                if (!col.valid || col.penetration <= 0) return;
+    if constexpr (n == 2)
+    {
+        a.pos[0] += col.normal[0] * (col.penetration + 0.001f);
+        a.pos[1] += col.normal[1] * (col.penetration + 0.001f);
 
+        Vector<2> norm2  = {col.normal[0], col.normal[1]};
+        Vector<2> velA   = a.vel2D();
+        float vDotN      = velA * norm2;
+        if (vDotN >= 0) return;
 
+        float j = -(1.f + a.restitution) * vDotN * a.mass;
+        Vector<2> impulse2 = norm2 * (j / a.mass);
+        a.setVel2D(velA + impulse2);
 
+        velA = a.vel2D();
+        Vector<2> tangent2 = {-norm2[1], norm2[0]};
+        float vTan = velA * tangent2;
+        a.setVel2D(velA - tangent2 * (vTan * 0.15f * 0.5f));
+    }
+    else
+    {
+        for (int i = 0; i < n; ++i)
+            a.pos[i] += col.normal[i] * (col.penetration + 0.001f);
 
-                if (col.otherPType == PhysicsType::WATER)
-                {
-                    if constexpr (n == 2)
-                        a.setVel2D(a.vel2D() * 0.7f);
-                    else
-                        a.vel = a.vel * 0.7f;
-                    return;
-                }
+        Vector<n> relVel = a.vel;
+        float vDotN = 0.f;
+        for (int i = 0; i < n; ++i) vDotN += relVel[i] * col.normal[i];
+        if (vDotN >= 0) return;
 
-                bool bIsDynamic = (col.otherPType == PhysicsType::BALL);
+        if (col.normal[1] > 0.7f)
+        {
+            a.grounded = true;
+            a.vel[1] = 0.0f;
+            return;
+        }
 
-                if constexpr (n == 2)
-                {
-                    if (bIsDynamic)
-                    {
-                        float totalMass = a.mass + b.mass;
-                        float aShare = b.mass / totalMass;
-                        float bShare = a.mass / totalMass;
-                        a.pos[0] += col.normal[0] * (col.penetration + 0.001f) * aShare;
-                        a.pos[1] += col.normal[1] * (col.penetration + 0.001f) * aShare;
-                        b.pos[0] -= col.normal[0] * (col.penetration + 0.001f) * bShare;
-                        b.pos[1] -= col.normal[1] * (col.penetration + 0.001f) * bShare;
-                    }
-                    else
-                    {
-                        a.pos[0] += col.normal[0] * (col.penetration + 0.001f);
-                        a.pos[1] += col.normal[1] * (col.penetration + 0.001f);
-                    }
+        float j = -(1.f + a.restitution) * vDotN * a.mass;
+        for (int i = 0; i < n; ++i)
+            a.vel[i] += col.normal[i] * j / a.mass;
 
-                    Vector<2> norm2 = {col.normal[0], col.normal[1]};
-                    Vector<2> velA  = a.vel2D();
-                    Vector<2> velB  = b.vel2D();
-                    Vector<2> relVel = velA - velB;
-                    float vDotN = relVel * norm2;
-                    if (vDotN >= 0) return;
+        // Friction
+        relVel = a.vel;
+        float rDotN = 0.f;
+        for (int i = 0; i < n; ++i) rDotN += relVel[i] * col.normal[i];
+        Vector<n> tangent = relVel;
+        for (int i = 0; i < n; ++i) tangent[i] -= rDotN * col.normal[i];
 
-                    float e          = bIsDynamic ? std::min(a.restitution, b.restitution) : a.restitution;
-                    float invMassSum = bIsDynamic ? (1.f/a.mass + 1.f/b.mass) : (1.f/a.mass);
-                    float j          = -(1.f + e) * vDotN / invMassSum;
+        float tLen = 0.f;
+        for (int i = 0; i < n; ++i) tLen += tangent[i] * tangent[i];
+        tLen = std::sqrt(tLen);
+        if (tLen < 1e-6f) return;
+        for (int i = 0; i < n; ++i) tangent[i] /= tLen;
 
-                    Vector<2> impulse2 = norm2 * j;
-                    a.setVel2D(velA + impulse2 * (1.f / a.mass));
-                    if (bIsDynamic) b.setVel2D(velB - impulse2 * (1.f / b.mass));
+        float vTan = 0.f;
+        for (int i = 0; i < n; ++i) vTan += relVel[i] * tangent[i];
+        float frictionJ = vTan * 0.15f * 0.5f;
+        for (int i = 0; i < n; ++i)
+            a.vel[i] -= tangent[i] * frictionJ;
+    }
+}
 
-                    velA = a.vel2D();
-                    velB = bIsDynamic ? b.vel2D() : Vector<2>{0, 0};
-                    Vector<2> tangent2 = {-norm2[1], norm2[0]};
-                    float vTan = (velA - velB) * tangent2;
-                    Vector<2> frictionImpulse = tangent2 * (vTan * 0.15f * 0.5f);
-                    a.setVel2D(velA - frictionImpulse);
-                    if (bIsDynamic) b.setVel2D(velB + frictionImpulse);
-                }
-                else
-                {
-                    if (bIsDynamic)
-                    {
-                        float totalMass = a.mass + b.mass;
-                        float aShare = b.mass / totalMass;
-                        float bShare = a.mass / totalMass;
-                        for (int i = 0; i < n; ++i)
-                        {
-                            a.pos[i] += col.normal[i] * (col.penetration + 0.001f) * aShare;
-                            b.pos[i] -= col.normal[i] * (col.penetration + 0.001f) * bShare;
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < n; ++i)
-                            a.pos[i] += col.normal[i] * (col.penetration + 0.001f);
-                    }
-
-                    // Relative velocity along normal
-                    Vector<n> velA   = a.vel;
-                    Vector<n> velB   = bIsDynamic ? b.vel : Vector<n>{};
-                    Vector<n> relVel = velA - velB;
-
-                    float vDotN = 0.f;
-                    for (int i = 0; i < n; ++i) vDotN += relVel[i] * col.normal[i];
-                    if (vDotN >= 0) return;
-                    // Grounded check — surface normal pointing mostly up means resting on a floor
-                    if (col.normal[1] > 0.7f)
-                    {
-                        a.grounded = true;
-                        a.vel[1] = 0.0f;
-                        vDotN = 0.f;  // recalc would be 0, just return
-                        return;
-                    }
-
-                    float e          = bIsDynamic ? std::min(a.restitution, b.restitution) : a.restitution;
-                    float invMassSum = bIsDynamic ? (1.f/a.mass + 1.f/b.mass) : (1.f/a.mass);
-                    float j          = -(1.f + e) * vDotN / invMassSum;
-
-                    for (int i = 0; i < n; ++i)
-                        a.vel[i] += col.normal[i] * j / a.mass;
-                    if (bIsDynamic)
-                        for (int i = 0; i < n; ++i)
-                            b.vel[i] -= col.normal[i] * j / b.mass;
-
-
-                    // Friction
-                    velA = a.vel;
-                    velB = bIsDynamic ? b.vel : Vector<n>{};
-                    relVel = velA - velB;
-
-                    // Tangent = relVel - (relVel.n)n
-                    float rDotN = 0.f;
-                    for (int i = 0; i < n; ++i) rDotN += relVel[i] * col.normal[i];
-                    Vector<n> tangent = relVel;
-                    for (int i = 0; i < n; ++i) tangent[i] -= rDotN * col.normal[i];
-
-                    float tLen = 0.f;
-                    for (int i = 0; i < n; ++i) tLen += tangent[i] * tangent[i];
-                    tLen = std::sqrt(tLen);
-                    if (tLen < 1e-6f) return;
-                    for (int i = 0; i < n; ++i) tangent[i] /= tLen;
-
-                    float vTan = 0.f;
-                    for (int i = 0; i < n; ++i) vTan += relVel[i] * tangent[i];
-
-                    float frictionJ = vTan * 0.15f * 0.5f;
-                    for (int i = 0; i < n; ++i)
-                        a.vel[i] -= tangent[i] * frictionJ;
-                    if (bIsDynamic)
-                        for (int i = 0; i < n; ++i)
-                            b.vel[i] += tangent[i] * frictionJ;
-                }
-            }
 };
 
 #endif
