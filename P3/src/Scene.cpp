@@ -295,6 +295,26 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
         if (m_shapes[i]->physicsBodyActive())
         {
             m_shape_params[i].pos = m_shapes[i]->getPosition();
+        // Rotate ball based on horizontal velocity
+        if (i == ballIndex)
+        {
+            Vector<3> vel = m_shapes[i]->getVelocity();
+            // Roll along XZ plane — axis is perpendicular to movement direction
+            Vector<3> moveDir = {vel[0], 0.f, vel[2]};
+            float speed = std::sqrt(vel[0]*vel[0] + vel[2]*vel[2]);
+            if (speed > 0.01f)
+            {
+                // Rotation axis is perpendicular to movement in XZ (cross with up)
+                Vector<3> axis = {vel[2], 0.f, -vel[0]};
+                float axisLen = std::sqrt(axis[0]*axis[0] + axis[2]*axis[2]);
+                axis = axis * (1.f / axisLen);
+                
+                // angle = distance / radius, but per frame so use speed * dt
+                // you don't have dt here so use a scale factor
+                float angle = (speed / m_shape_params[i].radius) * dt; // approx if 60fps, pass dt if you can
+                m_shapes[i]->rotateAroundAxis(axis, angle, m_shapes[i]->getPosition());
+            }
+        }
         }
 
     }
