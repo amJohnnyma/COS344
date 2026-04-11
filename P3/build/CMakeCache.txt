@@ -215,8 +215,11 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+C_BUILD_TYPE:UNINITIALIZED=Release
+
 //Enable AddressSanitizer
-ENABLE_ASAN:BOOL=ON
+ENABLE_ASAN:BOOL=OFF
 
 //Path to a file.
 FREETYPE_INCLUDE_DIR_freetype2:PATH=/usr/include/freetype2

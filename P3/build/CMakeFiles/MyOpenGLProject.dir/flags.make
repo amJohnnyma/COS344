@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/johnny/Documents/School/COS344/Practicals/P3/include -I/home/johnny/Documents/School/COS344/Practicals/P3/include/math -I/home/johnny/Documents/School/COS344/Practicals/P3/include/engine -I/home/johnny/Documents/School/COS344/Practicals/P3/include/game
 
-CXX_FLAGS = -g -std=gnu++17 -g3 -fno-omit-frame-pointer -O0 -fsanitize=address -fsanitize=undefined -fsanitize-recover=address -Wall -Wextra -Wpedantic -Wshadow -Wconversion
+CXX_FLAGS = -g -std=gnu++17 -g3 -fno-omit-frame-pointer -O0 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 
