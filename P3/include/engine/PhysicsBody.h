@@ -13,6 +13,8 @@ public:
     float friction    = 0.9885f;
     float restitution = 0.99f;
     bool grounded = false;
+    bool isCutout = false;
+    bool hasBeenCutout = false;
 
     PhysicsBody() {}
     PhysicsBody(const Vector<n>& initial_pos, const Vector<n>& initial_vel)

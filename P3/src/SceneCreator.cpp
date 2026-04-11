@@ -171,7 +171,15 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             p.pos = Vector<3>{x, y, z};
             // float savedRotation = p.rotation;
             // p.rotation = 0.f;          // zero it so addShape stores 0
+            bool hasBeenCutout = false;
             if (count >= 11) {   // at least type + pos + size + color
+                if (current->getCount() > 0)
+                {
+                    int beforeIdx = current->getCount() - 1;
+                    if(current->getShape(beforeIdx)->getIsCutout()) 
+                    {hasBeenCutout = true;}
+
+                }
                 createShape(p);
             } else {
                 std::cout << "Warning: malformed shape line: " << line << std::endl;
@@ -179,6 +187,7 @@ void SceneCreator<n>::loadScenes(const std::string courseName)
             int idx = current->getCount() - 1;
             current->getShape(idx)->rotate(p.rot);
             current->getShape(idx)->setIsCutout(p.isCutout);
+            current->getShape(idx)->setHasBeenCutout(hasBeenCutout);
             current->getShapeParamRef(idx).rot = p.rot; // store it back
 
         }
@@ -272,20 +281,20 @@ void SceneCreator<n>::selectNextScene()
 
 }
 
-template <int n>
+    template <int n>
 void SceneCreator<n>::selectPreviousScene()
 {
 
     // go prev
     if(m_activeIndex - 1 >= 0)
     {
-    setActive(m_activeIndex - 1);
+        setActive(m_activeIndex - 1);
 
     }
     // loop around
     else if(m_activeIndex == 0)
     {
-    setActive(m_sceneCount - 1);
+        setActive(m_sceneCount - 1);
     }
     // edge case i cant think of
     else
