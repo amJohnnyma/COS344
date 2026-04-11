@@ -246,8 +246,11 @@ Ensure you are running in a graphical environment (not a headless SSH session wi
 **Check includes**
 ```grep -rn "^#include" --include="*.cpp" --include="*.c" --include="*.hpp" --include="*.h" . \
   | grep -Ev '(stdio\.h|stdlib\.h|iostream|iomanip|initializer_list|cmath|sstream|GL/glew\.h|GLFW/glfw3\.h|glm/glm\.hpp|glm/gtc|glm/gtx|".*\.(h|hpp)")' \
-  | grep -v "^Binary"```
+  | grep -v "^Binary"
+```
 ---
+
+
 ---
 
 ## P4
@@ -256,4 +259,4 @@ Ensure you are running in a graphical environment (not a headless SSH session wi
 
 ---
 
-*Last updated: 2026/03/22*
+*Last updated: 2026/04/11*
