@@ -128,7 +128,7 @@ Ensure you are running in a graphical environment (not a headless SSH session wi
 ## P3
 
 A 3D OpenGL scene, containing a windmill on a mini-golf course. Supports translations, rotations, drone movement, simple physics.
-![DemoScene](Images/DemoScene.png)
+![DemoScene](Images/DemoSceneP3.png)
 
 ### Dependencies
 
