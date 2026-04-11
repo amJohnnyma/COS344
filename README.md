@@ -244,9 +244,9 @@ sudo apt install libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-d
 Ensure you are running in a graphical environment (not a headless SSH session without X forwarding). If using SSH, enable X forwarding with `ssh -X`.
 
 **Check includes**
-grep -rn "^#include" --include="*.cpp" --include="*.c" --include="*.hpp" --include="*.h" . \
+```grep -rn "^#include" --include="*.cpp" --include="*.c" --include="*.hpp" --include="*.h" . \
   | grep -Ev '(stdio\.h|stdlib\.h|iostream|iomanip|initializer_list|cmath|sstream|GL/glew\.h|GLFW/glfw3\.h|glm/glm\.hpp|glm/gtc|glm/gtx|".*\.(h|hpp)")' \
-  | grep -v "^Binary"
+  | grep -v "^Binary"```
 ---
 
 ## P4
