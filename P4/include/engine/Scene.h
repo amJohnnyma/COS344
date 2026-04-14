@@ -69,6 +69,8 @@ class Scene {
         int ballIndex = -1; // there can only be one ball
         int selectedObstacle = -1;
         int holeIndex = -1; // also only one hole
+        int floorIndex = -1;
+        int lightIndex = -1;
 
         PhysicsEngine physics;
         bool paused = true;
@@ -76,6 +78,9 @@ class Scene {
         Color4 originalSelectedObjectCol;
 
         Vector<n> rotate_point = {};
+        ColorPalette ballCol;
+        ColorPalette floorCol;
+        ColorPalette lightCol;
 
 
     public:
@@ -142,6 +147,8 @@ class Scene {
         }
 
         void updateRotationPoint();
+
+        void cycleColorSelected(int dir);
 
 
 

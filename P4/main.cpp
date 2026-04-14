@@ -111,7 +111,7 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_1))
     {
         sceneC.selectPreviousScene();
-        
+
     }
     // next scene
     if(input.is_key_pressed(GLFW_KEY_2))
@@ -119,7 +119,7 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
 
         sceneC.selectNextScene();
     }
-    
+
 
     //transformations, apply a force to the object
     if(input.is_key_down(GLFW_KEY_W))
@@ -183,20 +183,20 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         std::cout << "RESTARTING...\n";
     }
 
-    if(input.is_key_pressed(GLFW_KEY_MINUS))
+    if(input.is_key_pressed(GLFW_KEY_7))
     {
         sceneC.getActive()->selectObstacle(1);
         sceneC.getActive()->scaleSelected(-5.f);
         sceneC.getActive()->deselectObject();
-        
+
     }
 
-    if(input.is_key_pressed(GLFW_KEY_EQUAL))
+    if(input.is_key_pressed(GLFW_KEY_8))
     {
         sceneC.getActive()->selectObstacle(1);
         sceneC.getActive()->scaleSelected(5.f);
         sceneC.getActive()->deselectObject();
-        
+
     }
 
     if(input.is_key_pressed(GLFW_KEY_9))
@@ -204,7 +204,7 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         sceneC.getActive()->selectObstacle(0);
         sceneC.getActive()->scaleSelected(-1.f);
         sceneC.getActive()->deselectObject();
-        
+
     }
 
     if(input.is_key_pressed(GLFW_KEY_0))
@@ -212,8 +212,68 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         sceneC.getActive()->selectObstacle(0);
         sceneC.getActive()->scaleSelected(1.f);
         sceneC.getActive()->deselectObject();
-        
+
     }
+
+    if(input.is_key_pressed(GLFW_KEY_B))
+    {
+        // toggle color texture map on and off
+    }
+
+    if(input.is_key_pressed(GLFW_KEY_N))
+    {
+        // toggle displacement texture map on and off
+    }
+
+    if(input.is_key_pressed(GLFW_KEY_M))
+    {
+        // toggle alpha texture map on and off
+    }
+
+
+    if(input.is_key_pressed(GLFW_KEY_MINUS))
+    {
+        // lower alpha of golf ball
+    }
+
+    if(input.is_key_pressed(GLFW_KEY_EQUAL))
+    {
+        // higher alpha of golf ball
+    }
+
+    if(input.is_key_pressed(GLFW_KEY_3))
+    {
+        // floor color cycle -
+
+    }
+    if(input.is_key_pressed(GLFW_KEY_4))
+    {
+        // floor color cycle +
+    }
+    if(input.is_key_pressed(GLFW_KEY_5))
+    {
+        // ball color cycle -
+        sceneC.getActive()->selectObstacle(1);
+        sceneC.getActive()->cycleColorSelected(-1);
+        sceneC.getActive()->deselectObject();
+    }
+    if(input.is_key_pressed(GLFW_KEY_6))
+    {
+        // ball color cycle +
+        sceneC.getActive()->selectObstacle(1);
+        sceneC.getActive()->cycleColorSelected(1);
+        sceneC.getActive()->deselectObject();
+    }
+    if(input.is_key_pressed(GLFW_KEY_T))
+    {
+        // light color cycle -
+    }
+    if(input.is_key_pressed(GLFW_KEY_Y))
+    {
+        // light color cycle +
+    }
+
+
 
 
 
@@ -223,39 +283,39 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     Vector<3> forward = cam.getForward();
     Vector<3> right   = cam.getRight();
     Vector<3> up      = cam.getUp();
-// Forward/back
-if (input.is_key_down(GLFW_KEY_I)) {
+    // Forward/back
+    if (input.is_key_down(GLFW_KEY_I)) {
         cam.position[0] -= forward[0] * camSpeed;
         cam.position[1] -= forward[1] * camSpeed;
         cam.position[2] -= forward[2] * camSpeed;
-}
-if (input.is_key_down(GLFW_KEY_K)) {
+    }
+    if (input.is_key_down(GLFW_KEY_K)) {
         cam.position[0] += forward[0] * camSpeed;
         cam.position[1] += forward[1] * camSpeed;
         cam.position[2] += forward[2] * camSpeed;
-}
-// Strafe left/right
-if (input.is_key_down(GLFW_KEY_J)) {
+    }
+    // Strafe left/right
+    if (input.is_key_down(GLFW_KEY_J)) {
         cam.position[0] -= right[0] * camSpeed;
         cam.position[1] -= right[1] * camSpeed;
         cam.position[2] -= right[2] * camSpeed;
-}
-if (input.is_key_down(GLFW_KEY_L)) {
+    }
+    if (input.is_key_down(GLFW_KEY_L)) {
         cam.position[0] += right[0] * camSpeed;
         cam.position[1] += right[1] * camSpeed;
         cam.position[2] += right[2] * camSpeed;
-}
-// Up/down (world up, not camera up — feels more natural)
-if (input.is_key_down(GLFW_KEY_U)) {
-    cam.position[1] += camSpeed;
-}
-if (input.is_key_down(GLFW_KEY_O)) {
-    cam.position[1] -= camSpeed;
-}
+    }
+    // Up/down (world up, not camera up — feels more natural)
+    if (input.is_key_down(GLFW_KEY_U)) {
+        cam.position[1] += camSpeed;
+    }
+    if (input.is_key_down(GLFW_KEY_O)) {
+        cam.position[1] -= camSpeed;
+    }
 
 
 
-                                                                      // Camera rotation
+    // Camera rotation + light translation (Future implementation)
     if (input.is_key_down(GLFW_KEY_LEFT))  cam.yaw   += 0.02f;   // look left
     if (input.is_key_down(GLFW_KEY_RIGHT)) cam.yaw   -= 0.02f;   // look right
     if (input.is_key_down(GLFW_KEY_UP))    cam.pitch += 0.02f;   // look up

@@ -1,0 +1,48 @@
+Physics - Octal tree (Only do physics on current hole / nearby)
+Ray tracing - Octal tree
+LOD - High poly near - low poly and texture far
+Cutouts - Decorator pattern can edit vertices after creation
+
+Hole selection - Use drone to fly to a hole, interact with a start button of sorts 
+-> Use some kbm controls to create a input force on the ball as the shot
+
+
+
+Optional marks:
+-> Prac 4 as golf ball
+-> Golf ball moveable with collision detection
+-> Fully playable game (Very limited UI - In universe billboard for score keeping)
+-> Water as sin/cos waves in shader
+-> Unique objects (Other people objects, foliage, flood lights for night time)
+-> Night time
+-> Light reflections
+-> Grass shader to course
+-> Drone NVG shader
+-> Drone zooming
+-> Drone HUD 
+-> Drone lights
+-> Minimap 
+-> Layout loading from text file
+-> "Player" model over golf ball
+
+
+
+
+Architeture high level:
+main --calls--> game --uses--> engine 
+
+Game: Change main implementation to use the game (Maybe)
+Engine: Needs Raytracing, better Physics, UI, Better scene and shape creation (To be flexible)
+
+
+POA:
+Prac 4 + Fixing architecture to be easier to iterate on
+Cutouts
+Physics
+Raytracing
+Optimizations
+Unique objects
+Night time + light reflections
+Grass shader + Water shader
+Water physics (Just restart the hole if in water for a while)
+Playable game (Controls are simple vector based - controlled by kbm for direction and strength)

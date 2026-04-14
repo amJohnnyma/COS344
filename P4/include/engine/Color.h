@@ -30,5 +30,38 @@ namespace Colors {
         const Color4 DarkGray  { 0.625f, 0.625f, 0.625f, 1.0f };
     }
 }
+struct ColorPalette
+{
+    Color4 colors[10] = {
+        {1.0f, 0.0f, 0.0f, 1.0f},  // red
+        {0.0f, 1.0f, 0.0f, 1.0f},  // green
+        {0.0f, 0.0f, 1.0f, 1.0f},  // blue
+        {1.0f, 1.0f, 1.0f, 1.0f},  // white
+        {0.0f, 0.0f, 0.0f, 1.0f},  // black
+        {1.0f, 0.5f, 0.0f, 1.0f},  // orange
+        {0.5f, 0.0f, 1.0f, 1.0f},  // purple
+        {0.0f, 1.0f, 1.0f, 1.0f},  // cyan
+        {1.0f, 0.84f, 0.0f, 1.0f}, // gold
+        {1.0f, 0.41f, 0.71f, 1.0f} // pink
+    };
+    int currentIndex = 0;
+
+    const Color4& cycleRight()
+    {
+        currentIndex = (currentIndex + 1) % 10;
+        return colors[currentIndex];
+    }
+
+    const Color4& cycleLeft()
+    {
+        currentIndex = (currentIndex + 9) % 10;  // +9 avoids negative modulo
+        return colors[currentIndex];
+    }
+
+    const Color4& current() const
+    {
+        return colors[currentIndex];
+    }
+};
 
 #endif

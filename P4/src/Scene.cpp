@@ -7,6 +7,7 @@
 #include "../include/math/Cone.h"
 #include "../include/math/Cylinder.h"
 #include "../include/math/Sphere.h"
+#include <cmath>
 
     template <int n>
 void Scene<n>::addSquare(const ShapeParams<n>& params) 
@@ -166,6 +167,8 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
 
     sphere->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
+    ballIndex = getCount();
+
 
     int idx = m_shapeCount;
     if (addShape(sphere))
@@ -251,11 +254,12 @@ void Scene<n>::selectObstacle(int index)
     selectedObstacle = index;
 
     selectedObjectCol = m_shape_params[selectedObstacle].col;
-    selectedObjectCol.r *= selectedObjectCol.r * 0.5f + 0.5f;
-    selectedObjectCol.g *= selectedObjectCol.g * 0.5f + 0.5f;
-    selectedObjectCol.b *= selectedObjectCol.b * 0.5f + 0.5f;
+    selectedObjectCol.r = selectedObjectCol.r;
+    selectedObjectCol.g = selectedObjectCol.g;
+    selectedObjectCol.b = selectedObjectCol.b;
+    selectedObjectCol.a = selectedObjectCol.a;
     originalSelectedObjectCol = m_shape_params[selectedObstacle].col;
-    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b);
+    m_shapes[selectedObstacle]->setColor(selectedObjectCol.r, selectedObjectCol.g, selectedObjectCol.b, selectedObjectCol.a);
 }
     template <int n>
 void Scene<n>::update(double dt, Renderer<n>& renderer)
@@ -295,26 +299,26 @@ void Scene<n>::update(double dt, Renderer<n>& renderer)
         if (m_shapes[i]->physicsBodyActive())
         {
             m_shape_params[i].pos = m_shapes[i]->getPosition();
-        // Rotate ball based on horizontal velocity
-        if (i == ballIndex)
-        {
-            Vector<3> vel = m_shapes[i]->getVelocity();
-            // Roll along XZ plane — axis is perpendicular to movement direction
-            Vector<3> moveDir = {vel[0], 0.f, vel[2]};
-            float speed = std::sqrt(vel[0]*vel[0] + vel[2]*vel[2]);
-            if (speed > 0.01f)
+            // Rotate ball based on horizontal velocity
+            if (i == ballIndex)
             {
-                // Rotation axis is perpendicular to movement in XZ (cross with up)
-                Vector<3> axis = {vel[2], 0.f, -vel[0]};
-                float axisLen = std::sqrt(axis[0]*axis[0] + axis[2]*axis[2]);
-                axis = axis * (1.f / axisLen);
-                
-                // angle = distance / radius, but per frame so use speed * dt
-                // you don't have dt here so use a scale factor
-                float angle = (speed / m_shape_params[i].radius) * dt; // approx if 60fps, pass dt if you can
-                m_shapes[i]->rotateAroundAxis(axis, angle, m_shapes[i]->getPosition());
+                Vector<3> vel = m_shapes[i]->getVelocity();
+                // Roll along XZ plane — axis is perpendicular to movement direction
+                Vector<3> moveDir = {vel[0], 0.f, vel[2]};
+                float speed = std::sqrt(vel[0]*vel[0] + vel[2]*vel[2]);
+                if (speed > 0.01f)
+                {
+                    // Rotation axis is perpendicular to movement in XZ (cross with up)
+                    Vector<3> axis = {vel[2], 0.f, -vel[0]};
+                    float axisLen = std::sqrt(axis[0]*axis[0] + axis[2]*axis[2]);
+                    axis = axis * (1.f / axisLen);
+
+                    // angle = distance / radius, but per frame so use speed * dt
+                    // you don't have dt here so use a scale factor
+                    float angle = (speed / m_shape_params[i].radius) * dt; // approx if 60fps, pass dt if you can
+                    m_shapes[i]->rotateAroundAxis(axis, angle, m_shapes[i]->getPosition());
+                }
             }
-        }
         }
 
     }
@@ -372,23 +376,22 @@ void Scene<n>::moveSelected(const Vector<n>& force)
     template <int n>
 void Scene<n>::scaleSelected(const float& scale)
 {
-    // currently used just for the sphere segments
-       if(selectedObstacle != -1)
-       {
-           auto& shape = m_shapes[selectedObstacle];
-           if(auto * sphere = dynamic_cast<Sphere<3>*>(m_shapes[selectedObstacle]))
-           {
-               m_shapes[selectedObstacle]->addSegments((int)(scale));
-               m_shape_params[selectedObstacle].segment += (int)(scale);
-           }
-           else if (auto * cuboid = dynamic_cast<Cuboid<3>*>(m_shapes[selectedObstacle]))
-           {
-               cuboid->splitVertices((int)(scale));
-           }
-           else
-           {
-           }
-       }
+    if(selectedObstacle != -1)
+    {
+        auto& shape = m_shapes[selectedObstacle];
+        if(auto * sphere = dynamic_cast<Sphere<3>*>(m_shapes[selectedObstacle]))
+        {
+            m_shapes[selectedObstacle]->addSegments((int)(scale));
+            m_shape_params[selectedObstacle].segment += (int)(scale);
+        }
+        else if (auto * cuboid = dynamic_cast<Cuboid<3>*>(m_shapes[selectedObstacle]))
+        {
+            cuboid->splitVertices((int)(scale));
+        }
+        else
+        {
+        }
+    }
 }
     template <int n>
 void Scene<n>::rotateSelected(const float& theta)
@@ -432,7 +435,7 @@ void Scene<n>::updateRotationPoint()
     rotate_point = rotate_point * (1.f/(float)(m_shapeCount));
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::translateScene(const Vector<n>& translation)
 {
 
@@ -447,6 +450,70 @@ void Scene<n>::translateScene(const Vector<n>& translation)
         }
 
     }
+
+}
+
+    template <int n>
+void Scene<n>::cycleColorSelected(int dir)
+{
+    if(selectedObstacle == -1) return;
+
+    if(dir > 0)
+    {
+        // cycle left
+        if (selectedObstacle == ballIndex)
+        {
+            ballCol.cycleRight();
+            m_shapes[selectedObstacle]->setColor(ballCol.current().r,ballCol.current().g,ballCol.current().b,ballCol.current().a );
+            m_shape_params[selectedObstacle].col = ballCol.current();
+
+        }
+        else if (selectedObstacle == floorIndex)
+        {
+            floorCol.cycleRight();
+            m_shapes[selectedObstacle]->setColor(floorCol.current().r, floorCol.current().g, floorCol.current().b, floorCol.current().a);
+            m_shape_params[selectedObstacle].col = floorCol.current();
+            originalSelectedObjectCol = ballCol.current();
+
+        }
+        else if (selectedObstacle == lightIndex)
+        {
+            lightCol.cycleRight();
+            m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
+            m_shape_params[selectedObstacle].col = lightCol.current();
+            originalSelectedObjectCol = ballCol.current();
+
+        }
+    }
+    else if (dir < 0)
+    {
+        //cycle right
+        if (selectedObstacle == ballIndex)
+        {
+            ballCol.cycleLeft();
+            m_shapes[selectedObstacle]->setColor(ballCol.current().r,ballCol.current().g,ballCol.current().b,ballCol.current().a );
+            m_shape_params[selectedObstacle].col = ballCol.current();
+            originalSelectedObjectCol = ballCol.current();
+
+        }
+        else if (selectedObstacle == floorIndex)
+        {
+            floorCol.cycleLeft();
+            m_shapes[selectedObstacle]->setColor(floorCol.current().r, floorCol.current().g, floorCol.current().b, floorCol.current().a);
+            m_shape_params[selectedObstacle].col = floorCol.current();
+            originalSelectedObjectCol = ballCol.current();
+
+        }
+        else if (selectedObstacle == lightIndex)
+        {
+            lightCol.cycleLeft();
+            m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
+            m_shape_params[selectedObstacle].col = lightCol.current();
+            originalSelectedObjectCol = ballCol.current();
+
+        }
+    }
+
 
 }
 
