@@ -69,6 +69,11 @@ class Shape {
         {
             color[0]=r; color[1]=g; color[2]=b; color[3]=a;
         }
+        Vector<4> getColor()
+        {
+            return color;
+        }
+
 
         virtual void rotate(Vector<n> angles, Vector<n> rotate_point = Vector<n>(), bool hasCentroid = false) = 0;
         virtual void rotate3D(const Vector<n>& angles,

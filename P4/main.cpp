@@ -234,11 +234,18 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_MINUS))
     {
         // lower alpha of golf ball
+
+        sceneC.getActive()->selectObstacle(1);
+        sceneC.getActive()->changeAlpha(-0.1f);
+        sceneC.getActive()->deselectObject();
     }
 
     if(input.is_key_pressed(GLFW_KEY_EQUAL))
     {
         // higher alpha of golf ball
+        sceneC.getActive()->selectObstacle(1);
+        sceneC.getActive()->changeAlpha(0.1f);
+        sceneC.getActive()->deselectObject();
     }
 
     if(input.is_key_pressed(GLFW_KEY_3))

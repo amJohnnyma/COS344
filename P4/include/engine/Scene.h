@@ -150,6 +150,8 @@ class Scene {
 
         void cycleColorSelected(int dir);
 
+void changeAlpha(float diff);
+
 
 
 

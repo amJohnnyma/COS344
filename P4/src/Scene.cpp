@@ -453,6 +453,19 @@ void Scene<n>::translateScene(const Vector<n>& translation)
 
 }
 
+template <int n>
+void Scene<n>::changeAlpha(float diff)
+{
+
+    if(selectedObstacle == -1) return;
+
+    Vector<4> col = m_shapes[selectedObstacle]->getColor();
+    m_shapes[selectedObstacle]->setColor(col[0], col[1], col[2], col[3] + diff);
+    m_shape_params[selectedObstacle].col = {col[0], col[1], col[2], col[3] + diff};
+
+            originalSelectedObjectCol = {col[0], col[1], col[2], col[3] + diff};
+}
+
     template <int n>
 void Scene<n>::cycleColorSelected(int dir)
 {
@@ -466,6 +479,7 @@ void Scene<n>::cycleColorSelected(int dir)
             ballCol.cycleRight();
             m_shapes[selectedObstacle]->setColor(ballCol.current().r,ballCol.current().g,ballCol.current().b,ballCol.current().a );
             m_shape_params[selectedObstacle].col = ballCol.current();
+            originalSelectedObjectCol = ballCol.current();
 
         }
         else if (selectedObstacle == floorIndex)
@@ -473,7 +487,7 @@ void Scene<n>::cycleColorSelected(int dir)
             floorCol.cycleRight();
             m_shapes[selectedObstacle]->setColor(floorCol.current().r, floorCol.current().g, floorCol.current().b, floorCol.current().a);
             m_shape_params[selectedObstacle].col = floorCol.current();
-            originalSelectedObjectCol = ballCol.current();
+            originalSelectedObjectCol = floorCol.current();
 
         }
         else if (selectedObstacle == lightIndex)
@@ -481,7 +495,7 @@ void Scene<n>::cycleColorSelected(int dir)
             lightCol.cycleRight();
             m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
             m_shape_params[selectedObstacle].col = lightCol.current();
-            originalSelectedObjectCol = ballCol.current();
+            originalSelectedObjectCol = lightCol.current();
 
         }
     }
@@ -501,7 +515,7 @@ void Scene<n>::cycleColorSelected(int dir)
             floorCol.cycleLeft();
             m_shapes[selectedObstacle]->setColor(floorCol.current().r, floorCol.current().g, floorCol.current().b, floorCol.current().a);
             m_shape_params[selectedObstacle].col = floorCol.current();
-            originalSelectedObjectCol = ballCol.current();
+            originalSelectedObjectCol = floorCol.current();
 
         }
         else if (selectedObstacle == lightIndex)
@@ -509,7 +523,7 @@ void Scene<n>::cycleColorSelected(int dir)
             lightCol.cycleLeft();
             m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
             m_shape_params[selectedObstacle].col = lightCol.current();
-            originalSelectedObjectCol = ballCol.current();
+            originalSelectedObjectCol = lightCol.current();
 
         }
     }
