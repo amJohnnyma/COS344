@@ -43,6 +43,9 @@ private:
     GLint uLightPos = -1;
     GLint uLightColor = -1;
     GLint uLightRadius = -1;
+GLuint m_checkerTexture;
+    GLint uUseTextureLoc;
+    GLint uTextureLoc;
 
 public:
     Renderer(int width, int height);
@@ -65,6 +68,10 @@ void updatePointLight(const Vector<n>& pos,const Vector<n>& col,const float& rad
 void setPointLightPos(const Vector<n>& pos);
 void setPointLightCol(const Vector<n>& col);
 void setPointLightRad(const float& rad);
+void setUseTexture(bool use) { 
+        glUseProgram(programID);
+        glUniform1i(uUseTextureLoc, use ? 1 : 0); 
+    }
 private:
     void loadShaders();
 
@@ -80,6 +87,8 @@ private:
     void pushFloat(float f);
 void drawFaceNormals(const Shape<3>* shape, float arrowLength = 0.3f, float headSize = 0.08f);
 
+
+GLuint createCheckerboardTexture();
 };
 
 

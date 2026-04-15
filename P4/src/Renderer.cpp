@@ -38,6 +38,12 @@ Renderer<n>::Renderer(int width, int height)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
             3 * sizeof(float), (void*)0);
 
+m_checkerTexture = createCheckerboardTexture();
+uUseTextureLoc = glGetUniformLocation(programID, "uUseTexture");
+uTextureLoc = glGetUniformLocation(programID, "uTexture");
+glUseProgram(programID);
+    glUniform1i(uUseTextureLoc, 1);
+
     glBindVertexArray(0);
 
     uLightPos   = glGetUniformLocation(programID, "uLightPos");
@@ -45,8 +51,12 @@ Renderer<n>::Renderer(int width, int height)
     uLightRadius= glGetUniformLocation(programID, "uLightRadius");
 
 
+
     // Enable depth testing once (harmless for n=2)
     glEnable(GL_DEPTH_TEST);
+
+// Default to ON for testing
+setUseTexture(true);
 
 }
 
@@ -382,34 +392,44 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
 
     delete[] points;
 
+glUseProgram(programID);
+
+    // Bind Texture to Unit 0
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_checkerTexture);
+    glUniform1i(uTextureLoc, 0);
+
+    // Set Color and Texture Toggle
     GLint locColor = glGetUniformLocation(programID, "uColor");
     glUniform4f(locColor, color.r, color.g, color.b, color.a);
+    
+    GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
 
+    // 3. Render
     glBufferData(GL_ARRAY_BUFFER,
             m_vertexCount * sizeof(float),
             m_vertexData,
             GL_DYNAMIC_DRAW);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
 
     if (DebugOptions::get().wireframe)
     {
-        glDrawArrays(GL_LINES, 0, (numPoints/3)*6);
-
-        /*
-           if constexpr (n==3)
-           drawFaceNormals(shape, 1.5f, 0.4f);
-           */
-
-        GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
-        if (wireframeLoc != -1)
-            glUniform1i(wireframeLoc, true);
+        if (wireframeLoc != -1) glUniform1i(wireframeLoc, true);
+        glUniform1i(uUseTextureLoc, 0); // Disable texture in wireframe mode
+        glDrawArrays(GL_LINES, 0, m_vertexCount / 3);
     }
     else
-        glDrawArrays(GL_TRIANGLES,0,numPoints);
-    glDisable(GL_CULL_FACE);
-
+    {
+        if (wireframeLoc != -1) glUniform1i(wireframeLoc, false);
+        glUniform1i(uUseTextureLoc, 1); // Enable texture for solid shapes
+        
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
+        
+        glDrawArrays(GL_TRIANGLES, 0, numPoints);
+        
+        glDisable(GL_CULL_FACE);
+    }
 
 }
 
@@ -545,6 +565,31 @@ void Renderer<n>::pushFloat(float f)
         m_vertexCap  = newCap;
     }
     m_vertexData[m_vertexCount++] = f;
+}
+template <int n>
+GLuint Renderer<n>::createCheckerboardTexture() {
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+    // Magenta and Black 2x2 grid
+    GLubyte data[] = {
+        255, 0, 255,   0, 0, 0,
+        0, 0, 0,       255, 0, 255
+    };
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+
+    // CRITICAL: Mipmapping prevents the "noise" at a distance
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Nearest keeps it "Retro/Industrial"
+    
+    // Ensure it repeats forever
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    return tex;
 }
 
 template class Renderer<3>;
