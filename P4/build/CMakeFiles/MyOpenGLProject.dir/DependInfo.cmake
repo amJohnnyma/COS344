@@ -16,6 +16,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/FpsLimiter.cpp" "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/FpsLimiter.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/Matrix.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/PhysicsBody.cpp" "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o.d"
+  "/home/johnny/Documents/School/COS344/Practicals/P4/src/PointLight.cpp" "CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/Renderer.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/Scene.cpp" "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o.d"
   "/home/johnny/Documents/School/COS344/Practicals/P4/src/SceneCreator.cpp" "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o" "gcc" "CMakeFiles/MyOpenGLProject.dir/src/SceneCreator.cpp.o.d"

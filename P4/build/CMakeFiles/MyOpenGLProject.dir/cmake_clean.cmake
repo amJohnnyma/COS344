@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MyOpenGLProject.dir/src/Matrix.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.o.d"
+  "CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.o"
+  "CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o"
   "CMakeFiles/MyOpenGLProject.dir/src/Renderer.cpp.o.d"
   "CMakeFiles/MyOpenGLProject.dir/src/Scene.cpp.o"

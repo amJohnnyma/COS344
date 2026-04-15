@@ -347,6 +347,30 @@ src/PhysicsBody.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/PhysicsBody.cpp.s
 .PHONY : src/PhysicsBody.cpp.s
 
+src/PointLight.o: src/PointLight.cpp.o
+.PHONY : src/PointLight.o
+
+# target to build an object file
+src/PointLight.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.o
+.PHONY : src/PointLight.cpp.o
+
+src/PointLight.i: src/PointLight.cpp.i
+.PHONY : src/PointLight.i
+
+# target to preprocess a source file
+src/PointLight.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.i
+.PHONY : src/PointLight.cpp.i
+
+src/PointLight.s: src/PointLight.cpp.s
+.PHONY : src/PointLight.s
+
+# target to generate assembly for a file
+src/PointLight.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyOpenGLProject.dir/build.make CMakeFiles/MyOpenGLProject.dir/src/PointLight.cpp.s
+.PHONY : src/PointLight.cpp.s
+
 src/Renderer.o: src/Renderer.cpp.o
 .PHONY : src/Renderer.o
 
@@ -622,6 +646,9 @@ help:
 	@echo "... src/PhysicsBody.o"
 	@echo "... src/PhysicsBody.i"
 	@echo "... src/PhysicsBody.s"
+	@echo "... src/PointLight.o"
+	@echo "... src/PointLight.i"
+	@echo "... src/PointLight.s"
 	@echo "... src/Renderer.o"
 	@echo "... src/Renderer.i"
 	@echo "... src/Renderer.s"

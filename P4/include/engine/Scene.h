@@ -53,6 +53,7 @@ void print() const
 
 };
 
+
 #define MAX_SHAPES 128
 
 template <int n>
@@ -81,6 +82,7 @@ class Scene {
         ColorPalette ballCol;
         ColorPalette floorCol;
         ColorPalette lightCol;
+
 
 
     public:
@@ -124,6 +126,7 @@ class Scene {
         void addCone(const ShapeParams<n>& params); 
         void addCuboid(const ShapeParams<n>& params); 
         void addSphere(const ShapeParams<n>& params); 
+        void addPointLight(const ShapeParams<n>& params); 
 
         void selectGolfBall();
         void selectObstacle(); // select an obstacle (if already selected then select another different one)
@@ -151,6 +154,18 @@ class Scene {
         void cycleColorSelected(int dir);
 
 void changeAlpha(float diff);
+
+void updatePointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius, Renderer<n>& r);
+
+void setPointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius, Renderer<n>& r);
+
+void createPointLight(Renderer<n>& r)
+{
+
+    Vector<n> fcol = Vector<n>{m_shape_params[lightIndex].col.r,m_shape_params[lightIndex].col.g,m_shape_params[lightIndex].col.b};
+
+    r.updatePointLight(m_shape_params[lightIndex].pos,fcol , m_shape_params[lightIndex].radius);
+}
 
 
 

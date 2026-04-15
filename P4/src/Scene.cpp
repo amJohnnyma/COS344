@@ -7,6 +7,7 @@
 #include "../include/math/Cone.h"
 #include "../include/math/Cylinder.h"
 #include "../include/math/Sphere.h"
+#include "../include/math/PointLight.h"
 #include <cmath>
 
     template <int n>
@@ -33,6 +34,11 @@ void Scene<n>::addCuboid(const ShapeParams<n>& params)
 
     Cuboid<3>* square = new Cuboid<3>(params.pos, hw,hh,hd);
     square->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+
+    if (floorIndex== -1)
+    {
+        floorIndex = getCount();
+    }
 
     int idx = m_shapeCount;
     if(addShape(square))
@@ -167,7 +173,10 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
 
     sphere->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
 
-    ballIndex = getCount();
+    if (ballIndex == -1)
+    {
+        ballIndex = getCount();
+    }
 
 
     int idx = m_shapeCount;
@@ -178,6 +187,22 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
     }
 
 }
+
+template <int n>
+void Scene<n>::addPointLight(const ShapeParams<n>& params)
+{
+    PointLight<3>* pl = new PointLight<3>(params.pos, params.pos, params.radius);
+    lightIndex = getCount();
+
+    int idx = m_shapeCount;
+    if (addShape(pl))
+    {
+        //std::cout << "Index: " << idx << std::endl;
+        m_shape_params[idx] = params;
+    }
+}
+
+
     template <int n>
 void Scene<n>::addBall(const ShapeParams<n>& params)
 {
@@ -453,7 +478,7 @@ void Scene<n>::translateScene(const Vector<n>& translation)
 
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::changeAlpha(float diff)
 {
 
@@ -463,7 +488,7 @@ void Scene<n>::changeAlpha(float diff)
     m_shapes[selectedObstacle]->setColor(col[0], col[1], col[2], col[3] + diff);
     m_shape_params[selectedObstacle].col = {col[0], col[1], col[2], col[3] + diff};
 
-            originalSelectedObjectCol = {col[0], col[1], col[2], col[3] + diff};
+    originalSelectedObjectCol = {col[0], col[1], col[2], col[3] + diff};
 }
 
     template <int n>
@@ -493,8 +518,9 @@ void Scene<n>::cycleColorSelected(int dir)
         else if (selectedObstacle == lightIndex)
         {
             lightCol.cycleRight();
-            m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
-            m_shape_params[selectedObstacle].col = lightCol.current();
+
+            m_shape_params[lightIndex].col= lightCol.current();
+            
             originalSelectedObjectCol = lightCol.current();
 
         }
@@ -521,12 +547,43 @@ void Scene<n>::cycleColorSelected(int dir)
         else if (selectedObstacle == lightIndex)
         {
             lightCol.cycleLeft();
-            m_shapes[selectedObstacle]->setColor(lightCol.current().r, lightCol.current().g, lightCol.current().b, lightCol.current().a);
-            m_shape_params[selectedObstacle].col = lightCol.current();
+
+            m_shape_params[lightIndex].col= lightCol.current();
             originalSelectedObjectCol = lightCol.current();
 
         }
     }
+
+
+}
+
+    template <int n>
+void Scene<n>::updatePointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius, Renderer<n>& r)
+{
+    if (lightIndex == -1) return;
+    m_shape_params[lightIndex].pos = m_shape_params[lightIndex].pos + pos;
+    m_shape_params[lightIndex].col= Color4(col[0], col[1], col[2]);
+    m_shape_params[lightIndex].radius= m_shape_params[lightIndex].radius + radius;
+
+    Vector<n> fcol = Vector<n>{m_shape_params[lightIndex].col.r,m_shape_params[lightIndex].col.g,m_shape_params[lightIndex].col.b};
+
+    r.updatePointLight(m_shape_params[lightIndex].pos,fcol , m_shape_params[lightIndex].radius);
+}
+
+
+    template <int n>
+void Scene<n>::setPointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius, Renderer<n>& r)
+{
+
+    if (lightIndex == -1) return;
+
+    m_shape_params[lightIndex].pos =pos;
+    m_shape_params[lightIndex].col= Color4(col[0], col[1], col[2]);
+    m_shape_params[lightIndex].radius=radius;
+
+    Vector<n> fcol = Vector<n>{m_shape_params[lightIndex].col.r,m_shape_params[lightIndex].col.g,m_shape_params[lightIndex].col.b};
+
+    r.updatePointLight(m_shape_params[lightIndex].pos,fcol , m_shape_params[lightIndex].radius);
 
 
 }

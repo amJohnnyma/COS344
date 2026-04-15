@@ -40,6 +40,10 @@ Renderer<n>::Renderer(int width, int height)
 
     glBindVertexArray(0);
 
+    uLightPos   = glGetUniformLocation(programID, "uLightPos");
+    uLightColor = glGetUniformLocation(programID, "uLightColor");
+    uLightRadius= glGetUniformLocation(programID, "uLightRadius");
+
 
     // Enable depth testing once (harmless for n=2)
     glEnable(GL_DEPTH_TEST);
@@ -101,6 +105,7 @@ void Renderer<n>::beginFrame()
     float identity[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
     GLint locModel = glGetUniformLocation(programID, "uModel");
     glUniformMatrix4fv(locModel, 1, GL_FALSE, identity);
+
 
 
     glEnable(GL_BLEND);
@@ -427,15 +432,15 @@ Matrix<4,4> Renderer<n>::perspective(float fovY, float aspect, float nearZ, floa
 void Renderer<n>::endFrame()
 {
 
-        GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
-        if (wireframeLoc != -1)
-            glUniform1i(wireframeLoc,false);
+    GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
+    if (wireframeLoc != -1)
+        glUniform1i(wireframeLoc,false);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glLineWidth(1.0f);
     glBindVertexArray(0);
 }
-template <int n>
+    template <int n>
 void Renderer<n>::beginStencilMask()
 {
     glEnable(GL_STENCIL_TEST);
@@ -451,7 +456,7 @@ void Renderer<n>::beginStencilMask()
     glDepthMask(GL_FALSE);
 }
 
-template <int n>
+    template <int n>
 void Renderer<n>::beginStencilCutout()
 {
     // Write 0 wherever the cutout shape is drawn (punches a hole)
@@ -459,7 +464,7 @@ void Renderer<n>::beginStencilCutout()
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
-template <int n>
+    template <int n>
 void Renderer<n>::endStencilMask()
 {
     glStencilFunc(GL_EQUAL, 1, 0xFF);
@@ -471,11 +476,61 @@ void Renderer<n>::endStencilMask()
     glDepthMask(GL_TRUE);
 }
 
-template <int n>
+    template <int n>
 void Renderer<n>::endStencilCutout()
 {
     glDisable(GL_STENCIL_TEST);
     glStencilMask(0xFF);
+}
+
+template <int n>
+void Renderer<n>::updatePointLight(const Vector<n>& pos, const Vector<n>& col, const float& radius)
+{
+
+    glUseProgram(programID);
+
+    // Check if uniforms are valid before setting them
+    if (uLightPos == -1) {
+        std::cerr << "WARNING: uLightPos uniform location is invalid (-1)!" << std::endl;
+    }
+    if (uLightColor == -1) {
+        std::cerr << "WARNING: uLightColor uniform location is invalid (-1)!" << std::endl;
+    }
+    if (uLightRadius == -1) {
+        std::cerr << "WARNING: uLightRadius uniform location is invalid (-1)!" << std::endl;
+    }
+
+    // Set the uniforms
+    glUniform3f(uLightPos, pos[0], pos[1], pos[2]);
+    glUniform3f(uLightColor, col[0], col[1], col[2]);
+    glUniform1f(uLightRadius, radius);
+
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR) {
+        std::cerr << "OpenGL Error after setting point light uniforms: " << err << std::endl;
+    }
+
+}
+
+    template <int n>
+void Renderer<n>::setPointLightPos(const Vector<n>& pos)
+{
+    glUseProgram(programID);
+glUniform3f(uLightPos, pos[0], pos[1], pos[2]);
+
+}
+    template <int n>
+void Renderer<n>::setPointLightCol(const Vector<n>& col)
+{
+    glUseProgram(programID);
+glUniform3f(uLightColor, col[0], col[1], col[2]);
+}
+    template <int n>
+void Renderer<n>::setPointLightRad(const float& radius)
+{
+    glUseProgram(programID);
+glUniform1f(uLightRadius, radius);
+
 }
 
     template <int n>

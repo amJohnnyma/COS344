@@ -79,6 +79,8 @@ class SceneCreator
         void createCylinder(const ShapeParams<n>& params);
         void createCuboid(const ShapeParams<n>& params);
         void createSphere(const ShapeParams<n>& params);
+        void createPointLight(const ShapeParams<n>& params);
+
 };
 
 #endif

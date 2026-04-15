@@ -50,6 +50,9 @@ void SceneCreator<n>::createShape(const ShapeParams<n>& params)
         case 9:
             createSphere(params);
             break;
+        case 10:
+            createPointLight(params);
+            break;
         default:
             break;
     }
@@ -68,6 +71,14 @@ void SceneCreator<n>::createSphere(const ShapeParams<n>& params)
 {
     Scene<n> * scene = getActive();
     scene->addSphere(params);
+
+}
+
+    template <int n>
+void SceneCreator<n>::createPointLight(const ShapeParams<n>& params)
+{
+    Scene<n> * scene = getActive();
+    scene->addPointLight(params);
 
 }
 

@@ -103,6 +103,7 @@ static Matrix<4,4> buildIdentity4()
 }
 
 auto& input = InputManager::get_instance();
+bool lightChanged = false;
 
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
@@ -251,11 +252,17 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_3))
     {
         // floor color cycle -
+        sceneC.getActive()->selectObstacle(0);
+        sceneC.getActive()->cycleColorSelected(-1);
+        sceneC.getActive()->deselectObject();
 
     }
     if(input.is_key_pressed(GLFW_KEY_4))
     {
         // floor color cycle +
+        sceneC.getActive()->selectObstacle(0);
+        sceneC.getActive()->cycleColorSelected(1);
+        sceneC.getActive()->deselectObject();
     }
     if(input.is_key_pressed(GLFW_KEY_5))
     {
@@ -274,10 +281,18 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
     if(input.is_key_pressed(GLFW_KEY_T))
     {
         // light color cycle -
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->cycleColorSelected(-1);
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
     }
     if(input.is_key_pressed(GLFW_KEY_Y))
     {
         // light color cycle +
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->cycleColorSelected(1);
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
     }
 
 
@@ -360,6 +375,9 @@ int main()
     bool shouldRestart = false;
     SceneCreator<3> sceneC;
     sceneC.loadScenes("Demo");
+    sceneC.getActive()->createPointLight(renderer);
+
+    // doesnt work
 
 
 
@@ -374,12 +392,17 @@ int main()
             shouldRestart = false;
             sceneC = SceneCreator<3>();
             sceneC.loadScenes("Demo");
+            sceneC.getActive()->createPointLight(renderer);
         }
-        //cam.yaw += (float)dt * 0.5f;          // auto-spin — remove when done testing
-        //cam.orbitAround(Vector<3>{0,0,0}, 20.0f);
         renderer.setViewProj(cam.getView(), cam.getProj());
 
         renderer.beginFrame();
+        if(lightChanged)
+        {
+            sceneC.getActive()->createPointLight(renderer);
+        lightChanged = false;
+
+        }
         sceneC.update(dt, renderer);
 
 

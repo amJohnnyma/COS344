@@ -39,6 +39,11 @@ private:
     int m_vertexCount = 0;
     int m_vertexCap = 0;
 
+    // temp
+    GLint uLightPos = -1;
+    GLint uLightColor = -1;
+    GLint uLightRadius = -1;
+
 public:
     Renderer(int width, int height);
     ~Renderer();
@@ -56,6 +61,10 @@ void beginStencilMask();
 void beginStencilCutout();
 void endStencilMask();
 void endStencilCutout();
+void updatePointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius);
+void setPointLightPos(const Vector<n>& pos);
+void setPointLightCol(const Vector<n>& col);
+void setPointLightRad(const float& rad);
 private:
     void loadShaders();
 

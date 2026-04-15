@@ -4,27 +4,35 @@ out vec4 fragColor;
 
 uniform vec4 uColor;
 uniform bool wireframe;
+uniform vec3 uLightPos;
+uniform float uLightRadius;
+uniform vec3 uLightColor;
 
 void main()
-
 {
 	if(wireframe)
 	{
-fragColor = uColor;
+    fragColor = uColor;
 	return;
-	}
-    // Reconstruct flat face normal from screen-space derivatives
+
+
+    }
     vec3 norm = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
 
-    // Fixed light slightly above and to the right of the camera
-    vec3 lightDir = normalize(vec3(0.6, 1.0, 0.8));
+    vec3 toLight = uLightPos - vWorldPos;
+    float dist = length(toLight);
+    vec3 lightDir = toLight / dist;
 
-    float ambient  = 0.25;
-    float diffuse  = max(dot(norm, lightDir), 0.0);
+    float attenuation = 1.0 / (1.0 + (dist * dist) / (uLightRadius * uLightRadius));
 
-    // Small back-face fill so rear faces aren't totally black
+    float ambient = 0.25;
+    float diffuse = max(dot(norm, lightDir), 0.0);
     float backfill = max(dot(-norm, lightDir), 0.0) * 0.1;
+    vec3 ambientContrib = uColor.rgb * ambient;
+    vec3 lightContrib = uColor.rgb * (diffuse + backfill) * attenuation * uLightColor;
 
-    float intensity = ambient + diffuse + backfill;
-    fragColor = vec4(uColor.rgb * intensity, uColor.a);
+
+    fragColor = vec4(ambientContrib + lightContrib, uColor.a);
+
+
 }
