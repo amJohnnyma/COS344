@@ -3,7 +3,7 @@
 // Constructor
 template <int n>
 PointLight<n>::PointLight(const Vector<n>& pos, const Vector<n>& col, const float & radius) {
-    // Empty
+    this->position = pos;
 }
 
 // Destructor
@@ -79,7 +79,7 @@ void PointLight<n>::rotate3D(const Vector<n>& angles,
 // Apply translation
 template <int n>
 void PointLight<n>::applyTranslation(const Vector<n>& disp) {
-    // Empty
+    this->position = this->position + disp;
 }
 
 // Update physics

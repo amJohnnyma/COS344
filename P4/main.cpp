@@ -104,6 +104,7 @@ static Matrix<4,4> buildIdentity4()
 
 auto& input = InputManager::get_instance();
 bool lightChanged = false;
+bool LightMoveActive = false;
 
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
 {
@@ -231,6 +232,11 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         // toggle alpha texture map on and off
     }
 
+    if(input.is_key_pressed(GLFW_KEY_H))
+    {
+        LightMoveActive = !LightMoveActive;
+    }
+
 
     if(input.is_key_pressed(GLFW_KEY_MINUS))
     {
@@ -338,10 +344,62 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
 
 
     // Camera rotation + light translation (Future implementation)
-    if (input.is_key_down(GLFW_KEY_LEFT))  cam.yaw   += 0.02f;   // look left
-    if (input.is_key_down(GLFW_KEY_RIGHT)) cam.yaw   -= 0.02f;   // look right
-    if (input.is_key_down(GLFW_KEY_UP))    cam.pitch += 0.02f;   // look up
-    if (input.is_key_down(GLFW_KEY_DOWN))  cam.pitch -= 0.02f;   // look down
+    if (input.is_key_down(GLFW_KEY_LEFT) && !LightMoveActive)  cam.yaw   += 0.02f;   // look left
+    if (input.is_key_down(GLFW_KEY_RIGHT) && !LightMoveActive) cam.yaw   -= 0.02f;   // look right
+    if (input.is_key_down(GLFW_KEY_UP) && !LightMoveActive)    cam.pitch += 0.02f;   // look up
+    if (input.is_key_down(GLFW_KEY_DOWN) && !LightMoveActive)  cam.pitch -= 0.02f;   // look down
+                                                                      //// Camera rotation
+
+// Light movement (only active when LightMoveActive is true)
+if (LightMoveActive) {
+    // Up arrow    -> increase light's local Y
+    if (input.is_key_down(GLFW_KEY_UP)) {
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,0.1f,0.f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+
+    // Down arrow  -> decrease light's local Y
+    if (input.is_key_down(GLFW_KEY_DOWN)) {
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,-0.1f,0.f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+
+    // Left arrow  -> decrease light's local X
+    if (input.is_key_down(GLFW_KEY_LEFT)) {
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{0.1f,0.0f,0.f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+
+    // Right arrow -> increase light's local X
+    if (input.is_key_down(GLFW_KEY_RIGHT)) {
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{-0.1f,0.0f,0.f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+
+    // > key (greater than) -> increase light's local Z
+    if (input.is_key_down(GLFW_KEY_PERIOD)) {        // . key is usually PERIOD
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,0.f,0.1f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+
+    // < key (less than)    -> decrease light's local Z
+    if (input.is_key_down(GLFW_KEY_COMMA)) {         // , key is usually COMMA
+        sceneC.getActive()->selectObstacle(2);
+        sceneC.getActive()->moveSelected(Vector<3>{0.f,0.f,-0.1f});
+        sceneC.getActive()->deselectObject();
+        lightChanged = true;
+    }
+}
 
     // Clamp pitch so camera doesn't flip upside down
     if (cam.pitch >  1.5f) cam.pitch =  1.5f;
