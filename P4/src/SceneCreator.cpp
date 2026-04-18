@@ -47,6 +47,7 @@ void SceneCreator<n>::createShape(const ShapeParams<n>& params)
             break;
         case 8:
             createTriangle(params);
+            break;
         case 9:
             createSphere(params);
             break;

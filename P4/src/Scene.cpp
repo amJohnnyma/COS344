@@ -179,11 +179,12 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
     Sphere<3>* sphere = new Sphere<3>(params.pos, params.radius, params.segment);
 
     sphere->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+
     sphere->setShapeType(9);
 
     if (ballIndex == -1)
     {
-        ballIndex = getCount();
+    //    ballIndex = getCount();
     }
 
 
@@ -192,6 +193,8 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
     {
         //std::cout << "Index: " << idx << std::endl;
         m_shape_params[idx] = params;
+        m_shape_params[idx].type = 9;
+
     }
 
 }

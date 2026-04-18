@@ -48,6 +48,7 @@ Renderer<n>::Renderer(int width, int height)
     uAlphaLoc          = glGetUniformLocation(programID, "uAlpha");
     uTextureMaskLoc    = glGetUniformLocation(programID, "uTextureMask");
     uDisplaceStrengthLoc = glGetUniformLocation(programID, "uDisplaceStrength");
+uSphereCenterLoc = glGetUniformLocation(programID, "uSphereCenter");
 
     m_dimpleColorTexture        = createDimpleColorTexture();
     m_dimpleDisplacementTexture = createDimpleDisplacementTexture();
@@ -61,7 +62,7 @@ Renderer<n>::Renderer(int width, int height)
     glUniform1i(uDimpleColorLoc,   1);
     glUniform1i(uDisplacementLoc,  2);
     glUniform1i(uAlphaLoc,         3);
-    glUniform1i(uTextureMaskLoc,   TEX_CHECKER); // default
+    glUniform1i(uTextureMaskLoc,0); // default
     glUniform1f(uDisplaceStrengthLoc, 0.05f);
 
 
@@ -409,20 +410,24 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
 
     glUseProgram(programID);
 
-  //  if (shape->getShapeType() == 9)
+    if (shape->getParentShapeType() == 9)
     {
 
+std::cout << "drawing shapeType: " << shape->getShapeType() << " mask: " << m_textureMask << "\n";
+    Vector<n> pos = shape->getPosition();
+    glUniform3f(uSphereCenterLoc, pos[0], pos[1], pos[2]);
+
         // Bind Texture to Unit 0
-        glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, m_checkerTexture);
+        //glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, m_checkerTexture);
         glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, m_dimpleColorTexture);
         glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, m_dimpleDisplacementTexture);
         glActiveTexture(GL_TEXTURE3); glBindTexture(GL_TEXTURE_2D, m_dimpleAlphaTexture);
         glUniform1i(uTextureLoc, 0);
         glUniform1i(uTextureMaskLoc,m_textureMask);
     }
-    //else{
-   //     glUniform1i(uTextureMaskLoc, 0);
- //   }
+    else{
+        glUniform1i(uTextureMaskLoc, 0);
+    }
 
     // Set Color and Texture Toggle
     GLint locColor = glGetUniformLocation(programID, "uColor");

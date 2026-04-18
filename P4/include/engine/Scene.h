@@ -161,6 +161,7 @@ void setPointLight(const Vector<n>& pos,const Vector<n>& col,const float& radius
 
 void createPointLight(Renderer<n>& r)
 {
+    if(lightIndex == -1) return;
 
     Vector<n> fcol = Vector<n>{m_shape_params[lightIndex].col.r,m_shape_params[lightIndex].col.g,m_shape_params[lightIndex].col.b};
 

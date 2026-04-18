@@ -105,7 +105,7 @@ static Matrix<4,4> buildIdentity4()
 auto& input = InputManager::get_instance();
 bool lightChanged = false;
 bool LightMoveActive = false;
-int textureMask = TEX_CHECKER; // default
+int textureMask = 0; // default
 
 void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam, Renderer<3>& renderer)
 {

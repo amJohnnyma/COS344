@@ -62,7 +62,8 @@ class Renderer {
         GLint uAlphaLoc;
         GLint uTextureMaskLoc;
         GLint uDisplaceStrengthLoc;
-        int m_textureMask = TEX_CHECKER;
+GLint uSphereCenterLoc = -1;
+        int m_textureMask =0;
 
     public:
         Renderer(int width, int height);

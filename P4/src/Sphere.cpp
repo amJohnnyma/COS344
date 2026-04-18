@@ -117,6 +117,11 @@ void Sphere<n>::rebuild()
 
 
     setColor(this->color[0], this->color[1], this->color[2], this->color[3]);
+
+    for (int i = 0; i < childCount; ++i)
+    {
+        children[i]->setShapeType(this->shapeType);
+    }
 }
 
 
@@ -125,6 +130,7 @@ Sphere<n>::Sphere(const Vector<n>& center, float r,
         int segs)
     : center(center), radius(r), segments(segs)
 {
+    this->shapeType = 9;
     recalcPosition();
     rebuild();
 }

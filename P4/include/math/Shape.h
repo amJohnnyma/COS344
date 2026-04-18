@@ -30,6 +30,7 @@ class Shape {
         bool isCutout = false;
         bool hasBeenCutout = false;
         int shapeType = -1;
+        int parentShapeType = -1;
 
     public:
         virtual ~Shape() = default;
@@ -39,7 +40,8 @@ class Shape {
         virtual void print() const = 0;
         virtual void render(Renderer<n>& r) const = 0;
         int getShapeType() const {return shapeType;}
-        void setShapeType(int t) {shapeType = t;}
+        int getParentShapeType() const {return parentShapeType;}
+        void setShapeType(int t) {this->shapeType = t; this->parentShapeType = t;}
 
         void setPhysicsType(const PhysicsType t) { type = t; }
         PhysicsType getPhysicsType()             { return type; }
@@ -67,6 +69,7 @@ class Shape {
         virtual void applyTranslation(const Vector<n>& disp) = 0;
         void setPosition(Vector<n> pos);
         Vector<n> getPosition() { return position; }
+        Vector<n> getPosition() const { return position; }
 
         virtual void setColor(float r, float g, float b, float a = 1.0f)
         {
