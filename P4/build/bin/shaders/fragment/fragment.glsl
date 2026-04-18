@@ -26,7 +26,7 @@ void main()
 vec3 localDir = normalize(vWorldPos - uSphereCenter);
 float u = 0.5 + atan(localDir.z, localDir.x) / (2.0 * 3.14159265);
 float v = 0.5 - asin(clamp(localDir.y, -1.0, 1.0)) / 3.14159265;
-vec2 uv = vec2(u, v) * 4.0;
+vec2 uv = vec2(u, v) * 10.0;
     vec3 norm = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
     vec3 toLight = uLightPos - vWorldPos;
     float dist = length(toLight);

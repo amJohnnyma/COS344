@@ -413,7 +413,7 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
     if (shape->getParentShapeType() == 9)
     {
 
-std::cout << "drawing shapeType: " << shape->getShapeType() << " mask: " << m_textureMask << "\n";
+//std::cout << "drawing shapeType: " << shape->getShapeType() << " mask: " << m_textureMask << "\n";
     Vector<n> pos = shape->getPosition();
     glUniform3f(uSphereCenterLoc, pos[0], pos[1], pos[2]);
 
@@ -627,14 +627,14 @@ GLuint Renderer<n>::createDimpleColorTexture() {
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
 
-    const int W = 64, H = 64;
+    const int W = 512, H = 512;
     GLubyte data[W * H * 3];
 
     for (int y = 0; y < H; y++) {
         for (int x = 0; x < W; x++) {
             // Tile dimple grid
-            float fx = (x / (float)W) * 4.0f;
-            float fy = (y / (float)H) * 4.0f;
+            float fx = (x / (float)W) * 14.0f;
+            float fy = (y / (float)H) * 14.0f;
             float dx = fx - floor(fx) - 0.5f;
             float dy = fy - floor(fy) - 0.5f;
             float dist = sqrt(dx*dx + dy*dy);
@@ -664,7 +664,7 @@ GLuint Renderer<n>::createDimpleDisplacementTexture() {
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
 
-    const int W = 64, H = 64;
+    const int W = 512, H = 512;
     GLubyte data[W * H];  // Single channel
 
     for (int y = 0; y < H; y++) {
@@ -695,7 +695,7 @@ GLuint Renderer<n>::createDimpleAlphaTexture() {
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
 
-    const int W = 64, H = 64;
+    const int W = 512, H = 512;
     GLubyte data[W * H];  // Single channel
 
     for (int y = 0; y < H; y++) {

@@ -184,7 +184,7 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
 
     if (ballIndex == -1)
     {
-    //    ballIndex = getCount();
+        ballIndex = getCount();
     }
 
 
