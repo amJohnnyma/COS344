@@ -16,6 +16,7 @@ void Scene<n>::addSquare(const ShapeParams<n>& params)
 
     Square<3>* square = new Square<3>(params.pos, params.height, params.depth);
     square->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    square->setShapeType(1);
 
     int idx = m_shapeCount;
     if(addShape(square))
@@ -34,6 +35,7 @@ void Scene<n>::addCuboid(const ShapeParams<n>& params)
 
     Cuboid<3>* square = new Cuboid<3>(params.pos, hw,hh,hd);
     square->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    square->setShapeType(5);
 
     if (floorIndex== -1)
     {
@@ -60,6 +62,7 @@ void Scene<n>::addCone(const ShapeParams<n>& params)
 
     Cone<3>* cone = new Cone(apex, base_centre, params.radius, params.segment);
     cone->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    cone->setShapeType(6);
 
     int idx = m_shapeCount;
     if(addShape(cone))
@@ -83,6 +86,7 @@ void Scene<n>::addCylinder(const ShapeParams<n>& params)
     Vector<n> bottom_centre = params.pos + Vector<n>{0.f,-params.height / 2.f,0.f};
     Cylinder<3>* cylinder= new Cylinder<3>(top_centre, bottom_centre, params.radius, params.segment);
     cylinder->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    cylinder->setShapeType(7);
 
     int idx = m_shapeCount;
     if(addShape(cylinder))
@@ -96,6 +100,7 @@ void Scene<n>::addCircle(const ShapeParams<n>& params)
 
     Circle<3> * circle = new Circle(params.pos, params.radius, params.segment);
     circle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    circle->setShapeType(2);
 
 
     int idx = m_shapeCount;
@@ -123,6 +128,7 @@ void Scene<n>::addTriangle(const ShapeParams<n>& params)
     Triangle<3>* triangle= new Triangle<3>(p1, p2, p3);
 
     triangle->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    triangle->setShapeType(8);
 
 
     int idx = m_shapeCount;
@@ -155,6 +161,7 @@ void Scene<n>::addTriangularPrism(const ShapeParams<n>& params)
     TriangularPrism<3>* prism = new TriangularPrism<3>(p1, p2, p3, params.depth);
 
     prism->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    prism->setShapeType(3);
 
 
     int idx = m_shapeCount;
@@ -172,6 +179,7 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
     Sphere<3>* sphere = new Sphere<3>(params.pos, params.radius, params.segment);
 
     sphere->setColor(params.col.r, params.col.g, params.col.b, params.col.a);
+    sphere->setShapeType(9);
 
     if (ballIndex == -1)
     {
@@ -188,11 +196,12 @@ void Scene<n>::addSphere(const ShapeParams<n>& params)
 
 }
 
-template <int n>
+    template <int n>
 void Scene<n>::addPointLight(const ShapeParams<n>& params)
 {
     PointLight<3>* pl = new PointLight<3>(params.pos, params.pos, params.radius);
     lightIndex = getCount();
+    pl->setShapeType(10);
 
     int idx = m_shapeCount;
     if (addShape(pl))
@@ -213,6 +222,7 @@ void Scene<n>::addBall(const ShapeParams<n>& params)
     sphere->enablePhysics(Vector<3>{0.f, 0.f, -20.f});
     sphere->setPhysicsType(PhysicsType::BALL);
     ballIndex = getCount();
+    sphere->setShapeType(4);
 
 
     int idx = m_shapeCount;
@@ -520,7 +530,7 @@ void Scene<n>::cycleColorSelected(int dir)
             lightCol.cycleRight();
 
             m_shape_params[lightIndex].col= lightCol.current();
-            
+
             originalSelectedObjectCol = lightCol.current();
 
         }

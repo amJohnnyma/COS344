@@ -105,8 +105,9 @@ static Matrix<4,4> buildIdentity4()
 auto& input = InputManager::get_instance();
 bool lightChanged = false;
 bool LightMoveActive = false;
+int textureMask = TEX_CHECKER; // default
 
-void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam)
+void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, bool& shouldRestart, SceneCreator<3>& sceneC, Camera& cam, Renderer<3>& renderer)
 {
 
     // previous scene
@@ -216,21 +217,27 @@ void processInput(GLFWwindow* window, FrameLimiter& limiter, double& targetFps, 
         sceneC.getActive()->deselectObject();
 
     }
+if(input.is_key_pressed(GLFW_KEY_B))
+{
+    textureMask ^= TEX_DIMPLE;
+    renderer.setTextureMask(textureMask);
+    std::cout << "Dimple color: " << ((textureMask & TEX_DIMPLE) ? "ON" : "OFF") << "\n";
+}
 
-    if(input.is_key_pressed(GLFW_KEY_B))
-    {
-        // toggle color texture map on and off
-    }
+if(input.is_key_pressed(GLFW_KEY_N))
+{
+    textureMask ^= TEX_DISPLACEMENT;
+    renderer.setTextureMask(textureMask);
+    std::cout << "Displacement: " << ((textureMask & TEX_DISPLACEMENT) ? "ON" : "OFF") << "\n";
+}
 
-    if(input.is_key_pressed(GLFW_KEY_N))
-    {
-        // toggle displacement texture map on and off
-    }
+if(input.is_key_pressed(GLFW_KEY_M))
+{
+    textureMask ^= TEX_ALPHA;
+    renderer.setTextureMask(textureMask);
+    std::cout << "Alpha: " << ((textureMask & TEX_ALPHA) ? "ON" : "OFF") << "\n";
+}
 
-    if(input.is_key_pressed(GLFW_KEY_M))
-    {
-        // toggle alpha texture map on and off
-    }
 
     if(input.is_key_pressed(GLFW_KEY_H))
     {
@@ -435,7 +442,7 @@ int main()
     sceneC.loadScenes("Demo");
     sceneC.getActive()->createPointLight(renderer);
 
-    // doesnt work
+
 
 
 
@@ -443,7 +450,7 @@ int main()
     {
         double dt = limiter.tick();
 
-        processInput(window, limiter, targetFps, shouldRestart, sceneC, cam);
+        processInput(window, limiter, targetFps, shouldRestart, sceneC, cam, renderer);
 
         if (shouldRestart) {
             // scene.initScene();

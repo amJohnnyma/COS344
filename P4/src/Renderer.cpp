@@ -38,25 +38,40 @@ Renderer<n>::Renderer(int width, int height)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
             3 * sizeof(float), (void*)0);
 
-m_checkerTexture = createCheckerboardTexture();
-uUseTextureLoc = glGetUniformLocation(programID, "uUseTexture");
-uTextureLoc = glGetUniformLocation(programID, "uTexture");
-glUseProgram(programID);
-    glUniform1i(uUseTextureLoc, 1);
-
-    glBindVertexArray(0);
 
     uLightPos   = glGetUniformLocation(programID, "uLightPos");
     uLightColor = glGetUniformLocation(programID, "uLightColor");
     uLightRadius= glGetUniformLocation(programID, "uLightRadius");
 
+    uDimpleColorLoc    = glGetUniformLocation(programID, "uDimpleColor");
+    uDisplacementLoc   = glGetUniformLocation(programID, "uDisplacement");
+    uAlphaLoc          = glGetUniformLocation(programID, "uAlpha");
+    uTextureMaskLoc    = glGetUniformLocation(programID, "uTextureMask");
+    uDisplaceStrengthLoc = glGetUniformLocation(programID, "uDisplaceStrength");
 
+    m_dimpleColorTexture        = createDimpleColorTexture();
+    m_dimpleDisplacementTexture = createDimpleDisplacementTexture();
+    m_dimpleAlphaTexture        = createDimpleAlphaTexture();
+    m_checkerTexture = createCheckerboardTexture();
+    m_activeTexture             = m_checkerTexture;
+
+    // Bind all units once
+    glUseProgram(programID);
+    glUniform1i(uTextureLoc,       0);
+    glUniform1i(uDimpleColorLoc,   1);
+    glUniform1i(uDisplacementLoc,  2);
+    glUniform1i(uAlphaLoc,         3);
+    glUniform1i(uTextureMaskLoc,   TEX_CHECKER); // default
+    glUniform1f(uDisplaceStrengthLoc, 0.05f);
+
+
+    glBindVertexArray(0);
 
     // Enable depth testing once (harmless for n=2)
     glEnable(GL_DEPTH_TEST);
 
-// Default to ON for testing
-setUseTexture(true);
+    // Default to ON for testing
+    setUseTexture(true);
 
 }
 
@@ -392,17 +407,27 @@ void Renderer<n>::drawShape(const Shape<n>* shape, const Color4& color)
 
     delete[] points;
 
-glUseProgram(programID);
+    glUseProgram(programID);
 
-    // Bind Texture to Unit 0
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_checkerTexture);
-    glUniform1i(uTextureLoc, 0);
+  //  if (shape->getShapeType() == 9)
+    {
+
+        // Bind Texture to Unit 0
+        glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, m_checkerTexture);
+        glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, m_dimpleColorTexture);
+        glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, m_dimpleDisplacementTexture);
+        glActiveTexture(GL_TEXTURE3); glBindTexture(GL_TEXTURE_2D, m_dimpleAlphaTexture);
+        glUniform1i(uTextureLoc, 0);
+        glUniform1i(uTextureMaskLoc,m_textureMask);
+    }
+    //else{
+   //     glUniform1i(uTextureMaskLoc, 0);
+ //   }
 
     // Set Color and Texture Toggle
     GLint locColor = glGetUniformLocation(programID, "uColor");
     glUniform4f(locColor, color.r, color.g, color.b, color.a);
-    
+
     GLint wireframeLoc = glGetUniformLocation(programID, "wireframe");
 
     // 3. Render
@@ -414,20 +439,20 @@ glUseProgram(programID);
     if (DebugOptions::get().wireframe)
     {
         if (wireframeLoc != -1) glUniform1i(wireframeLoc, true);
-        glUniform1i(uUseTextureLoc, 0); // Disable texture in wireframe mode
+        glUniform1i(uTextureMaskLoc, 0); // Disable texture in wireframe mode
         glDrawArrays(GL_LINES, 0, m_vertexCount / 3);
     }
     else
     {
         if (wireframeLoc != -1) glUniform1i(wireframeLoc, false);
         glUniform1i(uUseTextureLoc, 1); // Enable texture for solid shapes
-        
+
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glFrontFace(GL_CCW);
-        
+
         glDrawArrays(GL_TRIANGLES, 0, numPoints);
-        
+
         glDisable(GL_CULL_FACE);
     }
 
@@ -503,7 +528,7 @@ void Renderer<n>::endStencilCutout()
     glStencilMask(0xFF);
 }
 
-template <int n>
+    template <int n>
 void Renderer<n>::updatePointLight(const Vector<n>& pos, const Vector<n>& col, const float& radius)
 {
 
@@ -536,20 +561,20 @@ void Renderer<n>::updatePointLight(const Vector<n>& pos, const Vector<n>& col, c
 void Renderer<n>::setPointLightPos(const Vector<n>& pos)
 {
     glUseProgram(programID);
-glUniform3f(uLightPos, pos[0], pos[1], pos[2]);
+    glUniform3f(uLightPos, pos[0], pos[1], pos[2]);
 
 }
     template <int n>
 void Renderer<n>::setPointLightCol(const Vector<n>& col)
 {
     glUseProgram(programID);
-glUniform3f(uLightColor, col[0], col[1], col[2]);
+    glUniform3f(uLightColor, col[0], col[1], col[2]);
 }
     template <int n>
 void Renderer<n>::setPointLightRad(const float& radius)
 {
     glUseProgram(programID);
-glUniform1f(uLightRadius, radius);
+    glUniform1f(uLightRadius, radius);
 
 }
 
@@ -584,12 +609,122 @@ GLuint Renderer<n>::createCheckerboardTexture() {
     glGenerateMipmap(GL_TEXTURE_2D);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Nearest keeps it "Retro/Industrial"
-    
+
     // Ensure it repeats forever
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     return tex;
 }
+template <int n>
+GLuint Renderer<n>::createDimpleColorTexture() {
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+    const int W = 64, H = 64;
+    GLubyte data[W * H * 3];
+
+    for (int y = 0; y < H; y++) {
+        for (int x = 0; x < W; x++) {
+            // Tile dimple grid
+            float fx = (x / (float)W) * 4.0f;
+            float fy = (y / (float)H) * 4.0f;
+            float dx = fx - floor(fx) - 0.5f;
+            float dy = fy - floor(fy) - 0.5f;
+            float dist = sqrt(dx*dx + dy*dy);
+
+            // Inside dimple = dark grey, outside = white
+            float t = smoothstep(0.25f, 0.35f, dist);
+            GLubyte v = (GLubyte)(t * 230 + (1-t) * 80);
+
+            int idx = (y * W + x) * 3;
+            data[idx+0] = v;
+            data[idx+1] = v;
+            data[idx+2] = v;
+        }
+    }
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W, H, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    return tex;
+}
+template <int n>
+GLuint Renderer<n>::createDimpleDisplacementTexture() {
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+    const int W = 64, H = 64;
+    GLubyte data[W * H];  // Single channel
+
+    for (int y = 0; y < H; y++) {
+        for (int x = 0; x < W; x++) {
+            float fx = (x / (float)W) * 4.0f;
+            float fy = (y / (float)H) * 4.0f;
+            float dx = fx - floor(fx) - 0.5f;
+            float dy = fy - floor(fy) - 0.5f;
+            float dist = sqrt(dx*dx + dy*dy);
+
+            // Inside dimple = 0 (push in), outside = 255 (no displacement)
+            float t = smoothstep(0.15f, 0.30f, dist);
+            data[y * W + x] = (GLubyte)(t * 255);
+        }
+    }
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, W, H, 0, GL_RED, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    return tex;
+}
+template <int n>
+GLuint Renderer<n>::createDimpleAlphaTexture() {
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+    const int W = 64, H = 64;
+    GLubyte data[W * H];  // Single channel
+
+    for (int y = 0; y < H; y++) {
+        for (int x = 0; x < W; x++) {
+            float fx = (x / (float)W) * 4.0f;
+            float fy = (y / (float)H) * 4.0f;
+            float dx = fx - floor(fx) - 0.5f;
+            float dy = fy - floor(fy) - 0.5f;
+            float dist = sqrt(dx*dx + dy*dy);
+
+            // Inside dimple = 0 (transparent), outside = 255 (opaque)
+            float t = smoothstep(0.20f, 0.30f, dist);
+            data[y * W + x] = (GLubyte)(t * 255);
+        }
+    }
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, W, H, 0, GL_RED, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    return tex;
+}
+template <int n>
+void Renderer<n>::setTextureMask(int mask) {
+    m_textureMask = mask;
+}
+
+template <int n>
+void Renderer<n>::setDisplaceStrength(float s) {
+    glUseProgram(programID);
+    glUniform1f(uDisplaceStrengthLoc, s);
+}
+
 
 template class Renderer<3>;

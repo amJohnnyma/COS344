@@ -4,8 +4,12 @@ out vec4 fragColor;
 
 uniform vec4 uColor;
 uniform bool wireframe;
-uniform sampler2D uTexture; 
-uniform bool uUseTexture;   
+uniform int uTextureMask;
+
+uniform sampler2D uTexture;       // unit 0 - checker
+uniform sampler2D uDimpleColor;   // unit 1
+uniform sampler2D uDisplacement;  // unit 2
+uniform sampler2D uAlpha;         // unit 3
 
 uniform vec3 uLightPos;
 uniform float uLightRadius;
@@ -16,25 +20,37 @@ void main()
     if(wireframe) {
         fragColor = uColor;
         return;
-
     }
 
-    // World-space Planar Mapping (X and Z planes)
-    // 0.5 scale makes the grid squares larger
-    vec2 uv = vWorldPos.xz * 0.5;
-    vec4 texColor = texture(uTexture, uv);
+    vec2 uv = vWorldPos.xz * 2.0;
 
     vec3 norm = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
     vec3 toLight = uLightPos - vWorldPos;
     float dist = length(toLight);
     float attenuation = 1.0 / (1.0 + (dist * dist) / (uLightRadius * uLightRadius));
-    
     float ambient = 0.25;
     float diffuse = max(dot(norm, normalize(toLight)), 0.0);
-    
-    // Mix the checkerboard with your object color
-    vec3 baseColor = uUseTexture ? texColor.rgb : uColor.rgb;
-    vec3 finalRGB = baseColor * (diffuse + ambient) * attenuation * uLightColor;
 
-    fragColor = vec4(finalRGB, uColor.a);
+    // Base color
+    vec3 baseColor = uColor.rgb;
+    float alpha = uColor.a;
+
+    if ((uTextureMask & 1) != 0)
+        baseColor = texture(uTexture, uv).rgb;
+
+    if ((uTextureMask & 2) != 0)
+        baseColor = mix(baseColor, texture(uDimpleColor, uv).rgb, 1.0);
+
+    if ((uTextureMask & 4) != 0) {
+        // Displacement visual only — actual geo displacement needs vertex shader
+        float disp = texture(uDisplacement, uv).r;
+        baseColor *= (0.7 + 0.3 * disp); // fake darkening where displaced
+    }
+
+    if ((uTextureMask & 8) != 0)
+        alpha *= texture(uAlpha, uv).r;
+
+    vec3 finalRGB = baseColor * (diffuse + ambient) * attenuation * uLightColor;
+    fragColor = vec4(finalRGB, alpha);
+
 }

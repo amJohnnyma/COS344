@@ -29,6 +29,7 @@ class Shape {
         PhysicsType type = NONE;
         bool isCutout = false;
         bool hasBeenCutout = false;
+        int shapeType = -1;
 
     public:
         virtual ~Shape() = default;
@@ -37,6 +38,8 @@ class Shape {
         virtual int getNumPoints() const = 0;
         virtual void print() const = 0;
         virtual void render(Renderer<n>& r) const = 0;
+        int getShapeType() const {return shapeType;}
+        void setShapeType(int t) {shapeType = t;}
 
         void setPhysicsType(const PhysicsType t) { type = t; }
         PhysicsType getPhysicsType()             { return type; }
