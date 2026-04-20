@@ -17,16 +17,21 @@ uniform vec3 uLightColor;
 uniform vec3 uSphereCenter;
 
 void main()
+
 {
     if(wireframe) {
         fragColor = uColor;
         return;
     }
 
+    /*
 vec3 localDir = normalize(vWorldPos - uSphereCenter);
 float u = 0.5 + atan(localDir.z, localDir.x) / (2.0 * 3.14159265);
+
 float v = 0.5 - asin(clamp(localDir.y, -1.0, 1.0)) / 3.14159265;
-vec2 uv = vec2(u, v) * 10.0;
+*/
+vec2 uv = vWorldPos.xy * 2.0f;
+//vec2 uv = vec2(u, v) * 10.0;
     vec3 norm = normalize(cross(dFdx(vWorldPos), dFdy(vWorldPos)));
     vec3 toLight = uLightPos - vWorldPos;
     float dist = length(toLight);
@@ -37,10 +42,8 @@ vec2 uv = vec2(u, v) * 10.0;
     // Base color
     vec3 baseColor = uColor.rgb;
     float alpha = uColor.a;
-
     if ((uTextureMask & 1) != 0)
         baseColor = texture(uTexture, uv).rgb;
-
     if ((uTextureMask & 2) != 0)
         baseColor = mix(baseColor, texture(uDimpleColor, uv).rgb, 1.0);
 
@@ -49,7 +52,6 @@ vec2 uv = vec2(u, v) * 10.0;
         float disp = texture(uDisplacement, uv).r;
         baseColor *= (0.7 + 0.3 * disp); // fake darkening where displaced
     }
-
     if ((uTextureMask & 8) != 0)
         alpha *= texture(uAlpha, uv).r;
 

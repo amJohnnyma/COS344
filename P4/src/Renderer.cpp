@@ -627,14 +627,14 @@ GLuint Renderer<n>::createDimpleColorTexture() {
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
 
-    const int W = 512, H = 512;
+    const int W =64, H = 64;
     GLubyte data[W * H * 3];
 
     for (int y = 0; y < H; y++) {
         for (int x = 0; x < W; x++) {
             // Tile dimple grid
-            float fx = (x / (float)W) * 14.0f;
-            float fy = (y / (float)H) * 14.0f;
+            float fx = (x / (float)W) * 4.0f;
+            float fy = (y / (float)H) * 4.0f;
             float dx = fx - floor(fx) - 0.5f;
             float dy = fy - floor(fy) - 0.5f;
             float dist = sqrt(dx*dx + dy*dy);
