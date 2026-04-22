@@ -7,3 +7,10 @@ P1/build/*
 
 P2/build/*
 !P2/build/.gitkeep
+
+P3/build/*
+!P3/build/.gitkeep
+
+P4/build/*
+!P4/build/.gitkeep
+P4/docs/*
